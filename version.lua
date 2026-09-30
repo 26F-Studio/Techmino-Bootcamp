@@ -1,4 +1,4 @@
 return {
-    ["appName"]="Techmino-Template",
+    ["appName"]="Techmino-Bootcamp",
     ["appVer"]="V1.0.0",
 }

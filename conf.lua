@@ -1,10 +1,10 @@
 function love.conf(t)
-    local identity='Techmino_Template'
+    local identity='Techmino_Bootcamp'
 
     local fs=love.filesystem
     fs.setIdentity(identity)
 
-    t.identity='Techmino_Template' -- Saving folder
+    t.identity='Techmino_Bootcamp' -- Saving folder
     t.externalstorage=true -- Use external storage on Android
     t.version="11.5"
     t.gammacorrect=false

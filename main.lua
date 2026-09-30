@@ -6,7 +6,7 @@ RGBA9=CLR.installNumLiteral('RGBA9',true)
 UTIL.time("Load Zenitha",true)
 --------------------------------------------------------------
 
-ZENITHA.setAppInfo("Techmino-Template",require'version'.appVer)
+ZENITHA.setAppInfo("Techmino-Bootcamp",require'version'.appVer)
 ZENITHA.setFirstScene('home')
 ZENITHA.setMainLoopSpeed(120)
 ZENITHA.setUpdateRate(100)
