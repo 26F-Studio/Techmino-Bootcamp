@@ -1,9 +1,8 @@
 ---@class Techmino.I18N
 local L={
     back="返回",
-    home_test="TEST",
+    home_train="训练",
     home_40l="40L",
-    home_20g="20G",
     home_settings="设置",
     home_quit="退出",
 
@@ -37,7 +36,6 @@ local L={
     keysetHint_sys_back="菜单：返回",
 
     sureText={
-        game_int="再按一次结束当前游戏",
         quit="再按一次退出",
         keyset_reset="再按一次重置键位",
     },

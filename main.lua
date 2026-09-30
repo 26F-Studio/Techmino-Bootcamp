@@ -149,9 +149,8 @@ for _,v in next,love.filesystem.getDirectoryItems('assets/scene') do
 end
 
 SKIN.add('brik_template',FILE.load('assets/skin/template.lua','-lua'))
-GAME.addMode('test','assets/mode/test.lua')
+GAME.addMode('train','assets/mode/train.lua')
 GAME.addMode('sprint','assets/mode/sprint.lua')
-GAME.addMode('death','assets/mode/death.lua')
 
 UTIL.time("Load Data",true)
 

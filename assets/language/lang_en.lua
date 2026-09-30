@@ -1,9 +1,8 @@
 ---@class Techmino.I18N
 local L={
     back="Back",
-    home_test="Test",
+    home_train="Train",
     home_40l="40L",
-    home_20g="20G",
     home_settings="Settings",
     home_quit="Quit",
 
@@ -37,7 +36,6 @@ local L={
     keysetHint_sys_back="Menu: Back",
 
     sureText={
-        game_int="Press again to abandon current game",
         quit="Press again to quit",
         keyset_reset="Press again to reset keybinds",
     },

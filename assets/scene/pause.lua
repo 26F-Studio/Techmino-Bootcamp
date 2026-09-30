@@ -25,7 +25,7 @@ end
 
 local function menuAct(action)
     if action=='back' then
-        if SureCheck('game_int') then SCN.back() end
+        SCN.back()
     elseif action=='continue' then
         SCN.swapTo('play','none')
     elseif action=='restart' then
