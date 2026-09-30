@@ -6,6 +6,7 @@ RGBA9=CLR.installNumLiteral('RGBA9',true)
 UTIL.time("Load Zenitha",true)
 --------------------------------------------------------------
 
+love.audio.setVolume(0)
 ZENITHA.setAppInfo("Techmino-Bootcamp",require'version'.appVer)
 ZENITHA.setFirstScene('home')
 ZENITHA.setMainLoopSpeed(120)

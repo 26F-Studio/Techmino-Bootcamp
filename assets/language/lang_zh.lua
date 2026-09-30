@@ -18,10 +18,8 @@ local L={
     settings_bgm="背景音乐",
     settings_sfx="音效",
 
-    settings_hint_asd="（长按移动的）启动延迟\n一般使用 70~120ms",
-    settings_hint_asp="（长按移动的）重复周期\n一般使用 0~30ms",
-    settings_hint_adp="（长按软降的）重复周期\n一般使用 0~30ms",
-    settings_hint_ash="出块时自动移动延后（的时长）\n觉得手感太滑就开一点",
+    settings_hint_asd="（长按移动的）启动延迟\n旧称DAS",
+    settings_hint_asp="（长按移动的）重复周期\n旧称ARR",
 
     keyset_reset="重置",
     keyset_pressKey="按下要设置的键",

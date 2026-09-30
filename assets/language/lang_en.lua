@@ -18,10 +18,8 @@ local L={
     settings_bgm="BGM",
     settings_sfx="SFX",
 
-    settings_hint_asd="Auto Shift Delay\nUsually 70~120ms",
-    settings_hint_asp="Auto Shift Period\nUsually 0~30ms",
-    settings_hint_adp="Auto Drop Period\nUsually 0~30ms",
-    settings_hint_ash="Auto Shift Halt\nIf pieces feel slippery",
+    settings_hint_asd="Auto Shift Delay\nCalled DAS before",
+    settings_hint_asp="Auto Shift Period\nCalled ARR before",
 
     keyset_reset="Reset",
     keyset_pressKey="Press a key",
