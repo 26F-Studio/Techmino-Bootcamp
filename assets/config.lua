@@ -4,8 +4,10 @@ local conf={
         locale=(os.getenv('LANG') or 'en'):find('^zh') and 'zh' or 'en',
     },
     game_brik={
-        asd=120,
-        asp=20,
+        asd=100,
+        asp=10,
+        adp=10,
+        ash=0,
     },
 }
 local settingTriggers={ -- Changing values in CONF.system will trigger these functions (if exist).
