@@ -4,13 +4,16 @@ return {
         GAME.newPlayer(1,'brik')
         GAME.setMain(1)
     end,
-    settings={brik={
-        dropDelay=1e99,
-        lockDelay=1e99,
-        infHold=true,
-        readyDelay=1000,
-        event={
-            afterLock=mechLib.brik.misc.invincible_event_afterLock,
-        },
-    }},
+    settings={
+        brik={
+            dropDelay=1e99,
+            lockDelay=1e99,
+            infHold=true,
+            readyDelay=1000,
+            event={
+                playerInit=mechLib.brik.misc.SL_event_playerInit,
+                afterLock=mechLib.brik.misc.invincible_event_afterLock,
+            },
+        }
+    },
 }
