@@ -1,8 +1,8 @@
 ---@class Techmino.I18N
 local L={
     back="返回",
-    home_train="训练",
-    home_40l="40L",
+    home_zen="禅",
+    home_40l="竞速",
     home_settings="设置",
     home_quit="退出",
 
@@ -39,5 +39,17 @@ local L={
         quit="再按一次退出",
         keyset_reset="再按一次重置键位",
     },
+
+    fine_key="总按键数",
+    fine_piece="总块数",
+    fine_kpp="按键/块",
+    fine_fault="失误数",
+    fine_overCnt="多余操作数",
+    fine_curCnt="当前块操作数",
+    fine_movCnt="实际操作数",
+    fine_spawn="生成块数",
+    fine_neat="速降块数",
+    fine_mpp="操作/速降块数",
+    fine_dropRate="硬降率",
 }
 return L

@@ -25,7 +25,7 @@ function scene.draw()
 end
 
 scene.widgetList={
-    WIDGET.new{type='button',pos={.5,.5},w=300,x=-260,fontSize=60,text=LANG'home_train',onClick=function() SCN.go('play',nil,'train') end},
+    WIDGET.new{type='button',pos={.5,.5},w=300,x=-260,fontSize=60,text=LANG'home_zen',onClick=function() SCN.go('play',nil,'zen') end},
     WIDGET.new{type='button',pos={.5,.5},w=300,x=260,fontSize=60,text=LANG'home_40l',onClick=function() SCN.go('play',nil,'sprint') end},
 
     WIDGET.new{type='button',pos={1,1},name='settings',y=-80,x=-CornerButtonX[2],w=160,h=80,text=LANG'home_settings',onClick=WIDGET.c_goScn('settings')},

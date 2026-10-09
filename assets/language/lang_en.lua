@@ -1,7 +1,7 @@
 ---@class Techmino.I18N
 local L={
     back="Back",
-    home_train="Train",
+    home_zen="Zen",
     home_40l="40L",
     home_settings="Settings",
     home_quit="Quit",
@@ -39,5 +39,17 @@ local L={
         quit="Press again to quit",
         keyset_reset="Press again to reset keybinds",
     },
+
+    fine_key="Keys",
+    fine_piece="Pieces",
+    fine_kpp="Keys per Piece",
+    fine_fault="Faults",
+    fine_overCnt="F-Moves",
+    fine_curCnt="Current",
+    fine_movCnt="Moves",
+    fine_spawn="Spawns",
+    fine_neat="Neat Drops",
+    fine_mpp="Moves per Neat Drop",
+    fine_dropRate="Harddrop Rate",
 }
 return L
