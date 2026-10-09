@@ -73,7 +73,7 @@ function scene.draw()
     GAME.render()
 
     GC.origin()
-    GC.setColor(.6,.6,.6,.6*animT1)
+    GC.setColor(.2,.2,.2,.6*animT1)
     GC.rectangle('fill',0,0,SCR.w,SCR.h)
 
     GC.replaceTransform(SCR.xOy_m)
