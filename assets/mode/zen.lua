@@ -49,6 +49,18 @@ GAME.regFunc(r1,'zen.r1')
 GAME.regFunc(r2,'zen.r2')
 GAME.regFunc(r3,'zen.r3')
 
+local function winFlash_event_always(P)
+    P.modeData.winFlash=P.modeData.winFlash-.0026
+    return P.modeData.winFlash<=0
+end
+local function winFlash_event_drawOnPlayer(P)
+    GC.setColor(.62,1,.62,P.modeData.winFlash*.62)
+    GC.mRect('fill',0,0,400,800)
+    return P.modeData.winFlash<=0
+end
+GAME.regFunc(winFlash_event_always,'zen.winFlash')
+GAME.regFunc(winFlash_event_drawOnPlayer,'zen.winFlashDraw')
+
 ---@type Techmino.Mode
 return {
     initialize=function()
@@ -66,6 +78,9 @@ return {
                     mechLib.brik.misc.SL_event_playerInit,
                     function(P)
                         P.modeData.undoDepthLimit=26
+                        P.modeData.sprintTime=false
+                        P.modeData.lineAnim=0
+                        P.modeData.winFlash=0
 
                         -- P.stat.key              -- 总按键数
                         -- P.stat.piece            -- 总落块数
@@ -137,6 +152,12 @@ return {
                     end
                 end,
                 afterLock=mechLib.brik.misc.invincible_event_afterLock,
+                afterClear=function(P)
+                    if P.stat.line>=40 then
+                        P.modeData.sprintTime=(P.gameTime/1000)..'s'
+                        return true
+                    end
+                end,
                 beforeDiscard=function(P)
                     local md=P.modeData
                     -- Update statistics
@@ -144,11 +165,35 @@ return {
                     md.mpp=MATH.roundUnit((md.movCnt+md.neatPiece)/md.neatPiece,.01)
                     md.dropRate=MATH.roundUnit(md.neatPiece/P.stat.piece*100,.1).."%"
                 end,
+                always=function(P)
+                    local md=P.modeData
+                    if not P.modeData.sprintTime then
+                        md.lineAnim=MATH.linearApproach(md.lineAnim,P.stat.line,.042)
+                    else
+                        md.lineAnim=false
+                        md.winFlash=1
+                        P:addEvent('always',winFlash_event_always)
+                        P:addEvent('drawOnPlayer',winFlash_event_drawOnPlayer)
+                        return true
+                    end
+                end,
+                drawInField=function(P)
+                    if not P.modeData.lineAnim then return true end
+                    local l=P.modeData.lineAnim
+                    if l>=30 then
+                        GC.setColor(1,-P.gameTime/120%1,0,.8)
+                    elseif l>=26 then
+                        GC.setColor(1,1,1,.8)
+                    elseif l>=15 then
+                        GC.setColor(1,1,1,MATH.clampInterpolate(15,0,26,.8,l))
+                    end
+                    GC.rectangle('fill',0,-3-(40-l)*40,400,6)
+                end,
                 drawOnPlayer=function(P)
                     local md=P.modeData
 
                     local x,x2=-380,-290
-                    local y=-260
+                    local y=-262
                     local d=48
 
                     FONT.set(25)
@@ -160,27 +205,28 @@ return {
                     GC.print(md.kpp,x,y+d*2)
                     GC.print(P.stat.line,x,y+d*3.5)
                     FONT.set(25)
-                    GC.print(md.fault,x,y+d*6)
-                    GC.print(md.overCnt,x2,y+d*6)
-                    GC.print(md.neatPiece,x,y+d*7)
-                    GC.print(md.movCnt,x2,y+d*7)
+                    GC.print(md.fault,x,y+d*6.5)
+                    GC.print(md.overCnt,x2,y+d*6.5)
+                    GC.print(md.neatPiece,x,y+d*7.5)
+                    GC.print(md.movCnt,x2,y+d*7.5)
                     FONT.set(50)
-                    GC.print(md.mpp,x,y+d*8)
-                    GC.print(md.dropRate,x,y+d*9.5)
+                    GC.print(md.mpp,x,y+d*8.5)
+                    GC.print(md.dropRate,x,y+d*10)
 
                     FONT.set(15)
-                    GC.print(Text.fine_piece,x,y+26+d*0)
-                    GC.print(Text.fine_key,x2,y+26+d*0)
-                    GC.print(Text.fine_spawn,x,y+26+d*1)
-                    GC.print(Text.fine_curCnt,x2,y+26+d*1)
-                    GC.print(Text.fine_kpp,x,y+55+d*2)
-                    GC.print(Text.fine_line,x,y+55+d*3.5)
-                    GC.print(Text.fine_fault,x,y+26+d*6)
-                    GC.print(Text.fine_overCnt,x2,y+26+d*6)
-                    GC.print(Text.fine_neat,x,y+26+d*7)
-                    GC.print(Text.fine_movCnt,x2,y+26+d*7)
-                    GC.print(Text.fine_mpp,x,y+55+d*8)
-                    GC.print(Text.fine_dropRate,x,y+55+d*9.5)
+                    GC.print(Text.zen_piece,x,y+26+d*0)
+                    GC.print(Text.zen_key,x2,y+26+d*0)
+                    GC.print(Text.zen_spawn,x,y+26+d*1)
+                    GC.print(Text.zen_curCnt,x2,y+26+d*1)
+                    GC.print(Text.zen_kpp,x,y+55+d*2)
+                    GC.print(Text.zen_line,x,y+55+d*3.5)
+                    if md.sprintTime then GC.print("[40L]  "..md.sprintTime,x,y+55+d*3.9) end
+                    GC.print(Text.zen_fault,x,y+26+d*6.5)
+                    GC.print(Text.zen_overCnt,x2,y+26+d*6.5)
+                    GC.print(Text.zen_neat,x,y+26+d*7.5)
+                    GC.print(Text.zen_movCnt,x2,y+26+d*7.5)
+                    GC.print(Text.zen_mpp,x,y+55+d*8.5)
+                    GC.print(Text.zen_dropRate,x,y+55+d*10)
                 end,
             },
         },
