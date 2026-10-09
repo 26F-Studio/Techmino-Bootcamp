@@ -77,7 +77,7 @@ return {
                         P.modeData.movHis={}       -- 当前块动作历史（数量）
                         P.modeData.movCnt=0        -- 移动/旋转总数
                         -- P.stat.spawn            -- 总出块数
-                        P.modeData.finePiece=0     -- 无需软降的块数
+                        P.modeData.neatPiece=0     -- 无需软降的块数
                         P.modeData.mpp=0           -- 每块操作（仅考虑良定义的露天选点，计暂存不计硬降，衡量选点质量）
                         P.modeData.dropRate='100%' -- 硬降率
 
@@ -129,7 +129,7 @@ return {
                             -- MSG('check'," ")
                         end
 
-                        md.finePiece=md.finePiece+1
+                        md.neatPiece=md.neatPiece+1
                         if #md.movHis>0 then
                             md.movCnt=md.movCnt+#md.movHis
                             TABLE.clear(md.movHis)
@@ -141,44 +141,46 @@ return {
                     local md=P.modeData
                     -- Update statistics
                     md.kpp=MATH.roundUnit(P.stat.key/P.stat.piece,.01)
-                    md.mpp=MATH.roundUnit((md.movCnt+md.finePiece)/md.finePiece,.01)
-                    md.dropRate=MATH.roundUnit(md.finePiece/P.stat.piece*100,.1).."%"
+                    md.mpp=MATH.roundUnit((md.movCnt+md.neatPiece)/md.neatPiece,.01)
+                    md.dropRate=MATH.roundUnit(md.neatPiece/P.stat.piece*100,.1).."%"
                 end,
                 drawOnPlayer=function(P)
                     local md=P.modeData
 
-                    local x,x2=-370,-290
-                    local y=-300
-                    local dist=55
+                    local x,x2=-380,-290
+                    local y=-260
+                    local d=48
 
                     FONT.set(25)
-                    GC.print(P.stat.piece,x,y+dist*1)
-                    GC.print(P.stat.key,x2,y+dist*1)
+                    GC.print(P.stat.piece,x,y+d*0)
+                    GC.print(P.stat.key,x2,y+d*0)
+                    GC.print(P.stat.spawn,x,y+d*1)
+                    GC.print(#md.movHis,x2,y+d*1)
                     FONT.set(50)
-                    GC.print(md.kpp,x,y+dist*2)
+                    GC.print(md.kpp,x,y+d*2)
+                    GC.print(P.stat.line,x,y+d*3.5)
                     FONT.set(25)
-                    GC.print(md.fault,x,y+dist*4.5)
-                    GC.print(md.overCnt,x2,y+dist*4.5)
-                    GC.print(P.stat.spawn,x,y+dist*5.5)
-                    GC.print(#md.movHis,x2,y+dist*5.5)
-                    GC.print(md.movCnt,x,y+dist*6.5)
-                    GC.print(md.finePiece,x2,y+dist*6.5)
+                    GC.print(md.fault,x,y+d*6)
+                    GC.print(md.overCnt,x2,y+d*6)
+                    GC.print(md.neatPiece,x,y+d*7)
+                    GC.print(md.movCnt,x2,y+d*7)
                     FONT.set(50)
-                    GC.print(md.mpp,x,y+dist*7.5)
-                    GC.print(md.dropRate,x,y+dist*9)
+                    GC.print(md.mpp,x,y+d*8)
+                    GC.print(md.dropRate,x,y+d*9.5)
 
                     FONT.set(15)
-                    GC.print(Text.fine_piece,x,y+26+dist*1)
-                    GC.print(Text.fine_key,x2,y+26+dist*1)
-                    GC.print(Text.fine_kpp,x,y+55+dist*2)
-                    GC.print(Text.fine_fault,x,y+26+dist*4.5)
-                    GC.print(Text.fine_overCnt,x2,y+26+dist*4.5)
-                    GC.print(Text.fine_spawn,x,y+26+dist*5.5)
-                    GC.print(Text.fine_curCnt,x2,y+26+dist*5.5)
-                    GC.print(Text.fine_movCnt,x,y+26+dist*6.5)
-                    GC.print(Text.fine_neat,x2,y+26+dist*6.5)
-                    GC.print(Text.fine_mpp,x,y+55+dist*7.5)
-                    GC.print(Text.fine_dropRate,x,y+55+dist*9)
+                    GC.print(Text.fine_piece,x,y+26+d*0)
+                    GC.print(Text.fine_key,x2,y+26+d*0)
+                    GC.print(Text.fine_spawn,x,y+26+d*1)
+                    GC.print(Text.fine_curCnt,x2,y+26+d*1)
+                    GC.print(Text.fine_kpp,x,y+55+d*2)
+                    GC.print(Text.fine_line,x,y+55+d*3.5)
+                    GC.print(Text.fine_fault,x,y+26+d*6)
+                    GC.print(Text.fine_overCnt,x2,y+26+d*6)
+                    GC.print(Text.fine_neat,x,y+26+d*7)
+                    GC.print(Text.fine_movCnt,x2,y+26+d*7)
+                    GC.print(Text.fine_mpp,x,y+55+d*8)
+                    GC.print(Text.fine_dropRate,x,y+55+d*9.5)
                 end,
             },
         },
