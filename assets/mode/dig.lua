@@ -10,11 +10,6 @@ return {
         infHold=true,
         readyDelay=2600,
         event={
-            playerInit=function(P)
-                P.modeData.target.line=40
-            end,
-            afterClear=mechLib.brik.misc.lineClear_event_afterClear,
-            drawOnPlayer=mechLib.brik.misc.lineClear_event_drawOnPlayer,
         },
     }},
 }

@@ -150,7 +150,7 @@ end
 
 SKIN.add('brik_template',FILE.load('assets/skin/template.lua','-lua'))
 GAME.addMode('zen','assets/mode/zen.lua')
-GAME.addMode('sprint','assets/mode/sprint.lua')
+GAME.addMode('dig','assets/mode/dig.lua')
 
 UTIL.time("Load Data",true)
 

@@ -2,7 +2,7 @@
 local L={
     back="Back",
     home_zen="Zen",
-    home_40l="40L",
+    home_dig="Dig",
     home_settings="Settings",
     home_quit="Quit",
 

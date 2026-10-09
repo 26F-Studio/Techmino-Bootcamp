@@ -2,7 +2,7 @@
 local L={
     back="返回",
     home_zen="禅",
-    home_40l="竞速",
+    home_dig="挖掘",
     home_settings="设置",
     home_quit="退出",
 
