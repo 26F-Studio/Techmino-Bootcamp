@@ -19,7 +19,7 @@ end
 local function sliderShow_time(S) return S.disp().." ms" end
 
 scene.widgetList={
-    WIDGET.new{type='slider',pos={.5,.5},x=-350,y=-120,w=700,text="ASD",axis={60,200,5},unit=20,disp=TABLE.func_getVal(CONF.game_brik,'asd'),valueShow=sliderShow_time,code=TABLE.func_setVal(CONF.game_brik,'asd')},
+    WIDGET.new{type='slider',pos={.5,.5},x=-350,y=-120,w=700,text="ASD",axis={60,160,5},unit=20,disp=TABLE.func_getVal(CONF.game_brik,'asd'),valueShow=sliderShow_time,code=TABLE.func_setVal(CONF.game_brik,'asd')},
     -- WIDGET.new{type='slider',pos={.5,.5},x=-350,y=-120,w=700,text="ASP",axis={10,20,5},disp=TABLE.func_getVal(CONF.game_brik,'asp'),valueShow=sliderShow_time,code=TABLE.func_setVal(CONF.game_brik,'asp')},
 
     WIDGET.new{type='hint',pos={.5,.5},x=-470,y=-120,floatText=LANG'settings_hint_asd',text="?"},
