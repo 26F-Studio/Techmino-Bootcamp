@@ -80,10 +80,9 @@ local buttons={
             mino.dir=1
         end,
     },
-    -- {x=-1,y=-1,cat='game',act='func1',   onPress=function() end},
-    -- {x=0, y=-1,cat='game',act='func2',   onPress=function() end},
-    {x=0,y=-1,cat='game',act='softDrop',onPress=function() mino.softDropTime=love.timer.getTime() end},
-    {x=1,y=-1,cat='game',act='hardDrop',onPress=function() end},
+    {x=-1,y=-1,cat='game',act='func1',   onPress=function() end},
+    {x=0, y=-1,cat='game',act='softDrop',onPress=function() mino.softDropTime=love.timer.getTime() end},
+    {x=1, y=-1,cat='game',act='hardDrop',onPress=function() end},
 }
 local a=180
 for i=1,#buttons do

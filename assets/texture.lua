@@ -66,8 +66,15 @@ TEX.actionIcons={
                 GC.line(46,-46,-46,46)
             end},
             {450,450,function()
-                -- func1
-                FONT.set(90); GC.mStr('F1',0,-60)
+                -- undo
+                GC.arc('line','open',26,0,42,-1.57,1.57)
+                GC.line(26,-42,-60,-42)
+                GC.line(26,42,-60,42)
+                GC.line(
+                    -60+20,42+20,
+                    -60,42,
+                    -60+20,42-20
+                )
             end},
             {630,450,function()
                 -- func2
