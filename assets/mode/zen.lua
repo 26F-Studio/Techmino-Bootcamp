@@ -1,5 +1,7 @@
 local ins=table.insert
 
+local sprintMark={40,100,260} -- 里程碑行数
+
 local finesseData={
     Z={
         [0]={1,2,1,0,1,-2,2,1},
@@ -78,7 +80,8 @@ return {
                     mechLib.brik.misc.SL_event_playerInit,
                     function(P)
                         P.modeData.undoDepthLimit=26
-                        P.modeData.sprintTime=false
+                        P.modeData.lineGoal=sprintMark[1] -- 当前目标行数
+                        P.modeData.timeSplit={}           -- 各里程碑用时
                         P.modeData.lineAnim=0
                         P.modeData.winFlash=0
 
@@ -153,9 +156,14 @@ return {
                 end,
                 afterLock=mechLib.brik.misc.invincible_event_afterLock,
                 afterClear=function(P)
-                    if P.stat.line>=40 then
-                        P.modeData.sprintTime=(P.gameTime/1000)..'s'
-                        return true
+                    local md=P.modeData
+                    if P.stat.line>=md.lineGoal then
+                        table.insert(md.timeSplit, "["..md.lineGoal.."L]  "..(P.gameTime/1000)..'s')
+                        md.winFlash=1
+                        P:addEvent('always',winFlash_event_always)
+                        P:addEvent('drawOnPlayer',winFlash_event_drawOnPlayer)
+                        md.lineGoal=TABLE.next(sprintMark,md.lineGoal)
+                        if not md.lineGoal then return true end
                     end
                 end,
                 beforeDiscard=function(P)
@@ -167,27 +175,25 @@ return {
                 end,
                 always=function(P)
                     local md=P.modeData
-                    if not P.modeData.sprintTime then
-                        md.lineAnim=MATH.linearApproach(md.lineAnim,P.stat.line,.042)
-                    else
+                    if md.lineGoal then
+                        md.lineAnim=MATH.linearApproach(md.lineAnim,math.min(P.stat.line,md.lineGoal),.042)
+                    elseif md.lineAnim then
                         md.lineAnim=false
-                        md.winFlash=1
-                        P:addEvent('always',winFlash_event_always)
-                        P:addEvent('drawOnPlayer',winFlash_event_drawOnPlayer)
-                        return true
                     end
                 end,
                 drawInField=function(P)
                     if not P.modeData.lineAnim then return true end
-                    local l=P.modeData.lineAnim
-                    if l>=30 then
-                        GC.setColor(1,-P.gameTime/120%1,0,.8)
-                    elseif l>=26 then
+                    local remain=P.modeData.lineGoal-P.modeData.lineAnim
+                    if remain>=25 then
+                        return
+                    elseif remain>=14 then
+                        GC.setColor(1,1,1,MATH.clampInterpolate(25,0,14,.8,remain))
+                    elseif remain>=10 then
                         GC.setColor(1,1,1,.8)
-                    elseif l>=15 then
-                        GC.setColor(1,1,1,MATH.clampInterpolate(15,0,26,.8,l))
+                    else
+                        GC.setColor(1,-P.gameTime/120%1,0,.8)
                     end
-                    GC.rectangle('fill',0,-3-(40-l)*40,400,6)
+                    GC.rectangle('fill',0,-3-remain*40,400,6)
                 end,
                 drawOnPlayer=function(P)
                     local md=P.modeData
@@ -220,7 +226,7 @@ return {
                     GC.print(Text.zen_curCnt,x2,y+26+d*1)
                     GC.print(Text.zen_kpp,x,y+55+d*2)
                     GC.print(Text.zen_line,x,y+55+d*3.5)
-                    if md.sprintTime then GC.print("[40L]  "..md.sprintTime,x,y+55+d*3.9) end
+                    for i=1,#md.timeSplit do GC.print(md.timeSplit[i],x,y+55+d*(3.9+(i-1)*.4)) end
                     GC.print(Text.zen_fault,x,y+26+d*6.5)
                     GC.print(Text.zen_overCnt,x2,y+26+d*6.5)
                     GC.print(Text.zen_neat,x,y+26+d*7.5)
