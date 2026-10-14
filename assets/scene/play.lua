@@ -16,11 +16,9 @@ end
 
 local function sysAction(action)
     if action=='restart' then
-        if GAME.playing then
-            local id=GAME.mode.name
-            GAME.unload()
-            GAME.load(id)
-        end
+        local id=GAME.mode.name
+        GAME.unload()
+        GAME.load(id)
     elseif action=='back' then
         SCN.swapTo('pause','none')
     end

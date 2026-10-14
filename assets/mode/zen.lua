@@ -98,7 +98,7 @@ return {
             dropDelay=1e99,
             lockDelay=1e99,
             infHold=true,
-            readyDelay=1000,
+            readyDelay=2000,
             event={
                 playerInit={
                     mechLib.brik.misc.SL_event_playerInit,
@@ -178,7 +178,6 @@ return {
                         end
                     end
                 end,
-                afterLock=mechLib.brik.misc.invincible_event_afterLock,
                 afterClear=function(P)
                     local md=P.modeData
                     if P.stat.line>=md.lineGoal then

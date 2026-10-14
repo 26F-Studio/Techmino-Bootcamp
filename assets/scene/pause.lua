@@ -29,9 +29,7 @@ local function menuAct(action)
     elseif action=='continue' then
         SCN.swapTo('play','none')
     elseif action=='restart' then
-        if GAME.playing then
-            SCN.swapTo('play','none',GAME.mode.name)
-        end
+        SCN.swapTo('play','none',GAME.mode.name)
     elseif action=='settings' then
         SCN.go('settings')
     end
