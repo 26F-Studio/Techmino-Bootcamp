@@ -149,7 +149,7 @@ for _,v in next,love.filesystem.getDirectoryItems('assets/scene') do
 end
 
 SKIN.add('brik_template',FILE.load('assets/skin/template.lua','-lua'))
-GAME.addMode('zen','assets/mode/zen.lua')
+GAME.addMode('std','assets/mode/std.lua')
 GAME.addMode('dig','assets/mode/dig.lua')
 
 UTIL.time("Load Data",true)

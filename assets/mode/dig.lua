@@ -71,18 +71,18 @@ local statY=-262
 local statD=48
 
 local statList={
-    {x=statX, row=0,  font=25,label='zen_piece',   get=function(P,md) return P.stat.piece end},
-    {x=statX2,row=0,  font=25,label='zen_key',     get=function(P,md) return P.stat.key end},
-    {x=statX, row=1,  font=25,label='zen_spawn',   get=function(P,md) return P.stat.spawn end},
-    {x=statX2,row=1,  font=25,label='zen_curCnt',  get=function(P,md) return #md.movHis end},
-    {x=statX, row=6.5,font=25,label='zen_fault',   get=function(P,md) return md.fault end},
-    {x=statX2,row=6.5,font=25,label='zen_overCnt', get=function(P,md) return md.overCnt end},
-    {x=statX, row=7.5,font=25,label='zen_neat',    get=function(P,md) return md.neatPiece end},
-    {x=statX2,row=7.5,font=25,label='zen_movCnt',  get=function(P,md) return md.movCnt end},
-    {x=statX, row=2,  font=50,label='zen_kpp',     get=function(P,md) return md.kpp end},
-    {x=statX, row=3.5,font=50,label='zen_line',    get=function(P,md) return md.lineDig end},
-    {x=statX, row=8.5,font=50,label='zen_mpp',     get=function(P,md) return md.mpp end},
-    {x=statX, row=10, font=50,label='zen_dropRate',get=function(P,md) return md.dropRate end},
+    {x=statX, row=0,  font=25,label='std_piece',   get=function(P,md) return P.stat.piece end},
+    {x=statX2,row=0,  font=25,label='std_key',     get=function(P,md) return P.stat.key end},
+    {x=statX, row=1,  font=25,label='std_spawn',   get=function(P,md) return P.stat.spawn end},
+    {x=statX2,row=1,  font=25,label='std_curCnt',  get=function(P,md) return #md.movHis end},
+    {x=statX, row=6.5,font=25,label='std_fault',   get=function(P,md) return md.fault end},
+    {x=statX2,row=6.5,font=25,label='std_overCnt', get=function(P,md) return md.overCnt end},
+    {x=statX, row=7.5,font=25,label='std_neat',    get=function(P,md) return md.neatPiece end},
+    {x=statX2,row=7.5,font=25,label='std_movCnt',  get=function(P,md) return md.movCnt end},
+    {x=statX, row=2,  font=50,label='std_kpp',     get=function(P,md) return md.kpp end},
+    {x=statX, row=3.5,font=50,label='std_line',    get=function(P,md) return md.lineDig end},
+    {x=statX, row=8.5,font=50,label='std_mpp',     get=function(P,md) return md.mpp end},
+    {x=statX, row=10, font=50,label='std_dropRate',get=function(P,md) return md.dropRate end},
 }
 
 ---@type Techmino.Mode

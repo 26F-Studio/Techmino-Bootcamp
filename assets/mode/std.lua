@@ -47,9 +47,9 @@ local r3=function(P)
     ins(P.modeData.movHis,'f')
     _r3(P)
 end
-GAME.regFunc(r1,'zen.r1')
-GAME.regFunc(r2,'zen.r2')
-GAME.regFunc(r3,'zen.r3')
+GAME.regFunc(r1,'std.r1')
+GAME.regFunc(r2,'std.r2')
+GAME.regFunc(r3,'std.r3')
 
 local function winFlash_event_always(P)
     P.modeData.winFlash=P.modeData.winFlash-.0026
@@ -60,8 +60,8 @@ local function winFlash_event_drawOnPlayer(P)
     GC.mRect('fill',0,0,400,800)
     return P.modeData.winFlash<=0
 end
-GAME.regFunc(winFlash_event_always,'zen.winFlash')
-GAME.regFunc(winFlash_event_drawOnPlayer,'zen.winFlashDraw')
+GAME.regFunc(winFlash_event_always,'std.winFlash')
+GAME.regFunc(winFlash_event_drawOnPlayer,'std.winFlashDraw')
 
 local gc_print,gc_setColor=GC.print,GC.setColor
 local setFont=FONT.set
@@ -71,18 +71,18 @@ local statY=-262
 local statD=48
 
 local statList={
-    {x=statX, row=0,  font=25,label='zen_piece',   get=function(P,md) return P.stat.piece end},
-    {x=statX2,row=0,  font=25,label='zen_key',     get=function(P,md) return P.stat.key end},
-    {x=statX, row=1,  font=25,label='zen_spawn',   get=function(P,md) return P.stat.spawn end},
-    {x=statX2,row=1,  font=25,label='zen_curCnt',  get=function(P,md) return #md.movHis end},
-    {x=statX, row=6.5,font=25,label='zen_fault',   get=function(P,md) return md.fault end},
-    {x=statX2,row=6.5,font=25,label='zen_overCnt', get=function(P,md) return md.overCnt end},
-    {x=statX, row=7.5,font=25,label='zen_neat',    get=function(P,md) return md.neatPiece end},
-    {x=statX2,row=7.5,font=25,label='zen_movCnt',  get=function(P,md) return md.movCnt end},
-    {x=statX, row=2,  font=50,label='zen_kpp',     get=function(P,md) return md.kpp end},
-    {x=statX, row=3.5,font=50,label='zen_line',    get=function(P,md) return P.stat.line end},
-    {x=statX, row=8.5,font=50,label='zen_mpp',     get=function(P,md) return md.mpp end},
-    {x=statX, row=10, font=50,label='zen_dropRate',get=function(P,md) return md.dropRate end},
+    {x=statX, row=0,  font=25,label='std_piece',   get=function(P,md) return P.stat.piece end},
+    {x=statX2,row=0,  font=25,label='std_key',     get=function(P,md) return P.stat.key end},
+    {x=statX, row=1,  font=25,label='std_spawn',   get=function(P,md) return P.stat.spawn end},
+    {x=statX2,row=1,  font=25,label='std_curCnt',  get=function(P,md) return #md.movHis end},
+    {x=statX, row=6.5,font=25,label='std_fault',   get=function(P,md) return md.fault end},
+    {x=statX2,row=6.5,font=25,label='std_overCnt', get=function(P,md) return md.overCnt end},
+    {x=statX, row=7.5,font=25,label='std_neat',    get=function(P,md) return md.neatPiece end},
+    {x=statX2,row=7.5,font=25,label='std_movCnt',  get=function(P,md) return md.movCnt end},
+    {x=statX, row=2,  font=50,label='std_kpp',     get=function(P,md) return md.kpp end},
+    {x=statX, row=3.5,font=50,label='std_line',    get=function(P,md) return P.stat.line end},
+    {x=statX, row=8.5,font=50,label='std_mpp',     get=function(P,md) return md.mpp end},
+    {x=statX, row=10, font=50,label='std_dropRate',get=function(P,md) return md.dropRate end},
 }
 
 ---@type Techmino.Mode

@@ -31,7 +31,7 @@ local buttons={
     hardDrop={
         onPress=function()
             if mino.x==1 then
-                SCN.go('play',nil,'zen')
+                SCN.go('play',nil,'std')
             elseif mino.x==2 then
                 SCN.go('play',nil,'dig')
             elseif mino.x==maxX-2 then
