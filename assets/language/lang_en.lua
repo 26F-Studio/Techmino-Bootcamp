@@ -1,11 +1,24 @@
 ---@class Techmino.I18N
 local L={
     back="Back",
+    home_title="Techmino Bootcamp",
     home_zen="Zen",
     home_dig="Dig",
     home_settings="Settings",
     home_quit="Quit",
-    home_help="[ $1 ] and [ $2 ] to move, [ $3 ] to confirm\nTry long press to reduce repeating single key!",
+    home_help1="[ $1 ] and [ $2 ] to move, [ $3 ] to confirm. Change keybinding in settings",
+    home_help2="Try optimizing input with long press! This is the basis for high-level players.",
+    home_opt={
+        "ZEN",
+        "DIG",
+        false,
+        false,
+        false,
+        false,
+        false,
+        "CONF",
+        "QUIT",
+    },
 
     pause_leave="Leave",
     pause_retry="Retry",

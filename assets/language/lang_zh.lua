@@ -1,11 +1,24 @@
 ---@class Techmino.I18N
 local L={
     back="返回",
+    home_title="方块研究所-训练营",
     home_zen="禅",
     home_dig="挖掘",
     home_settings="设置",
     home_quit="退出",
-    home_help="按[ $1 ]和[ $2 ]移动，[ $3 ]确认\n尝试利用长按来减少单点的次数！",
+    home_help1="按[ $1 ]和[ $2 ]移动，[ $3 ]确认，按键可以在设置中更改",
+    home_help2="尝试利用长按来减少单点的次数！这是高水平玩家提速的基础",
+    home_opt={
+        "禅",
+        "挖掘",
+        false,
+        false,
+        false,
+        false,
+        false,
+        "设置",
+        "退出",
+    },
 
     pause_leave="离开",
     pause_retry="重试",

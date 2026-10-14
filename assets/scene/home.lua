@@ -44,7 +44,39 @@ local buttons={
     },
 }
 
+local title=GC.newText(FONT.get(100))
 local helpText=GC.newText(FONT.get(40))
+local icons={
+    GC.initCanvas(128,128,function()
+        GC.clear(0,0,0)
+        GC.setColor(1,0,1)
+        GC.rectangle('fill',0,0,64,64)
+        GC.rectangle('fill',64,64,64,64)
+    end),
+    GC.initCanvas(128,128,function()
+        GC.clear(0,0,0)
+        GC.setColor(1,0,1)
+        GC.rectangle('fill',0,0,64,64)
+        GC.rectangle('fill',64,64,64,64)
+    end),
+    false,
+    false,
+    false,
+    false,
+    false,
+    GC.initCanvas(128,128,function()
+        GC.clear(0,0,0)
+        GC.setColor(1,0,1)
+        GC.rectangle('fill',0,0,64,64)
+        GC.rectangle('fill',64,64,64,64)
+    end),
+    GC.initCanvas(128,128,function()
+        GC.clear(0,0,0)
+        GC.setColor(1,0,1)
+        GC.rectangle('fill',0,0,64,64)
+        GC.rectangle('fill',64,64,64,64)
+    end),
+}
 
 local overrideAct={left='moveLeft',right='moveRight',['return']='hardDrop'}
 local function getHintKey(action,fallback)
@@ -61,7 +93,8 @@ end
 
 function scene.load()
     restart()
-    helpText:set(Text.home_help:repD(
+    title:set(Text.home_title)
+    helpText:set(Text.home_help1:repD(
         getHintKey('moveLeft','left'),
         getHintKey('moveRight','right'),
         getHintKey('hardDrop','return')
@@ -136,17 +169,31 @@ end
 function scene.draw()
     GC.replaceTransform(SCR.xOy_m)
     GC.setColor(1,1,1)
+
+    -- Title
+    GC.setColor(1,1,1)
+    GC.mDraw(title, 0,-300,math.sin(love.timer.getTime())*.026)
+
+    -- Help
+    GC.mDraw(helpText, 0,260)
+    FONT.set(40)
+    GC.mStr(Text.home_help2, 0,290)
+
+    -- Options
     GC.setLineWidth(2)
-    local size=170
+    local wid,height=170,260
+    FONT.set(50)
     for i=1,maxX do
-        GC.mRect('line', (i-maxX/2-.5)*size, 0, size, size)
+        local x=(i-maxX/2-.5)*wid
+        GC.mRect('line', x, 0, wid, height)
+        if Text.home_opt[i] then
+            GC.mDraw(icons[i],x,-40)
+            GC.mStr(Text.home_opt[i],x,50)
+        end
     end
     GC.setColor(1,1,1,.26)
-    local x=(mino.x-maxX/2-.5)*size
-    GC.mRect('fill',x,0,size,size)
-
-    GC.setColor(1,1,1)
-    GC.mDraw(helpText, 0,260)
+    local selX=(mino.x-maxX/2-.5)*wid
+    GC.mRect('fill',selX,0,wid,height)
 end
 
 return scene
