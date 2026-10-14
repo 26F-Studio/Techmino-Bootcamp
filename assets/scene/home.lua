@@ -61,7 +61,12 @@ local icons={
         GC.rectangle('fill',0,0,64,64)
         GC.rectangle('fill',64,64,64,64)
     end),
-    false,
+    GC.initCanvas(128,128,function()
+        GC.clear(0,0,0)
+        GC.setColor(1,0,1)
+        GC.rectangle('fill',0,0,64,64)
+        GC.rectangle('fill',64,64,64,64)
+    end),
     false,
     false,
     false,

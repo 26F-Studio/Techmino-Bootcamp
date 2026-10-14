@@ -2,16 +2,12 @@
 local L={
     back="返回",
     home_title="方块研究所-训练营",
-    home_zen="禅",
-    home_dig="挖掘",
-    home_settings="设置",
-    home_quit="退出",
     home_help1="按[ $1 ]和[ $2 ]移动，[ $3 ]确认，按键可以在设置中更改",
-    home_help2="尝试利用长按来减少单点的次数！这是增加落块速度的基础",
+    home_help2="尝试利用长按来减少单点的次数！这是提升落块速度的基础",
     home_opt={
         "禅",
         "挖掘",
-        false,
+        "对战",
         false,
         false,
         false,
