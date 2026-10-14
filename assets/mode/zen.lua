@@ -63,6 +63,30 @@ end
 GAME.regFunc(winFlash_event_always,'zen.winFlash')
 GAME.regFunc(winFlash_event_drawOnPlayer,'zen.winFlashDraw')
 
+local gc_print,gc_setColor=GC.print,GC.setColor
+local setFont=FONT.set
+
+local statX,statX2=-380,-290
+local statY=-262
+local statD=48
+local statColor=COLOR.L
+local statLabelColor=COLOR.L
+
+local statList={
+    {x=statX, row=0,  font=25,label='zen_piece',   get=function(P,md) return P.stat.piece end},
+    {x=statX2,row=0,  font=25,label='zen_key',     get=function(P,md) return P.stat.key end},
+    {x=statX, row=1,  font=25,label='zen_spawn',   get=function(P,md) return P.stat.spawn end},
+    {x=statX2,row=1,  font=25,label='zen_curCnt',  get=function(P,md) return #md.movHis end},
+    {x=statX, row=6.5,font=25,label='zen_fault',   get=function(P,md) return md.fault end},
+    {x=statX2,row=6.5,font=25,label='zen_overCnt', get=function(P,md) return md.overCnt end},
+    {x=statX, row=7.5,font=25,label='zen_neat',    get=function(P,md) return md.neatPiece end},
+    {x=statX2,row=7.5,font=25,label='zen_movCnt',  get=function(P,md) return md.movCnt end},
+    {x=statX, row=2,  font=50,label='zen_kpp',     get=function(P,md) return md.kpp end},
+    {x=statX, row=3.5,font=50,label='zen_line',    get=function(P,md) return P.stat.line end},
+    {x=statX, row=8.5,font=50,label='zen_mpp',     get=function(P,md) return md.mpp end},
+    {x=statX, row=10, font=50,label='zen_dropRate',get=function(P,md) return md.dropRate end},
+}
+
 ---@type Techmino.Mode
 return {
     initialize=function()
@@ -197,42 +221,36 @@ return {
                 end,
                 drawOnPlayer=function(P)
                     local md=P.modeData
+                    local lastC
 
-                    local x,x2=-380,-290
-                    local y=-262
-                    local d=48
+                    for i=1,#statList do
+                        local s=statList[i]
+                        local v=s.get(P,md)
+                        setFont(s.font)
 
-                    FONT.set(25)
-                    GC.print(P.stat.piece,x,y+d*0)
-                    GC.print(P.stat.key,x2,y+d*0)
-                    GC.print(P.stat.spawn,x,y+d*1)
-                    GC.print(#md.movHis,x2,y+d*1)
-                    FONT.set(50)
-                    GC.print(md.kpp,x,y+d*2)
-                    GC.print(P.stat.line,x,y+d*3.5)
-                    FONT.set(25)
-                    GC.print(md.fault,x,y+d*6.5)
-                    GC.print(md.overCnt,x2,y+d*6.5)
-                    GC.print(md.neatPiece,x,y+d*7.5)
-                    GC.print(md.movCnt,x2,y+d*7.5)
-                    FONT.set(50)
-                    GC.print(md.mpp,x,y+d*8.5)
-                    GC.print(md.dropRate,x,y+d*10)
+                        local c=s.color or statColor
+                        if type(c)=='table' then
+                            if c~=lastC then
+                                gc_setColor(c)
+                                lastC=c
+                            end
+                        else
+                            gc_setColor(c(P,md,v))
+                            lastC=nil
+                        end
 
-                    FONT.set(15)
-                    GC.print(Text.zen_piece,x,y+26+d*0)
-                    GC.print(Text.zen_key,x2,y+26+d*0)
-                    GC.print(Text.zen_spawn,x,y+26+d*1)
-                    GC.print(Text.zen_curCnt,x2,y+26+d*1)
-                    GC.print(Text.zen_kpp,x,y+55+d*2)
-                    GC.print(Text.zen_line,x,y+55+d*3.5)
-                    for i=1,#md.timeSplit do GC.print(md.timeSplit[i],x,y+55+d*(3.9+(i-1)*.4)) end
-                    GC.print(Text.zen_fault,x,y+26+d*6.5)
-                    GC.print(Text.zen_overCnt,x2,y+26+d*6.5)
-                    GC.print(Text.zen_neat,x,y+26+d*7.5)
-                    GC.print(Text.zen_movCnt,x2,y+26+d*7.5)
-                    GC.print(Text.zen_mpp,x,y+55+d*8.5)
-                    GC.print(Text.zen_dropRate,x,y+55+d*10)
+                        gc_print(v,s.x,statY+statD*s.row)
+                    end
+
+                    setFont(15)
+                    gc_setColor(statLabelColor)
+                    for i=1,#statList do
+                        local s=statList[i]
+                        gc_print(Text[s.label],s.x,statY+(s.font==50 and 55 or 26)+statD*s.row)
+                    end
+                    for i=1,#md.timeSplit do
+                        gc_print(md.timeSplit[i],statX,statY+55+statD*(3.9+(i-1)*.4))
+                    end
                 end,
             },
         },
