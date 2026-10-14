@@ -34,6 +34,8 @@ local buttons={
                 SCN.go('play',nil,'zen')
             elseif mino.x==2 then
                 SCN.go('play',nil,'dig')
+            elseif mino.x==maxX-2 then
+                SCN.go('about')
             elseif mino.x==maxX-1 then
                 SCN.go('settings')
             elseif mino.x==maxX then
@@ -63,7 +65,12 @@ local icons={
     false,
     false,
     false,
-    false,
+    GC.initCanvas(128,128,function()
+        GC.clear(0,0,0)
+        GC.setColor(1,0,1)
+        GC.rectangle('fill',0,0,64,64)
+        GC.rectangle('fill',64,64,64,64)
+    end),
     GC.initCanvas(128,128,function()
         GC.clear(0,0,0)
         GC.setColor(1,0,1)

@@ -15,7 +15,7 @@ local L={
         false,
         false,
         false,
-        false,
+        "关于",
         "设置",
         "退出",
     },
@@ -66,5 +66,16 @@ local L={
     zen_neat="速降块数",
     zen_mpp="操作/速降块数",
     zen_dropRate="硬降率",
+
+    about_title="关于",
+    about_text={
+        "方块研究所-训练营 是用于练习 极简操作（Finesse） 的工具。",
+        "（本来打算3天做完的，结果断断续续拖了两三周）",
+        "",
+        "设计、程序：MrZ",
+        "美术：莉亚法娜",
+        "",
+        "初始概念：大叔Rex",
+    },
 }
 return L

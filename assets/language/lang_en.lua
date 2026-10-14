@@ -15,7 +15,7 @@ local L={
         false,
         false,
         false,
-        false,
+        "INFO",
         "CONF",
         "QUIT",
     },
@@ -66,5 +66,16 @@ local L={
     zen_neat="NeatDrops",
     zen_mpp="Moves per Neat Drop",
     zen_dropRate="Harddrop Rate",
+
+    about_title="About",
+    about_text={
+        "Techmino Bootcamp is a tool for practicing FINESSE.",
+        "(Planned to finish in 3 days, but on and off, it took 3 weeks.)",
+        "",
+        "Design & Program: MrZ",
+        "Art: 莉亚法娜",
+        "",
+        "Initial Concept: 大叔Rex",
+    },
 }
 return L
