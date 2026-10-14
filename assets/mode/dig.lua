@@ -51,6 +51,18 @@ GAME.regFunc(r1,'dig.r1')
 GAME.regFunc(r2,'dig.r2')
 GAME.regFunc(r3,'dig.r3')
 
+local function winFlash_event_always(P)
+    P.modeData.winFlash=P.modeData.winFlash-.0026
+    return P.modeData.winFlash<=0
+end
+local function winFlash_event_drawOnPlayer(P)
+    GC.setColor(.62,1,.62,P.modeData.winFlash*.62)
+    GC.mRect('fill',0,0,400,800)
+    return P.modeData.winFlash<=0
+end
+GAME.regFunc(winFlash_event_always,'dig.winFlash')
+GAME.regFunc(winFlash_event_drawOnPlayer,'dig.winFlashDraw')
+
 local gc_print,gc_setColor=GC.print,GC.setColor
 local setFont=FONT.set
 
@@ -98,6 +110,7 @@ return {
                         P.modeData.undoDepthLimit=26
                         P.modeData.lineGoal=sprintMark[1] -- 当前目标行数
                         P.modeData.split={}               -- 各里程碑用时/用块
+                        P.modeData.winFlash=0
 
                         -- P.stat.key              -- 总按键数
                         -- P.stat.piece            -- 总落块数
@@ -171,6 +184,9 @@ return {
                         local md=P.modeData
                         if md.lineDig>=md.lineGoal then
                             table.insert(md.split, "["..md.lineGoal.."L]  "..(P.gameTime/1000).."s  "..P.stat.piece.."P")
+                            md.winFlash=1
+                            P:addEvent('always',winFlash_event_always)
+                            P:addEvent('drawOnPlayer',winFlash_event_drawOnPlayer)
                             md.lineGoal=TABLE.next(sprintMark,md.lineGoal)
                             if not md.lineGoal then return true end
                         end
@@ -182,6 +198,19 @@ return {
                     md.kpp=MATH.roundUnit(P.stat.key/P.stat.piece,.01)
                     md.mpp=MATH.roundUnit((md.movCnt+md.neatPiece)/md.neatPiece,.01)
                     md.dropRate=MATH.roundUnit(md.neatPiece/P.stat.piece*100,.1).."%"
+                end,
+                drawInField=function(P)
+                    local remain=P.modeData.lineGoal-P.modeData.lineDig
+                    if remain>=25 then
+                        return
+                    elseif remain>=14 then
+                        GC.setColor(1,1,1,MATH.clampInterpolate(25,0,14,.8,remain))
+                    elseif remain>=10 then
+                        GC.setColor(1,1,1,.8)
+                    else
+                        GC.setColor(1,-P.gameTime/120%1,0,.8)
+                    end
+                    GC.rectangle('fill',0,(remain-P.modeData.lineStay-.5)*40-3,400,6)
                 end,
                 drawOnPlayer=function(P)
                     local md=P.modeData
