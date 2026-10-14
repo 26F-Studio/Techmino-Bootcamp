@@ -5,6 +5,7 @@ local L={
     home_dig="Dig",
     home_settings="Settings",
     home_quit="Quit",
+    home_help="[ $1 ] and [ $2 ] to move, [ $3 ] to confirm\nTry long press to reduce repeating single key!",
 
     pause_leave="Leave",
     pause_retry="Retry",

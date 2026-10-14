@@ -5,6 +5,7 @@ local L={
     home_dig="挖掘",
     home_settings="设置",
     home_quit="退出",
+    home_help="按[ $1 ]和[ $2 ]移动，[ $3 ]确认\n尝试利用长按来减少单点的次数！",
 
     pause_leave="离开",
     pause_retry="重试",

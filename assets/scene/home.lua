@@ -1,7 +1,71 @@
 ---@type Zenitha.Scene
 local scene={}
 
+local maxX=9
+local mino
+local function restart()
+    mino={
+        x=(maxX+1)/2,
+        charge=false,
+        timeRem=0,
+        dir=0,
+    }
+end
+local buttons={
+    moveLeft={
+        onPress=function()
+            mino.x=MATH.clamp(mino.x-1,1,maxX)
+            mino.charge=0
+            mino.dir=-1
+        end,
+        active=false,
+    },
+    moveRight={
+        onPress=function()
+            mino.x=MATH.clamp(mino.x+1,1,maxX)
+            mino.charge=0
+            mino.dir=1
+        end,
+        active=false,
+    },
+    hardDrop={
+        onPress=function()
+            if mino.x==1 then
+                SCN.go('play',nil,'zen')
+            elseif mino.x==2 then
+                SCN.go('play',nil,'dig')
+            elseif mino.x==maxX-1 then
+                SCN.go('settings')
+            elseif mino.x==maxX then
+                scene.keyDown('escape')
+            end
+        end,
+        active=false,
+    },
+}
+
+local helpText=GC.newText(FONT.get(40))
+
+local overrideAct={left='moveLeft',right='moveRight',['return']='hardDrop'}
+local function getHintKey(action,fallback)
+    local keys=KM.game:getKeys(action)
+    if keys then
+        for _,k in next,keys do
+            if not overrideAct[k] or overrideAct[k]==action then
+                return KeyAlias[k]
+            end
+        end
+    end
+    return KeyAlias[fallback]
+end
+
 function scene.load()
+    restart()
+    helpText:set(Text.home_help:repD(
+        getHintKey('moveLeft','left'),
+        getHintKey('moveRight','right'),
+        getHintKey('hardDrop','return')
+    ))
 end
 
 function scene.unload()
@@ -11,24 +75,78 @@ function scene.unload()
 end
 
 function scene.update(dt)
+    mino.timeRem=mino.timeRem+dt*1000*.8
+    while mino.timeRem>=1 do
+        if mino.charge then
+            local l,r=buttons.moveLeft.active,buttons.moveRight.active
+            if not l and not r then
+                mino.charge=false
+            elseif l~=r then
+                if mino.dir==-1~=l then
+                    mino.charge=0
+                    mino.dir=l and -1 or 1
+                end
+            end
+        end
+        if mino.charge then
+            mino.charge=mino.charge+1
+            local SET=CONF.game_brik
+            if mino.charge>=SET.asd and not (mino.dir==-1 and mino.x==1 or mino.dir==1 and mino.x==maxX) then
+                if mino.charge>SET.asd then
+                    if SET.asp==0 then
+                        mino.x=mino.dir==-1 and 1 or maxX
+                    else
+                        if (mino.charge-SET.asd)%SET.asp==0 then
+                            mino.x=MATH.clamp(mino.x+mino.dir,1,maxX)
+                        end
+                    end
+                else
+                    mino.x=MATH.clamp(mino.x+mino.dir,1,maxX)
+                end
+            end
+        end
+        mino.timeRem=mino.timeRem-1
+    end
 end
 
 function scene.keyDown(key,isRep)
     if isRep then return true end
     if KM.sys:getAction(key)=='back' then
         if SureCheck('quit') then SCN.back('slowFade') end
+    else
+        local act=overrideAct[key] or KM.game:getAction(key)
+        local b=buttons[act]
+        if b then
+            b.active=true
+            b.onPress()
+        end
     end
     return true
 end
-
-function scene.draw()
+function scene.keyUp(key)
+    local act=overrideAct[key]
+    if not act then
+        act=KM.sys:getAction(key)
+        if not act then act=KM.game:getAction(key) end
+    end
+    local b=buttons[act]
+    if b then b.active=false end
 end
 
-scene.widgetList={
-    WIDGET.new{type='button',pos={.5,.5},w=300,x=-260,fontSize=60,text=LANG'home_zen',onClick=function() SCN.go('play',nil,'zen') end},
-    WIDGET.new{type='button',pos={.5,.5},w=300,x=260,fontSize=60,text=LANG'home_dig',onClick=function() SCN.go('play',nil,'dig') end},
+function scene.draw()
+    GC.replaceTransform(SCR.xOy_m)
+    GC.setColor(1,1,1)
+    GC.setLineWidth(2)
+    local size=170
+    for i=1,maxX do
+        GC.mRect('line', (i-maxX/2-.5)*size, 0, size, size)
+    end
+    GC.setColor(1,1,1,.26)
+    local x=(mino.x-maxX/2-.5)*size
+    GC.mRect('fill',x,0,size,size)
 
-    WIDGET.new{type='button',pos={1,1},name='settings',y=-80,x=-CornerButtonX[2],w=160,h=80,text=LANG'home_settings',onClick=WIDGET.c_goScn('settings')},
-    WIDGET.new{type='button',pos={1,1},name='quit',y=-80,sound_release=false,x=-CornerButtonX[1],w=160,h=80,text=LANG'home_quit',onClick=WIDGET.c_backScn()},
-}
+    GC.setColor(1,1,1)
+    GC.mDraw(helpText, 0,260)
+end
+
 return scene
