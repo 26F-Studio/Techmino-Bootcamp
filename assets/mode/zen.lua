@@ -69,8 +69,6 @@ local setFont=FONT.set
 local statX,statX2=-380,-290
 local statY=-262
 local statD=48
-local statColor=COLOR.L
-local statLabelColor=COLOR.L
 
 local statList={
     {x=statX, row=0,  font=25,label='zen_piece',   get=function(P,md) return P.stat.piece end},
@@ -105,22 +103,22 @@ return {
                     function(P)
                         P.modeData.undoDepthLimit=26
                         P.modeData.lineGoal=sprintMark[1] -- 当前目标行数
-                        P.modeData.timeSplit={}           -- 各里程碑用时
+                        P.modeData.timeSplit={}   -- 各里程碑用时
                         P.modeData.lineAnim=0
                         P.modeData.winFlash=0
 
                         -- P.stat.key              -- 总按键数
                         -- P.stat.piece            -- 总落块数
-                        P.modeData.kpp=0           -- 每块按键（传统KPP）
+                        P.modeData.kpp=0   -- 每块按键（传统KPP）
 
-                        P.modeData.fault=0         -- 失误数
-                        P.modeData.overCnt=0       -- 多余操作数
+                        P.modeData.fault=0 -- 失误数
+                        P.modeData.overCnt=0 -- 多余操作数
 
-                        P.modeData.movHis={}       -- 当前块动作历史（数量）
-                        P.modeData.movCnt=0        -- 移动/旋转总数
+                        P.modeData.movHis={} -- 当前块动作历史（数量）
+                        P.modeData.movCnt=0 -- 移动/旋转总数
                         -- P.stat.spawn            -- 总出块数
-                        P.modeData.neatPiece=0     -- 无需软降的块数
-                        P.modeData.mpp=0           -- 每块操作（仅考虑良定义的露天选点，计暂存不计硬降，衡量选点质量）
+                        P.modeData.neatPiece=0 -- 无需软降的块数
+                        P.modeData.mpp=0   -- 每块操作（仅考虑良定义的露天选点，计暂存不计硬降，衡量选点质量）
                         P.modeData.dropRate='100%' -- 硬降率
 
                         P:setAction('rotateCW',r1)
@@ -227,7 +225,7 @@ return {
                         local v=s.get(P,md)
                         setFont(s.font)
 
-                        local c=s.color or statColor
+                        local c=s.color or COLOR.L
                         if type(c)=='table' then
                             if c~=lastC then
                                 gc_setColor(c)
@@ -242,7 +240,7 @@ return {
                     end
 
                     setFont(15)
-                    gc_setColor(statLabelColor)
+                    gc_setColor(COLOR.L)
                     for i=1,#statList do
                         local s=statList[i]
                         gc_print(Text[s.label],s.x,statY+(s.font==50 and 55 or 26)+statD*s.row)
