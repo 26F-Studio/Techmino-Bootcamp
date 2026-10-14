@@ -160,13 +160,10 @@ return {
                                 move=move-1
                             end
                         end
-                        -- print(piece,dir,x,move,par) -- TODO: debug
                         if move>par then
                             md.fault=md.fault+1
                             md.overCnt=md.overCnt+(move-par)
-                            -- MSG('warn'," ")
-                        else
-                            -- MSG('check'," ")
+                            -- TODO: warn animation
                         end
 
                         md.neatPiece=md.neatPiece+1
@@ -179,7 +176,7 @@ return {
                 afterClear=function(P)
                     local md=P.modeData
                     if P.stat.line>=md.lineGoal then
-                        table.insert(md.timeSplit, "["..md.lineGoal.."L]  "..(P.gameTime/1000)..'s')
+                        table.insert(md.timeSplit, "["..md.lineGoal.."L]  "..(P.gameTime/1000).."s")
                         md.winFlash=1
                         P:addEvent('always',winFlash_event_always)
                         P:addEvent('drawOnPlayer',winFlash_event_drawOnPlayer)
