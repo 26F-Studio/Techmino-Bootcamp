@@ -160,7 +160,8 @@ function scene.draw()
         local x=(i-maxX/2-.5)*wid
         GC.mRect('line', x, 0, wid, height)
         if Text.home_opt[i] then
-            GC.mDraw(TEX.home_icons[i],x,-40)
+            -- GC.mDraw(TEX.home_icons[i],x,-40)
+            GC.print("?",x-10,-120,.26,2.6)
             GC.mStr(Text.home_opt[i],x,50)
         end
     end

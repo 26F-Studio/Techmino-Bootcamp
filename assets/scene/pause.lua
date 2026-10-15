@@ -1,21 +1,12 @@
 ---@type Zenitha.Scene
 local scene={}
 
-local animT1 -- Animation timer (0~1, different speed)
 local quitHold,quitTimer
 
 function scene.load()
     quitHold=false
     quitTimer=-.2
     if SCN.stackChange<0 then return end
-    animT1=0
-    TWEEN.new(function(t)
-        animT1=t
-        scene.widgetList.U.y=-MATH.lerp(100,140,t)
-        scene.widgetList.D.y=MATH.lerp(100,140,t)
-        scene.widgetList.U:resetPos()
-        scene.widgetList.D:resetPos()
-    end):setEase('OutQuint'):setDuration(0.26):run()
 end
 function scene.unload()
     if SCN.stackChange<0 then
@@ -71,7 +62,7 @@ function scene.draw()
     GAME.render()
 
     GC.origin()
-    GC.setColor(.2,.2,.2,.6*animT1)
+    GC.setColor(.2,.2,.2,.6)
     GC.rectangle('fill',0,0,SCR.w,SCR.h)
 
     GC.replaceTransform(SCR.xOy_m)
