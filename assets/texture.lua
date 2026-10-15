@@ -7,6 +7,23 @@ TEX.transition=GC.initCanvas(128, 1, function()
     end
 end)
 
+TEX.home_title={
+    zh='assets/image/title_zh.png',
+    en='assets/image/title_en.png',
+}
+
+TEX.home_icons={
+    'assets/image/std.png',
+    'assets/image/dig.png',
+    'assets/image/vs.png',
+    false,
+    false,
+    false,
+    'assets/image/info.png',
+    'assets/image/conf.png',
+    'assets/image/quit.png',
+}
+
 -- Control icons
 TEX.actionIcons={
     texture=GC.initCanvas(720,540,function()
