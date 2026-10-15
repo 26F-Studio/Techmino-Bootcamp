@@ -34,6 +34,9 @@ local buttons={
                 SCN.go('play',nil,'std')
             elseif mino.x==2 then
                 SCN.go('play',nil,'dig')
+            elseif mino.x==3 then
+                MSG('info',"Coming soon!")
+                -- SCN.go('play',nil,'vs')
             elseif mino.x==maxX-2 then
                 SCN.go('about')
             elseif mino.x==maxX-1 then
