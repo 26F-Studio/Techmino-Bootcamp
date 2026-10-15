@@ -1,7 +1,6 @@
 ---@class Techmino.I18N
 local L={
     back="返回",
-    home_title="方块研究所-训练营",
     home_help1="按[ $1 ]和[ $2 ]移动，[ $3 ]确认，按键可以在设置中更改",
     home_help2="尝试利用长按来减少单点的次数！这是提升落块速度的基础",
     home_opt={
@@ -40,10 +39,10 @@ local L={
     keysetHint_game_holdPiece="方块暂存",
     keysetHint_game_moveRight="方块右移",
     keysetHint_game_func1="撤销",
-    keysetHint_game_softDrop="软降（方块下移）",
-    keysetHint_game_hardDrop="硬降（确认放置方块）",
-    keysetHint_sys_restart="菜单：重开",
-    keysetHint_sys_back="菜单：返回",
+    keysetHint_game_softDrop="软降",
+    keysetHint_game_hardDrop="硬降",
+    keysetHint_sys_restart="重开",
+    keysetHint_sys_back="返回",
 
     sureText={
         quit="再按一次退出",

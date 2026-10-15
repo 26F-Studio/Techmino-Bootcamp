@@ -140,16 +140,17 @@ end
 
 function scene.draw()
     GC.replaceTransform(SCR.xOy_m)
-    GC.setColor(1,1,1)
 
     -- Title
     GC.setColor(1,1,1)
-    GC.mDraw(TEX.home_title[CONF.system.locale],0,-300,math.sin(love.timer.getTime())*.026)
+    GC.mDraw(TEX.home_title[CONF.system.locale],0,-260,math.sin(love.timer.getTime())*.026,.5)
+
+    GC.translate(0,126)
 
     -- Help
-    GC.mDraw(helpText, 0,260)
+    GC.mDraw(helpText, 0,220)
     FONT.set(40)
-    GC.mStr(Text.home_help2, 0,290)
+    GC.mStr(Text.home_help2, 0,260)
 
     -- Options
     GC.setLineWidth(2)
