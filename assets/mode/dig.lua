@@ -201,11 +201,9 @@ return {
                 end,
                 drawInField=function(P)
                     local remain=P.modeData.lineGoal-P.modeData.lineDig
-                    if remain>=25 then
+                    if remain>=9 then
                         return
-                    elseif remain>=14 then
-                        GC.setColor(1,1,1,MATH.clampInterpolate(25,0,14,.8,remain))
-                    elseif remain>=10 then
+                    elseif remain>=4 then
                         GC.setColor(1,1,1,.8)
                     else
                         GC.setColor(1,-P.gameTime/120%1,0,.8)
