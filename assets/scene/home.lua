@@ -79,6 +79,35 @@ function scene.unload()
     end
 end
 
+local noMouseHint=0
+function scene.mouseDown()
+    noMouseHint=1.62
+end
+
+function scene.keyDown(key,isRep)
+    if isRep then return true end
+    if KM.sys:getAction(key)=='back' then
+        if SureCheck('quit') then SCN.back('slowFade') end
+    else
+        local act=overrideAct[key] or KM.game:getAction(key)
+        local b=buttons[act]
+        if b then
+            b.active=true
+            b.onPress()
+        end
+    end
+    return true
+end
+function scene.keyUp(key)
+    local act=overrideAct[key]
+    if not act then
+        act=KM.sys:getAction(key)
+        if not act then act=KM.game:getAction(key) end
+    end
+    local b=buttons[act]
+    if b then b.active=false end
+end
+
 function scene.update(dt)
     mino.timeRem=mino.timeRem+dt*1000*.8
     while mino.timeRem>=1 do
@@ -112,30 +141,7 @@ function scene.update(dt)
         end
         mino.timeRem=mino.timeRem-1
     end
-end
-
-function scene.keyDown(key,isRep)
-    if isRep then return true end
-    if KM.sys:getAction(key)=='back' then
-        if SureCheck('quit') then SCN.back('slowFade') end
-    else
-        local act=overrideAct[key] or KM.game:getAction(key)
-        local b=buttons[act]
-        if b then
-            b.active=true
-            b.onPress()
-        end
-    end
-    return true
-end
-function scene.keyUp(key)
-    local act=overrideAct[key]
-    if not act then
-        act=KM.sys:getAction(key)
-        if not act then act=KM.game:getAction(key) end
-    end
-    local b=buttons[act]
-    if b then b.active=false end
+    noMouseHint=noMouseHint-dt
 end
 
 function scene.draw()
@@ -168,6 +174,21 @@ function scene.draw()
     GC.setColor(1,1,1,.26)
     local selX=(mino.x-maxX/2-.5)*wid
     GC.mRect('fill',selX,0,wid,height)
+
+    if noMouseHint>0 then
+        GC.replaceTransform(SCR.origin)
+        GC.translate(love.mouse.getPosition())
+        GC.scale(SCR.k)
+        GC.setLineWidth(26)
+        GC.setColor(1,0,0,noMouseHint)
+        GC.line(-62,-62,62,62)
+        GC.line(-62,62,62,-62)
+
+        GC.replaceTransform(SCR.xOy_m)
+        FONT.set(100)
+        GC.setColor(1,1,1,noMouseHint)
+        GC.mStr(Text.home_no_mouse,0,-126)
+    end
 end
 
 return scene

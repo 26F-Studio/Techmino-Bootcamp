@@ -1,6 +1,7 @@
 ---@class Techmino.I18N
 local L={
     back="返回",
+    home_no_mouse="主菜单仅支持键盘操作！",
     home_help1="按[ $1 ]和[ $2 ]移动，[ $3 ]确认，按键可以在设置中更改",
     home_help2="尝试利用长按来减少单点的次数！这是提升落块速度的基础",
     home_opt={
@@ -27,7 +28,7 @@ local L={
     settings_sfx="音效",
 
     settings_hint_asd="（长按移动的）启动延迟\n旧称DAS",
-    settings_hint_asp="（长按移动的）重复周期\n旧称ARR",
+    settings_hint_asp="（长按移动的）重复周期\n旧称ARR\n注：本游戏中软降重复周期和ASP同步",
 
     keyset_reset="重置",
     keyset_pressKey="按下要设置的键",

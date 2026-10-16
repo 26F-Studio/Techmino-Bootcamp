@@ -1,6 +1,7 @@
 ---@class Techmino.I18N
 local L={
     back="Back",
+    home_no_mouse="Home page is Keyboard-Only!",
     home_help1="[ $1 ] and [ $2 ] to move, [ $3 ] to confirm. Change keybinding in settings",
     home_help2="Try optimizing input with long press! This is the basis of high-speed gaming.",
     home_opt={
@@ -27,7 +28,7 @@ local L={
     settings_sfx="SFX",
 
     settings_hint_asd="Auto Shift Delay\nCalled DAS before",
-    settings_hint_asp="Auto Shift Period\nCalled ARR before",
+    settings_hint_asp="Auto Shift Period\nCalled ARR before\nNote: Soft Drop Period is synced with ASP in this game",
 
     keyset_reset="Reset",
     keyset_pressKey="Press a key",
