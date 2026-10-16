@@ -200,6 +200,7 @@ return {
                     md.dropRate=MATH.roundUnit(md.neatPiece/P.stat.piece*100,.1).."%"
                 end,
                 drawInField=function(P)
+                    if not P.modeData.lineGoal then return true end
                     local remain=P.modeData.lineGoal-P.modeData.lineDig
                     if remain>=9 then
                         return
