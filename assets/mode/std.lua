@@ -7,22 +7,30 @@ local statX,statX2=-380,-290
 local statY=-262
 local statD=48
 
-local function winFlash_event_always(P)
-    P.modeData.winFlash=P.modeData.winFlash-.0026
-    return P.modeData.winFlash<=0
-end
-
-local function winFlash_event_drawOnPlayer(P)
-    GC.setColor(.62,1,.62,P.modeData.winFlash*.62)
+local flashClr={1,1,1}
+local function flash_event_drawOnPlayer(P)
+    local a=1-(P.time-P.modeData.flashTime)/384.626
+    GC.setColor(flashClr[1],flashClr[2],flashClr[3],a*.62)
     GC.mRect('fill',0,0,400,800)
-    return P.modeData.winFlash<=0
+    return a<=0
 end
+local function onFault(P)
+    P.modeData.flashTime=P.time
+    flashClr[1],flashClr[2],flashClr[3]=1,.62,.62
+    P:addEvent('drawOnPlayer',flash_event_drawOnPlayer)
+end
+local function onAfterLoad(P)
+    P.modeData.flashTime=-1e99
+end
+GAME.regFunc(flash_event_drawOnPlayer,'std.winFlashDraw')
+GAME.regFunc(onFault,'std.onFault')
+GAME.regFunc(onAfterLoad,'std.onAfterLoad')
 
 local statList={
     {x=statX, row=0,  font=25,label='std_piece',   get=function(P,md) return P.stat.piece end},
     {x=statX2,row=0,  font=25,label='std_key',     get=function(P,md) return P.stat.key end},
     {x=statX, row=1,  font=25,label='std_spawn',   get=function(P,md) return P.stat.spawn end},
-    {x=statX2,row=1,  font=25,label='std_curCnt',  get=function(P,md) return #md.movHis end},
+    {x=statX2,row=1,  font=25,label='std_movSeq',  get=function(P,md) return md.movSeq end},
     {x=statX, row=6.5,font=25,label='std_fault',   get=function(P,md) return md.fault end},
     {x=statX2,row=6.5,font=25,label='std_overCnt', get=function(P,md) return md.overCnt end},
     {x=statX, row=7.5,font=25,label='std_neat',    get=function(P,md) return md.neatPiece end},
@@ -47,26 +55,27 @@ return {
             readyDelay=2000,
             event={
                 playerInit={
-                    mechLib.brik.misc.SL_event_playerInit,
+                    mechLib.brik.saveload.event_playerInit,
                     mechLib.brik.finesse.event_playerInit,
                     function(P)
                         P.modeData.noOspin=true
                         P.modeData.undoDepthLimit=26
                         P.modeData.force180=CONF.system.force180
+                        P.modeData.onFinesseFault=onFault
+                        P.modeData.onAfterLoad=onAfterLoad
 
                         P.modeData.lineGoal=milestones[1] -- 当前目标行数
                         P.modeData.timeSplit={}           -- 各里程碑用时
                         P.modeData.lineAnim=0
-                        P.modeData.winFlash=0
                     end,
                 },
                 afterClear=function(P)
                     local md=P.modeData
                     if P.stat.line>=md.lineGoal then
                         table.insert(md.timeSplit, "["..md.lineGoal.."L]  "..(P.gameTime/1000).."s")
-                        md.winFlash=1
-                        P:addEvent('always',winFlash_event_always)
-                        P:addEvent('drawOnPlayer',winFlash_event_drawOnPlayer)
+                        md.flashTime=P.time
+                        flashClr[1],flashClr[2],flashClr[3]=.62,1,.62
+                        P:addEvent('drawOnPlayer',flash_event_drawOnPlayer)
                         md.lineGoal=TABLE.next(milestones,md.lineGoal)
                         if not md.lineGoal then return true end
                     end
