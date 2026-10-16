@@ -12,16 +12,17 @@ TEX.home_title={
     en='assets/image/title_en.png',
 }
 
-TEX.home_icons={
-    'assets/image/std.png',
-    'assets/image/dig.png',
-    'assets/image/vs.png',
+TEX.home_icons='assets/image/home_icons.png'
+TEX.home_iconQuad={
+    GC.newQuad(2040/6*0,0,2040/6,400,2040,400),
+    GC.newQuad(2040/6*1,0,2040/6,400,2040,400),
+    GC.newQuad(2040/6*2,0,2040/6,400,2040,400),
     false,
     false,
     false,
-    'assets/image/info.png',
-    'assets/image/conf.png',
-    'assets/image/quit.png',
+    GC.newQuad(2040/6*3,0,2040/6,400,2040,400),
+    GC.newQuad(2040/6*4,0,2040/6,400,2040,400),
+    GC.newQuad(2040/6*5,0,2040/6,400,2040,400),
 }
 
 -- Control icons

@@ -2,9 +2,9 @@
 local scene={}
 
 local maxX=9
-local mino
+local sel
 local function restart()
-    mino={
+    sel={
         x=(maxX+1)/2,
         charge=false,
         timeRem=0,
@@ -14,34 +14,34 @@ end
 local buttons={
     moveLeft={
         onPress=function()
-            mino.x=MATH.clamp(mino.x-1,1,maxX)
-            mino.charge=0
-            mino.dir=-1
+            sel.x=MATH.clamp(sel.x-1,1,maxX)
+            sel.charge=0
+            sel.dir=-1
         end,
         active=false,
     },
     moveRight={
         onPress=function()
-            mino.x=MATH.clamp(mino.x+1,1,maxX)
-            mino.charge=0
-            mino.dir=1
+            sel.x=MATH.clamp(sel.x+1,1,maxX)
+            sel.charge=0
+            sel.dir=1
         end,
         active=false,
     },
     hardDrop={
         onPress=function()
-            if mino.x==1 then
+            if sel.x==1 then
                 SCN.go('play',nil,'std')
-            elseif mino.x==2 then
+            elseif sel.x==2 then
                 SCN.go('play',nil,'dig')
-            elseif mino.x==3 then
+            elseif sel.x==3 then
                 MSG('info',"Coming soon!")
                 -- SCN.go('play',nil,'vs')
-            elseif mino.x==maxX-2 then
+            elseif sel.x==maxX-2 then
                 SCN.go('about')
-            elseif mino.x==maxX-1 then
+            elseif sel.x==maxX-1 then
                 SCN.go('settings')
-            elseif mino.x==maxX then
+            elseif sel.x==maxX then
                 scene.keyDown('escape')
             end
         end,
@@ -109,37 +109,37 @@ function scene.keyUp(key)
 end
 
 function scene.update(dt)
-    mino.timeRem=mino.timeRem+dt*1000*.8
-    while mino.timeRem>=1 do
-        if mino.charge then
+    sel.timeRem=sel.timeRem+dt*1000*.8
+    while sel.timeRem>=1 do
+        if sel.charge then
             local l,r=buttons.moveLeft.active,buttons.moveRight.active
             if not l and not r then
-                mino.charge=false
+                sel.charge=false
             elseif l~=r then
-                if mino.dir==-1~=l then
-                    mino.charge=0
-                    mino.dir=l and -1 or 1
+                if sel.dir==-1~=l then
+                    sel.charge=0
+                    sel.dir=l and -1 or 1
                 end
             end
         end
-        if mino.charge then
-            mino.charge=mino.charge+1
+        if sel.charge then
+            sel.charge=sel.charge+1
             local SET=CONF.game_brik
-            if mino.charge>=SET.asd and not (mino.dir==-1 and mino.x==1 or mino.dir==1 and mino.x==maxX) then
-                if mino.charge>SET.asd then
+            if sel.charge>=SET.asd and not (sel.dir==-1 and sel.x==1 or sel.dir==1 and sel.x==maxX) then
+                if sel.charge>SET.asd then
                     if SET.asp==0 then
-                        mino.x=mino.dir==-1 and 1 or maxX
+                        sel.x=sel.dir==-1 and 1 or maxX
                     else
-                        if (mino.charge-SET.asd)%SET.asp==0 then
-                            mino.x=MATH.clamp(mino.x+mino.dir,1,maxX)
+                        if (sel.charge-SET.asd)%SET.asp==0 then
+                            sel.x=MATH.clamp(sel.x+sel.dir,1,maxX)
                         end
                     end
                 else
-                    mino.x=MATH.clamp(mino.x+mino.dir,1,maxX)
+                    sel.x=MATH.clamp(sel.x+sel.dir,1,maxX)
                 end
             end
         end
-        mino.timeRem=mino.timeRem-1
+        sel.timeRem=sel.timeRem-1
     end
     noMouseHint=noMouseHint-dt
 end
@@ -159,21 +159,30 @@ function scene.draw()
     GC.mStr(Text.home_help2, 0,260)
 
     -- Options
-    GC.setLineWidth(2)
     local wid,height=170,260
+    GC.setColor(1,1,1,.16)
+    local selX=(sel.x-maxX/2-.5)*wid
+    GC.mRect('fill',selX,0,wid,height)
+    if Text.home_opt[sel.x] then
+        GC.setColor(1,1,1,.42)
+        GC.blurCircle(0, selX, -26, wid*.62)
+    end
+
+    GC.setLineWidth(2)
     FONT.set(50)
     for i=1,maxX do
         local x=(i-maxX/2-.5)*wid
+        GC.setColor(CLR.L)
         GC.mRect('line', x, 0, wid, height)
         if Text.home_opt[i] then
-            -- GC.mDraw(TEX.home_icons[i],x,-40)
-            GC.print("?",x-10,-120,.26,2.6)
+            if sel.x~=i then GC.setShader(SHADER.mono) end
+            GC.mDrawQ(TEX.home_icons,TEX.home_iconQuad[i],x,-26,0,.5)
+            GC.setShader()
+            -- GC.print("?",x-10,-120,.26,2.6)
+            GC.setColor(sel.x==i and CLR.l7 or CLR.d2)
             GC.mStr(Text.home_opt[i],x,50)
         end
     end
-    GC.setColor(1,1,1,.26)
-    local selX=(mino.x-maxX/2-.5)*wid
-    GC.mRect('fill',selX,0,wid,height)
 
     if noMouseHint>0 then
         GC.replaceTransform(SCR.origin)

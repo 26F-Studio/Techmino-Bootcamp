@@ -124,13 +124,12 @@ end
 
 ---@type table<string, love.Shader>
 SHADER={}
-for _,v in next,love.filesystem.getDirectoryItems('assets/shader') do
-    if FILE.isSafe('assets/shader/'..v) then
-        local name=v:sub(1,-6)
-        local suc,res=pcall(love.graphics.newShader,'assets/shader/'..name..'.hlsl')
-        SHADER[name]=suc and res or error("Err in compiling Shader '"..name.."': "..tostring(res))
-    end
-end
+SHADER.mono=GC.newShader[[
+    vec4 effect(vec4 color, sampler2D tex, vec2 texCoord, vec2 scrCoord) {
+        float t=(color.r + color.g + color.b) * .1;
+        return vec4(t, t, t, color.a * texture2D(tex, texCoord).a);
+    }
+]]
 
 for _,v in next,love.filesystem.getDirectoryItems('assets/background') do
     if FILE.isSafe('assets/background/'..v) and v:sub(-3)=='lua' then
