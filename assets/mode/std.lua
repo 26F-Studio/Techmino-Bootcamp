@@ -1,6 +1,6 @@
 local ins=table.insert
 
-local sprintMark={40,100,260} -- 里程碑行数
+local milestones={40,100,260} -- 里程碑行数
 
 local finesseData={
     Z={
@@ -102,7 +102,7 @@ return {
                     mechLib.brik.misc.SL_event_playerInit,
                     function(P)
                         P.modeData.undoDepthLimit=26
-                        P.modeData.lineGoal=sprintMark[1] -- 当前目标行数
+                        P.modeData.lineGoal=milestones[1] -- 当前目标行数
                         P.modeData.timeSplit={}   -- 各里程碑用时
                         P.modeData.lineAnim=0
                         P.modeData.winFlash=0
@@ -180,7 +180,7 @@ return {
                         md.winFlash=1
                         P:addEvent('always',winFlash_event_always)
                         P:addEvent('drawOnPlayer',winFlash_event_drawOnPlayer)
-                        md.lineGoal=TABLE.next(sprintMark,md.lineGoal)
+                        md.lineGoal=TABLE.next(milestones,md.lineGoal)
                         if not md.lineGoal then return true end
                     end
                 end,
