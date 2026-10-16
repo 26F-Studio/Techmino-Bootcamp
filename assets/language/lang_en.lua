@@ -21,8 +21,9 @@ local L={
     pause_resume="Resume",
     pause_settings="Settings",
 
-    settings_keyMapping="Key Mapping",
+    settings_force180="Force 180° rotation",
     settings_fullscreen="Fullscreen",
+    settings_keyMapping="Key Mapping",
     settings_mainVol="Main Volume",
     settings_bgm="BGM",
     settings_sfx="SFX",
@@ -51,6 +52,7 @@ local L={
     },
 
     std_line="Lines",
+    std_dig="Dig",
     std_piece="Pieces",
     std_key="Keys",
     std_kpp="Keys per Piece",

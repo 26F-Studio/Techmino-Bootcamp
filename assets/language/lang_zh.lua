@@ -21,8 +21,9 @@ local L={
     pause_resume="继续",
     pause_settings="设置",
 
-    settings_keyMapping="按键设置",
+    settings_force180="强制180°旋转",
     settings_fullscreen="全屏",
+    settings_keyMapping="按键设置",
     settings_mainVol="主音量",
     settings_bgm="背景音乐",
     settings_sfx="音效",
@@ -51,6 +52,7 @@ local L={
     },
 
     std_line="总行数",
+    std_dig="挖掘行数",
     std_piece="总块数",
     std_key="总按键数",
     std_kpp="按键/块",

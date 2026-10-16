@@ -2,6 +2,7 @@ local conf={
     _system={ -- We just save values here, do not change them directly.
         fullscreen=true,
         locale=(os.getenv('LANG') or 'en'):find('^zh') and 'zh' or 'en',
+        force180=false,
     },
     game_brik={
         asd=100,
