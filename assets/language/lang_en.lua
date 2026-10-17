@@ -62,9 +62,9 @@ local L={
     std_spawn="Spawns",
     std_movSeq="MovSeq",
     std_movCnt="Moves",
-    std_neat="NeatDrops",
+    std_neat="Neat Drops",
     std_mpp="Moves per Neat Drop",
-    std_dropRate="Harddrop Rate",
+    std_dropRate="Neat Drop Rate",
 
     about_title="About",
     about_text={

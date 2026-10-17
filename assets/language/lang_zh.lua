@@ -60,11 +60,11 @@ local L={
     std_fault="失误数",
     std_overCnt="多余操作数",
     std_spawn="生成块数",
-    std_movSeq="当前操作序列",
+    std_movSeq="操作序列",
     std_movCnt="操作数",
     std_neat="速降块数",
     std_mpp="操作/速降块数",
-    std_dropRate="硬降率",
+    std_dropRate="速降率",
 
     about_title="关于",
     about_text={
