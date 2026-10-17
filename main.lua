@@ -126,8 +126,9 @@ end
 SHADER={}
 SHADER.mono=GC.newShader[[
     vec4 effect(vec4 color, sampler2D tex, vec2 texCoord, vec2 scrCoord) {
-        float t=(color.r + color.g + color.b) * .1;
-        return vec4(t, t, t, color.a * texture2D(tex, texCoord).a);
+        vec4 samp = texture2D(tex, texCoord);
+        float t = (samp.r + samp.g + samp.b) / 3.0;
+        return vec4(t, t, t, samp.a * color.a);
     }
 ]]
 
