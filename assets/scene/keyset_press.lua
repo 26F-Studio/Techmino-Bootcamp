@@ -51,6 +51,8 @@ end
 
 function scene.draw()
     SCN.scenes.keyset.draw()
+    GC.replaceTransform(SCR.xOy)
+    WIDGET.draw(SCN.scenes.keyset.widgetList)
 
     GC.origin()
     GC.setColor(.42,.42,.42,escTimer and escTimer*.7 or bgAlpha)

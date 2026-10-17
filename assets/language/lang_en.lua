@@ -21,6 +21,7 @@ local L={
     pause_resume="Resume",
     pause_settings="Settings",
 
+    settings_locale="我不懂中文",
     settings_force180="Force 180° rotation",
     settings_fullscreen="Fullscreen",
     settings_keyMapping="Key Mapping",

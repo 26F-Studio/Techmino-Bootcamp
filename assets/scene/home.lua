@@ -40,7 +40,7 @@ local buttons={
             elseif sel.x==maxX-2 then
                 SCN.go('about')
             elseif sel.x==maxX-1 then
-                SCN.go('settings')
+                SCN.go('keyset')
             elseif sel.x==maxX then
                 scene.keyDown('escape')
             end

@@ -21,6 +21,7 @@ local L={
     pause_resume="继续",
     pause_settings="设置",
 
+    settings_locale="I know English",
     settings_force180="强制180°旋转",
     settings_fullscreen="全屏",
     settings_keyMapping="按键设置",
@@ -28,8 +29,8 @@ local L={
     settings_bgm="背景音乐",
     settings_sfx="音效",
 
-    settings_hint_asd="（长按移动的）启动延迟\n旧称DAS",
-    settings_hint_asp="（长按移动的）重复周期\n旧称ARR\n注：本游戏中软降重复周期和ASP同步",
+    settings_hint_asd="（长按移动的）启动延迟，旧称DAS",
+    settings_hint_asp="（长按移动的）重复周期，旧称ARR\n注：本游戏中ADP（软降重复周期）和ASP同步",
 
     keyset_reset="重置",
     keyset_pressKey="按下要设置的键",

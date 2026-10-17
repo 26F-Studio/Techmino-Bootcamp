@@ -42,15 +42,15 @@ end
 
 local f=false
 local buttons={
-    {x=-2.25,y=-3,cat='sys', act='restart',  onPress=function() restart() end},
-    {x=-2.25,y=-2,cat='sys', act='back',     onPress=function() end},
+    {x=-2.25,y=0,cat='sys', act='restart',  onPress=function() restart() end},
+    {x=-2.25,y=1,cat='sys', act='back',     onPress=function() end},
 
-    {x=-1,   y=-3,cat='game',act='rotateCCW',onPress=function() mino.rotation=(mino.rotation-1)%4 end},
-    {x=0,    y=-3,cat='game',act='rotate180',onPress=function() mino.rotation=(mino.rotation+2)%4 end},
-    {x=1,    y=-3,cat='game',act='rotateCW', onPress=function() mino.rotation=(mino.rotation+1)%4 end},
+    {x=-1,   y=0,cat='game',act='rotateCCW',onPress=function() mino.rotation=(mino.rotation-1)%4 end},
+    {x=0,    y=0,cat='game',act='rotate180',onPress=function() mino.rotation=(mino.rotation+2)%4 end},
+    {x=1,    y=0,cat='game',act='rotateCW', onPress=function() mino.rotation=(mino.rotation+1)%4 end},
     {
         x=-1,
-        y=-2,
+        y=1,
         cat='game',
         act='moveLeft',
         onPress=function()
@@ -61,7 +61,7 @@ local buttons={
     },
     {
         x=0,
-        y=-2,
+        y=1,
         cat='game',
         act='holdPiece',
         onPress=function()
@@ -71,7 +71,7 @@ local buttons={
     },
     {
         x=1,
-        y=-2,
+        y=1,
         cat='game',
         act='moveRight',
         onPress=function()
@@ -80,9 +80,9 @@ local buttons={
             mino.dir=1
         end,
     },
-    {x=-1,y=-1,cat='game',act='func1',   onPress=function() end},
-    {x=0, y=-1,cat='game',act='softDrop',onPress=function() mino.softDropTime=love.timer.getTime() end},
-    {x=1, y=-1,cat='game',act='hardDrop',onPress=function() end},
+    {x=-1,y=2,cat='game',act='func1',   onPress=function() end},
+    {x=0, y=2,cat='game',act='softDrop',onPress=function() mino.softDropTime=love.timer.getTime() end},
+    {x=1, y=2,cat='game',act='hardDrop',onPress=function() end},
 }
 local a=180
 for i=1,#buttons do
@@ -107,6 +107,9 @@ function scene.unload()
             game=KM.game:export(),
             sys=KM.sys:export(),
         },'conf/keymap','-json')
+    end
+    if SCN.stackChange<0 then
+        SaveConf()
     end
 end
 
@@ -173,7 +176,7 @@ function scene.draw()
     GC.origin()
     GC.setColor(0,0,0,.42)
     GC.rectangle('fill',0,0,SCR.w,SCR.h)
-    GC.replaceTransform(SCR.xOy_d)
+    GC.replaceTransform(SCR.xOy_m)
     GC.setLineWidth(4)
     FONT.set(35)
     for i=1,#buttons do
@@ -194,8 +197,7 @@ function scene.draw()
     end
 
     -- Demo
-    GC.replaceTransform(SCR.xOy_u)
-    GC.translate(0,20)
+    GC.translate(0,-460)
     local w=40
     -- Board
     GC.setColor(COLOR.D)
@@ -218,7 +220,26 @@ function scene.draw()
     GC.strokePrint('full',3,COLOR.D,COLOR.L,rotText[mino.rotation],0,0,2*w,'center',0,2,2,w/2,20)
 end
 
+local function sliderShow_time(S) return S.disp().." ms" end
+
 scene.widgetList={
+    -- Settings
+    WIDGET.new{type='slider',x=160,y=260,w=420,text="ASD",axis={60,160,5},unit=10,disp=TABLE.func_getVal(CONF.game_brik,'asd'),valueShow=sliderShow_time,code=TABLE.func_setVal(CONF.game_brik,'asd')},
+    WIDGET.new{type='slider',x=160,y=350,w=260,text="ASP",axis={0,15,5},disp=TABLE.func_getVal(CONF.game_brik,'asp'),valueShow=sliderShow_time,
+        code=function(v)
+            CONF.game_brik.asp=v
+            CONF.game_brik.adp=v
+        end},
+    WIDGET.new{type='hint',x=40,y=260,floatText=LANG'settings_hint_asd',text="?"},
+    WIDGET.new{type='hint',x=40,y=350,floatText=LANG'settings_hint_asp',text="?"},
+
+    WIDGET.new{type='checkBox',x=60,y=500,w=40,labelPos='right',text=LANG'settings_locale',disp=function() return CONF.system.locale=='en' end,code=function()
+        CONF.system.locale=CONF.system.locale=='en' and 'zh' or 'en'
+        WIDGET._reset()
+    end},
+    WIDGET.new{type='checkBox',x=60,y=590,w=40,labelPos='right',text=LANG'settings_force180',disp=TABLE.func_getVal(CONF.system,'force180'),code=TABLE.func_revVal(CONF.system,'force180')},
+    WIDGET.new{type='checkBox',x=60,y=680,w=40,labelPos='right',text=LANG'settings_fullscreen',disp=TABLE.func_getVal(CONF.system,'fullscreen'),code=TABLE.func_revVal(CONF.system,'fullscreen')},
+
     WIDGET.new{type='button',pos={1,1},x=-CornerButtonX[2],y=-80,w=140,h=80,text=LANG'keyset_reset',onClick=function() if SureCheck('keyset_reset') then resetKeymap() end end},
     BackButtonBR,
 }
@@ -227,7 +248,7 @@ for i=1,#buttons do
     local b=buttons[i]
     table.insert(scene.widgetList,WIDGET.new{
         type='hint',
-        pos={.5,1},
+        pos={.5,.5},
         x=b.x,y=b.y,w=a-20,h=a-20,
         text="",frameColor='X',
         floatText=LANG('keysetHint_'..b.cat..'_'..b.act),

@@ -22,7 +22,7 @@ local function menuAct(action)
     elseif action=='restart' then
         SCN.swapTo('play','none',GAME.mode.name)
     elseif action=='settings' then
-        SCN.go('settings')
+        SCN.go('keyset')
     end
 end
 function scene.keyDown(key,isRep)
