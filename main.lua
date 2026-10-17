@@ -138,8 +138,7 @@ for _,v in next,love.filesystem.getDirectoryItems('assets/background') do
         BG.add(name,FILE.load('assets/background/'..v,'-lua'))
     end
 end
-BG.setDefault('matrix')
-BG.set()
+BG.set('image')
 
 for _,v in next,love.filesystem.getDirectoryItems('assets/scene') do
     if FILE.isSafe('assets/scene/'..v) then
