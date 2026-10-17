@@ -21,8 +21,10 @@ function scene.draw()
     FONT.set(40)
     GC.print(Text.about_title,120,90,0,2.6)
     for i=1,#Text.about_text do
-        GC.print(Text.about_text[i],120,200+60*i)
+        GC.print(Text.about_text[i],120,230+60*i)
     end
+
+    GC_UIframe(false,80,260,1600-80*2,540)
 end
 
 scene.widgetList={

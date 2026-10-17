@@ -203,6 +203,9 @@ function scene.draw()
         GC.setColor(1,1,1,noMouseHint)
         GC.mStr(Text.home_no_mouse,0,-126)
     end
+
+    GC.replaceTransform(SCR.xOy)
+    GC_UIframe(true,800,880,1420,160)
 end
 
 return scene

@@ -46,3 +46,17 @@ function SetSafeEnv(func)
     sandBoxEnv.mechLib=mechLib -- Update in case it changes during game
     setfenv(func,TABLE.copyAll(sandBoxEnv))
 end
+
+function GC_UIframe(mid,x,y,w,h)
+    GC.setColor(.8,.7,.6,.62)
+    GC.setLineWidth(4)
+    if mid then x,y=x-w/2,y-h/2 end
+    GC.rectangle('line',x,y,w,h,20)
+    GC.arc('fill','open',x+w-20,y+20,15,0,-1.5708)
+    GC.polygon('fill',
+        x+w-20-15,y+20-15,
+        x+w-20,y+20-15,
+        x+w-20+15,y+20,
+        x+w-20+15,y+20+15
+    )
+end
