@@ -268,15 +268,15 @@ scene.widgetList={
             CONF.game_brik.asp=v
             CONF.game_brik.adp=v
         end},
-    WIDGET.new{type='hint',x=940,y=320,floatText=LANG'settings_hint_asd',text="?"},
-    WIDGET.new{type='hint',x=940,y=410,floatText=LANG'settings_hint_asp',text="?"},
+    WIDGET.new{type='hint',x=940,y=320,floatText=LANG'config_hint_asd',text="?"},
+    WIDGET.new{type='hint',x=940,y=410,floatText=LANG'config_hint_asp',text="?"},
 
-    WIDGET.new{type='checkBox',x=1026,y=560,w=40,labelPos='right',text=LANG'settings_locale',disp=function() return CONF.system.locale=='en' end,code=function()
+    WIDGET.new{type='checkBox',x=1026,y=560,w=40,labelPos='right',text=LANG'config_locale',disp=function() return CONF.system.locale=='en' end,code=function()
         CONF.system.locale=CONF.system.locale=='en' and 'zh' or 'en'
         WIDGET._reset()
     end},
-    WIDGET.new{type='checkBox',x=1026,y=650,w=40,labelPos='right',text=LANG'settings_force180',disp=TABLE.func_getVal(CONF.system,'force180'),code=TABLE.func_revVal(CONF.system,'force180')},
-    WIDGET.new{type='checkBox',x=1026,y=740,w=40,labelPos='right',text=LANG'settings_fullscreen',disp=TABLE.func_getVal(CONF.system,'fullscreen'),code=TABLE.func_revVal(CONF.system,'fullscreen')},
+    WIDGET.new{type='checkBox',x=1026,y=650,w=40,labelPos='right',text=LANG'config_force180',disp=TABLE.func_getVal(CONF.system,'force180'),code=TABLE.func_revVal(CONF.system,'force180')},
+    WIDGET.new{type='checkBox',x=1026,y=740,w=40,labelPos='right',text=LANG'config_fullscreen',disp=TABLE.func_getVal(CONF.system,'fullscreen'),code=TABLE.func_revVal(CONF.system,'fullscreen')},
 
     WIDGET.new{type='button',pos={1,1},x=-CornerButtonX[2],y=-80,w=140,h=80,text=LANG'keyset_reset',onClick=function() if SureCheck('keyset_reset') then resetKeymap() end end},
     BackButtonBR,

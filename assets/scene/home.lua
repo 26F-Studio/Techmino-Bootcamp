@@ -81,12 +81,16 @@ function scene.unload()
     end
 end
 
+function scene.mouseMove()
+    if noMouseHint<0 then noMouseHint=0 end
+end
 function scene.mouseDown()
     noMouseHint=1.62
 end
 
 function scene.keyDown(key,isRep)
     if isRep then return true end
+    noMouseHint=-1e99
     if KM.sys:getAction(key)=='back' then
         if SureCheck('quit') then SCN.back('slowFade') end
     else
@@ -142,7 +146,7 @@ function scene.update(dt)
         end
         sel.timeRem=sel.timeRem-1
     end
-    noMouseHint=math.max(noMouseHint-dt,0)
+    if noMouseHint>0 then noMouseHint=noMouseHint-dt end
 end
 
 function scene.draw()

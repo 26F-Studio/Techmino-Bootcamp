@@ -21,16 +21,16 @@ local L={
     pause_resume="Resume",
     pause_settings="Settings",
 
-    settings_locale="我不懂中文",
-    settings_force180="Force 180° rotation",
-    settings_fullscreen="Fullscreen",
-    settings_keyMapping="Key Mapping",
-    settings_mainVol="Main Volume",
-    settings_bgm="BGM",
-    settings_sfx="SFX",
+    config_locale="我不懂中文",
+    config_force180="Force 180° rotation",
+    config_fullscreen="Fullscreen",
+    config_keyMapping="Key Mapping",
+    config_mainVol="Main Volume",
+    config_bgm="BGM",
+    config_sfx="SFX",
 
-    settings_hint_asd="Auto Shift Delay\nCalled DAS before",
-    settings_hint_asp="Auto Shift Period\nCalled ARR before\nNote: Soft Drop Period is synced with ASP in this game",
+    config_hint_asd="Auto Shift Delay\nCalled DAS before",
+    config_hint_asp="Auto Shift Period\nCalled ARR before\nNote: Soft Drop Period is synced with ASP in this game",
 
     keyset_reset="Reset",
     keyset_pressKey="Press a key",
@@ -74,7 +74,7 @@ local L={
         "Design & Program: MrZ",
         "Art: 莉亚法娜",
         "",
-        "Initial Concept: 大叔Rex",
+        "Early Concept: 大叔Rex",
     },
 }
 return L

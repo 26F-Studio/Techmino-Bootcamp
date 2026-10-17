@@ -21,16 +21,16 @@ local L={
     pause_resume="继续",
     pause_settings="设置",
 
-    settings_locale="I know English",
-    settings_force180="强制180°旋转",
-    settings_fullscreen="全屏",
-    settings_keyMapping="按键设置",
-    settings_mainVol="主音量",
-    settings_bgm="背景音乐",
-    settings_sfx="音效",
+    config_locale="I know English",
+    config_force180="强制180°旋转",
+    config_fullscreen="全屏",
+    config_keyMapping="按键设置",
+    config_mainVol="主音量",
+    config_bgm="背景音乐",
+    config_sfx="音效",
 
-    settings_hint_asd="（长按移动的）启动延迟，旧称DAS",
-    settings_hint_asp="（长按移动的）重复周期，旧称ARR\n注：本游戏中ADP（软降重复周期）和ASP同步",
+    config_hint_asd="（长按移动的）启动延迟，旧称DAS",
+    config_hint_asp="（长按移动的）重复周期，旧称ARR\n注：本游戏中ADP（软降重复周期）和ASP同步",
 
     keyset_reset="重置",
     keyset_pressKey="按下要设置的键",
@@ -74,7 +74,7 @@ local L={
         "设计、程序：MrZ",
         "美术：莉亚法娜",
         "",
-        "初始概念：大叔Rex",
+        "初期概念：大叔Rex",
     },
 }
 return L
