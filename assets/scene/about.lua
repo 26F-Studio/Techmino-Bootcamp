@@ -24,6 +24,7 @@ function scene.draw()
         GC.print(Text.about_text[i],120,230+60*i)
     end
 
+    GC_UIframe(false,80,90,620,140)
     GC_UIframe(false,80,260,1600-80*2,540)
 end
 

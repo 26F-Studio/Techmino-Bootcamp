@@ -55,8 +55,8 @@ function GC_UIframe(mid,x,y,w,h)
     GC.arc('fill','open',x+w-20,y+20,15,0,-1.5708)
     GC.polygon('fill',
         x+w-20-15,y+20-15,
-        x+w-20,y+20-15,
-        x+w-20+15,y+20,
+        x+w-20-5,y+20-15,
+        x+w-20+15,y+20+5,
         x+w-20+15,y+20+15
     )
 end

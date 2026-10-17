@@ -214,8 +214,8 @@ function scene.draw()
     for i=1,#buttons do
         local b=buttons[i]
         if b.active then
-            GC.setColor(0,0,0,.26)
-            GC.mRect('fill',b.x,b.y,160,160)
+            GC.setColor(1,1,1,.26)
+            GC.blurCircle(0,b.x,b.y,100)
         end
         GC.setColor(CLR.L)
         GC.mRect('line',b.x,b.y,160,160,10)
@@ -234,7 +234,7 @@ function scene.draw()
         local w=40
         -- Board
         GC_UIframe(false,-5*w-10,-10,10*w+20,8*w+40)
-        GC.setColor(CLR.lD)
+        GC.setColor(.26,.26,.26,.42)
         GC.rectangle('fill',-5*w,0,10*w,8*w+20,6)
         -- Grid line
         GC.setLineWidth(2)
