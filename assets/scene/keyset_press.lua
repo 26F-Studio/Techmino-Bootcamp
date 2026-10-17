@@ -50,9 +50,9 @@ function scene.update(dt)
 end
 
 function scene.draw()
-    SCN.scenes.keyset.draw()
+    SCN.scenes.config.draw()
     GC.replaceTransform(SCR.xOy)
-    WIDGET.draw(SCN.scenes.keyset.widgetList)
+    WIDGET.draw(SCN.scenes.config.widgetList)
 
     GC.origin()
     GC.setColor(.42,.42,.42,escTimer and escTimer*.7 or bgAlpha)

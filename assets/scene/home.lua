@@ -40,7 +40,7 @@ local buttons={
             elseif sel.x==maxX-2 then
                 SCN.go('about')
             elseif sel.x==maxX-1 then
-                SCN.go('keyset')
+                SCN.go('config')
             elseif sel.x==maxX then
                 scene.keyDown('escape')
             end
@@ -188,10 +188,11 @@ function scene.draw()
         GC.replaceTransform(SCR.origin)
         GC.translate(love.mouse.getPosition())
         GC.scale(SCR.k)
-        GC.setLineWidth(26)
-        GC.setColor(1,0,0,noMouseHint)
-        GC.line(-62,-62,62,62)
-        GC.line(-62,62,62,-62)
+        GC.setLineWidth(16)
+        GC.setColor(1,.42,.42,noMouseHint)
+        GC.circle('line',0,0,62)
+        local r=36
+        GC.line(-r,-r,r,r)
 
         GC.replaceTransform(SCR.xOy_m)
         FONT.set(100)

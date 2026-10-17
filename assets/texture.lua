@@ -25,6 +25,14 @@ TEX.home_iconQuad={
     GC.newQuad(2040/6*5,0,2040/6,400,2040,400),
 }
 
+TEX.z={
+    normal='assets/image/z_normal.png',
+    question='assets/image/z_question.png',
+    shy='assets/image/z_shy.png',
+    angry='assets/image/z_angry.png',
+    nervous='assets/image/z_nervous.png',
+}
+
 -- Control icons
 TEX.actionIcons={
     texture=GC.initCanvas(720,540,function()

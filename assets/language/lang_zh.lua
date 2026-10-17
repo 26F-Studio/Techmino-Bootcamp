@@ -1,7 +1,7 @@
 ---@class Techmino.I18N
 local L={
     back="返回",
-    home_no_mouse="主菜单仅支持键盘操作！",
+    home_no_mouse="主页仅支持键盘操作！",
     home_help1="按[ $1 ]和[ $2 ]移动，[ $3 ]确认，按键可以在设置中更改",
     home_help2="尝试利用长按来减少单点的次数！这是提升落块速度的基础",
     home_opt={

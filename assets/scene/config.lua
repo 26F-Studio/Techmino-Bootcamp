@@ -5,6 +5,11 @@ local rotText={[0]='0','R','2','L'}
 local mino ---@type Techmino.KeysetMino
 local changed
 
+local moodList={'shy','angry','nervous'}
+local zMood='normal' ---@type 'normal' | 'shy' | 'angry' | 'nervous'
+local zPower=0
+local zAnim=0
+
 local function restart()
     ---@class Techmino.KeysetMino
     ---@field charge false | integer
@@ -93,6 +98,8 @@ for i=1,#buttons do
 end
 
 function scene.load()
+    zMood='normal'
+    zPower=0
     if SCN.stackChange>0 then
         changed=false
         restart()
@@ -113,8 +120,29 @@ function scene.unload()
     end
 end
 
+local function task_zAnim(t) zAnim=1-t end
+local function pet()
+    zPower=math.min(zPower+1,6.26)
+    if zMood=='normal' then
+        if zPower>4.2 then
+            zMood=TABLE.getRandom(moodList)
+        end
+    end
+    TWEEN.new(task_zAnim):setUnique('zAnim'):setDuration(.62):setEase('OutElastic'):run()
+end
+
+function scene.mouseDown(x,y)
+    x,y=SCR.xOy_ur:inverseTransformPoint(SCR.xOy:transformPoint(x,y))
+    if x>=-456*.6 and y<=420*.6 then
+        pet()
+    end
+end
+
 function scene.keyDown(key,isRep)
     if isRep then return true end
+    if key=='space' then
+        pet()
+    end
     if KM.sys:getAction(key)=='back' then
         SFX.play('button_back')
         SCN.back()
@@ -138,6 +166,10 @@ function scene.keyUp(key)
 end
 
 function scene.update(dt)
+    zPower=zPower-dt*1.26
+    if zMood~='normal' and zPower<2.6 then
+        zMood='normal'
+    end
     mino.timeRem=mino.timeRem+dt*1000
     while mino.timeRem>=1 do
         if mino.charge then
@@ -177,6 +209,7 @@ function scene.draw()
     GC.setColor(0,0,0,.42)
     GC.rectangle('fill',0,0,SCR.w,SCR.h)
     GC.replaceTransform(SCR.xOy_m)
+    GC.translate(-300,0)
     GC.setLineWidth(4)
     FONT.set(35)
     for i=1,#buttons do
@@ -218,27 +251,32 @@ function scene.draw()
     GC.rectangle('fill',-w,-w,2*w,2*w)
     FONT.set(30)
     GC.strokePrint('full',3,COLOR.D,COLOR.L,rotText[mino.rotation],0,0,2*w,'center',0,2,2,w/2,20)
+
+    GC.replaceTransform(SCR.xOy_ur)
+    GC.setColor(1,1,1)
+    local w,h=456,420
+    GC.draw(TEX.z[(WIDGET.sel==scene.widgetList[3] or WIDGET.sel==scene.widgetList[4]) and 'question' or zMood],-w/2*.5,0,3.1416,zAnim*.0626+.6,-zAnim*.0626+.6,w/2,h)
 end
 
 local function sliderShow_time(S) return S.disp().." ms" end
 
 scene.widgetList={
     -- Settings
-    WIDGET.new{type='slider',x=160,y=260,w=420,text="ASD",axis={60,160,5},unit=10,disp=TABLE.func_getVal(CONF.game_brik,'asd'),valueShow=sliderShow_time,code=TABLE.func_setVal(CONF.game_brik,'asd')},
-    WIDGET.new{type='slider',x=160,y=350,w=260,text="ASP",axis={0,15,5},disp=TABLE.func_getVal(CONF.game_brik,'asp'),valueShow=sliderShow_time,
+    WIDGET.new{type='slider',x=1060,y=320,w=460,text="ASD",axis={60,160,5},unit=10,disp=TABLE.func_getVal(CONF.game_brik,'asd'),valueShow=sliderShow_time,code=TABLE.func_setVal(CONF.game_brik,'asd')},
+    WIDGET.new{type='slider',x=1060,y=410,w=320,text="ASP",axis={0,15,5},disp=TABLE.func_getVal(CONF.game_brik,'asp'),valueShow=sliderShow_time,
         code=function(v)
             CONF.game_brik.asp=v
             CONF.game_brik.adp=v
         end},
-    WIDGET.new{type='hint',x=40,y=260,floatText=LANG'settings_hint_asd',text="?"},
-    WIDGET.new{type='hint',x=40,y=350,floatText=LANG'settings_hint_asp',text="?"},
+    WIDGET.new{type='hint',x=940,y=320,floatText=LANG'settings_hint_asd',text="?"},
+    WIDGET.new{type='hint',x=940,y=410,floatText=LANG'settings_hint_asp',text="?"},
 
-    WIDGET.new{type='checkBox',x=60,y=500,w=40,labelPos='right',text=LANG'settings_locale',disp=function() return CONF.system.locale=='en' end,code=function()
+    WIDGET.new{type='checkBox',x=1026,y=560,w=40,labelPos='right',text=LANG'settings_locale',disp=function() return CONF.system.locale=='en' end,code=function()
         CONF.system.locale=CONF.system.locale=='en' and 'zh' or 'en'
         WIDGET._reset()
     end},
-    WIDGET.new{type='checkBox',x=60,y=590,w=40,labelPos='right',text=LANG'settings_force180',disp=TABLE.func_getVal(CONF.system,'force180'),code=TABLE.func_revVal(CONF.system,'force180')},
-    WIDGET.new{type='checkBox',x=60,y=680,w=40,labelPos='right',text=LANG'settings_fullscreen',disp=TABLE.func_getVal(CONF.system,'fullscreen'),code=TABLE.func_revVal(CONF.system,'fullscreen')},
+    WIDGET.new{type='checkBox',x=1026,y=650,w=40,labelPos='right',text=LANG'settings_force180',disp=TABLE.func_getVal(CONF.system,'force180'),code=TABLE.func_revVal(CONF.system,'force180')},
+    WIDGET.new{type='checkBox',x=1026,y=740,w=40,labelPos='right',text=LANG'settings_fullscreen',disp=TABLE.func_getVal(CONF.system,'fullscreen'),code=TABLE.func_revVal(CONF.system,'fullscreen')},
 
     WIDGET.new{type='button',pos={1,1},x=-CornerButtonX[2],y=-80,w=140,h=80,text=LANG'keyset_reset',onClick=function() if SureCheck('keyset_reset') then resetKeymap() end end},
     BackButtonBR,
@@ -249,7 +287,7 @@ for i=1,#buttons do
     table.insert(scene.widgetList,WIDGET.new{
         type='hint',
         pos={.5,.5},
-        x=b.x,y=b.y,w=a-20,h=a-20,
+        x=b.x-300,y=b.y,w=a-20,h=a-20,
         text="",frameColor='X',
         floatText=LANG('keysetHint_'..b.cat..'_'..b.act),
         labelPos='top',
