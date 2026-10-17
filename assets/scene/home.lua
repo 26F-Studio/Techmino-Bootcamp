@@ -1,6 +1,7 @@
 ---@type Zenitha.Scene
 local scene={}
 
+local noMouseHint=0
 local maxX=9
 local sel
 local function restart()
@@ -65,6 +66,7 @@ local function getHintKey(action,fallback)
 end
 
 function scene.load()
+    noMouseHint=0
     restart()
     helpText:set(Text.home_help1:repD(
         getHintKey('moveLeft','left'),
@@ -79,7 +81,6 @@ function scene.unload()
     end
 end
 
-local noMouseHint=0
 function scene.mouseDown()
     noMouseHint=1.62
 end
@@ -141,7 +142,7 @@ function scene.update(dt)
         end
         sel.timeRem=sel.timeRem-1
     end
-    noMouseHint=noMouseHint-dt
+    noMouseHint=math.max(noMouseHint-dt,0)
 end
 
 function scene.draw()
@@ -184,16 +185,15 @@ function scene.draw()
         end
     end
 
+    GC.replaceTransform(SCR.origin)
+    GC.translate(love.mouse.getPosition())
+    GC.scale(SCR.k)
+    GC.setLineWidth(16)
+    GC.setColor(1,.42,.42,.06+noMouseHint)
+    GC.circle('line',0,0,62)
+    local r=36
+    GC.line(-r,-r,r,r)
     if noMouseHint>0 then
-        GC.replaceTransform(SCR.origin)
-        GC.translate(love.mouse.getPosition())
-        GC.scale(SCR.k)
-        GC.setLineWidth(16)
-        GC.setColor(1,.42,.42,noMouseHint)
-        GC.circle('line',0,0,62)
-        local r=36
-        GC.line(-r,-r,r,r)
-
         GC.replaceTransform(SCR.xOy_m)
         FONT.set(100)
         GC.setColor(1,1,1,noMouseHint)
