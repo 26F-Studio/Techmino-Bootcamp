@@ -142,8 +142,8 @@ do
 
     function bg.event(page)
         pos=
-            page=='home' and 0 or
             page=='about' and 1 or
+            page=='home' and 0 or
             page=='config' and -1 or
             0
     end
@@ -152,13 +152,50 @@ do
         pos1=MATH.expApproach(pos1,pos,dt*1.626)
     end
 
+    local colorU=TABLE.transpose{
+        {CLR.HEX('03184C')},
+        {CLR.HEX('040319')},
+        {CLR.HEX('000311')},
+    }
+    local colorD=TABLE.transpose{
+        {CLR.HEX('4C483B')},
+        {CLR.HEX('31193F')},
+        {CLR.HEX('020A11')},
+    }
     function bg.draw()
-        GC.clear(0,0,0)
+        GC.clear(
+            MATH.lLerp(colorD[1],(pos1+1)/2),
+            MATH.lLerp(colorD[2],(pos1+1)/2),
+            MATH.lLerp(colorD[3],(pos1+1)/2)
+        )
+        GC.setColor(
+            MATH.lLerp(colorU[1],(pos1+1)/2),
+            MATH.lLerp(colorU[2],(pos1+1)/2),
+            MATH.lLerp(colorU[3],(pos1+1)/2)
+        )
+        GC.draw(TEX.transition,0,0,1.5708,SCR.h/128,SCR.w,0,1)
+
         GC.translate(SCR.w/2,SCR.h/2)
         GC.scale(SCR.w/SCR.w0)
-        GC.translate(-800,pos1*SCR.h0-1500)
-        -- 1600 x 3000
-        -- TODO
+
+        -- 1600 x 1000
+        GC.setBlendMode('add')
+        do
+            -- Star
+            GC.setColor(1,1,1)
+            local t=love.timer.getTime()/26
+            TEX.bg_star_quad:setViewport(26*math.sin(t*2.6),12*math.cos(t)-pos1*62,1600,1000,1600,1000)
+            GC.mDrawQ(TEX.bg_star,TEX.bg_star_quad)
+            -- Cloud
+            GC.setColor(.62,.62,.62,MATH.clampInterpolate(-.26,.62,.62,0,pos1))
+            GC.mDraw(TEX.bg_cloud,0,500+900*pos1,0,1600/2880)
+            -- Galaxy
+            if pos1>.026 then
+                GC.setColor(.62,.62,.62,pos1)
+                GC.mDraw(TEX.bg_galaxy,0,260*(pos1-.62),0,1600/1920*1.26)
+            end
+        end
+        GC.setBlendMode('alpha')
     end
 
     BG.add('menu',bg)
@@ -170,6 +207,7 @@ for _,v in next,love.filesystem.getDirectoryItems('assets/scene') do
         SCN.add(sceneName,FILE.load('assets/scene/'..v,'-lua'))
     end
 end
+SCN.setDefaultSwap('none')
 
 SKIN.add('brik_template',FILE.load('assets/skin/template.lua','-lua'))
 GAME.addMode('std','assets/mode/std.lua')

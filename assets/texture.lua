@@ -12,6 +12,18 @@ TEX.home_title={
     en='assets/image/title_en.png',
 }
 
+TEX.bg_star=GC.initCanvas(1600,1000,function()
+    local setCL,circ,rand=GC.setColor,GC.circle,math.random
+    for _=1,6200 do
+        setCL(1,1,1,.2+rand()^2)
+        circ('fill',rand(1600)-1,rand(1000)-1,.2+.6*rand())
+    end
+end)
+TEX.bg_star:setWrap('repeat', 'repeat')
+TEX.bg_star_quad=GC.newQuad(0,0,1600,1000,TEX.bg_star)
+TEX.bg_cloud='assets/image/cloud.png'   -- 2880x2000
+TEX.bg_galaxy='assets/image/galaxy.jpg' -- 1920x1196
+
 TEX.home_icons='assets/image/home_icons.png'
 TEX.home_iconQuad={
     GC.newQuad(2040/6*0,0,2040/6,400,2040,400),
