@@ -2,7 +2,7 @@
 local L={
     back="Back",
     home_no_mouse="Home page is Keyboard-Only!",
-    home_help1="[ $1 ] and [ $2 ] to move, [ $3 ] to confirm. Change keybinding in settings",
+    home_help1="[ $1 ] and [ $2 ] to select, [ $3 ] to confirm. Change keybinding in settings",
     home_help2="Try optimizing input with long press! This is the basis of high-speed gaming.",
     home_opt={
         "STD",
