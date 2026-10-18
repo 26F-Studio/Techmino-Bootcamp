@@ -188,8 +188,7 @@ function scene.draw()
             GC.mDrawQ(TEX.home_icons,TEX.home_iconQuad[i],x,-26,0,.5)
             GC.setShader()
             -- GC.print("?",x-10,-120,.26,2.6)
-            GC.setColor(sel.x==i and CLR.l7 or CLR.d2)
-            GC.mStr(Text.home_opt[i],x,50)
+            GC.strokePrint('full',2,CLR.d5,sel.x==i and CLR.l7 or CLR.d2,Text.home_opt[i],x,50,600,'center')
         end
     end
 
