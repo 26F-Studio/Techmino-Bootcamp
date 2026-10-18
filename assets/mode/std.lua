@@ -9,13 +9,13 @@ local statD=48
 
 local flashClr={1,1,1}
 local function flash_event_drawOnPlayer(P)
-    local a=1-(P.time-P.modeData.flashTime)/384.626
+    local a=MATH.clampInterpolate(0,.8,620,0,P.time-P.modeData.flashTime)
     GC.setColor(flashClr[1],flashClr[2],flashClr[3],a*.62)
     GC.mRect('fill',0,0,400,800)
     return a<=0
 end
 local function onFault(P)
-    P.modeData.flashTime=P.time
+    P.modeData.flashTime=P.time+260
     flashClr[1],flashClr[2],flashClr[3]=1,.62,.62
     P:addEvent('drawOnPlayer',flash_event_drawOnPlayer)
 end
