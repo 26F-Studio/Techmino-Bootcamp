@@ -18,27 +18,37 @@ local function onFault(P)
     P.modeData.flashTime=P.time+260
     flashClr[1],flashClr[2],flashClr[3]=1,.62,.62
     P:addEvent('drawOnPlayer',flash_event_drawOnPlayer)
+    if CONF.system.forcePerfect then
+        P:restoreBrikState()
+        table.insert(P.nextQueue,1,P.hand)
+        P.hand=nil
+    end
 end
-local function onAfterLoad(P)
+local function onBeforeLoad(P)
+    return P.modeData.refAns
+end
+local function onAfterLoad(P,refAns)
     P.modeData.flashTime=-1e99
+    P.modeData.refAns=refAns
 end
 GAME.regFunc(flash_event_drawOnPlayer,'std.winFlashDraw')
 GAME.regFunc(onFault,'std.onFault')
+GAME.regFunc(onBeforeLoad,'std.onBeforeLoad')
 GAME.regFunc(onAfterLoad,'std.onAfterLoad')
 
 local statList={
-    {x=statX, row=0,  font=25,label='std_piece',   get=function(P,md) return P.stat.piece end},
-    {x=statX2,row=0,  font=25,label='std_spawn',   get=function(P,md) return P.stat.spawn end},
-    {x=statX, row=1,  font=25,label='std_key',     get=function(P,md) return P.stat.key end},
-    {x=statX2,row=1,  font=25,label='std_movSeq',  get=function(P,md) return md.movSeq end},
-    {x=statX, row=2,  font=50,label='std_kpp',     get=function(P,md) return md.kpp end},
-    {x=statX, row=3.5,font=50,label='std_line',    get=function(P,md) return P.stat.line end},
-    {x=statX, row=6.5,font=25,label='std_fault',   get=function(P,md) return md.fault end},
-    {x=statX2,row=6.5,font=25,label='std_overCnt', get=function(P,md) return md.overCnt end},
-    {x=statX, row=7.5,font=25,label='std_movCnt',  get=function(P,md) return md.movCnt end},
-    {x=statX2,row=7.5,font=25,label='std_neat',    get=function(P,md) return md.neatPiece end},
-    {x=statX, row=8.5,font=50,label='std_mpp',     get=function(P,md) return md.mpp end},
-    {x=statX, row=10, font=50,label='std_dropRate',get=function(P,md) return md.dropRate end},
+    {x=statX, row=0,  font=25,label='game_piece',   get=function(P,md) return P.stat.piece end},
+    {x=statX2,row=0,  font=25,label='game_spawn',   get=function(P,md) return P.stat.spawn end},
+    {x=statX, row=1,  font=25,label='game_key',     get=function(P,md) return P.stat.key end},
+    {x=statX2,row=1,  font=25,label='game_movSeq',  get=function(P,md) return md.movSeq end},
+    {x=statX, row=2,  font=50,label='game_kpp',     get=function(P,md) return md.kpp end},
+    {x=statX, row=3.5,font=50,label='game_line',    get=function(P,md) return P.stat.line end},
+    {x=statX, row=6.5,font=25,label='game_fault',   get=function(P,md) return md.fault end},
+    {x=statX2,row=6.5,font=25,label='game_overCnt', get=function(P,md) return md.overCnt end},
+    {x=statX, row=7.5,font=25,label='game_movCnt',  get=function(P,md) return md.movCnt end},
+    {x=statX2,row=7.5,font=25,label='game_neat',    get=function(P,md) return md.neatPiece end},
+    {x=statX, row=8.5,font=50,label='game_mpp',     get=function(P,md) return md.mpp end},
+    {x=statX, row=10, font=50,label='game_dropRate',get=function(P,md) return md.dropRate end},
 }
 
 ---@type Techmino.ModeInput
@@ -74,6 +84,15 @@ return {
                         P.modeData.split={}               -- 各里程碑用时/用块
                     end,
                 },
+                afterSpawn=function(P)
+                    local md=P.modeData
+                    if md.refAns and not md.refAns.fmt then
+                        for i=1,#md.refAns do
+                            md.refAns[i]=ParseFinesse(md.refAns[i])
+                        end
+                        md.refAns.fmt=true
+                    end
+                end,
                 afterClear={
                     mechLib.brik.dig.event_afterClear,
                     function(P)
@@ -123,6 +142,18 @@ return {
                         local s=statList[i]
                         setFont(s.font); gc_print(s.get(P,md),s.x,statY+statD*s.row)
                         setFont(15); gc_print(Text[s.label],s.x,statY+(s.font==50 and 55 or 26)+statD*s.row)
+                    end
+
+                    -- Hint
+                    if md.refAns then
+                        setFont(40)
+                        gc_setColor(1,1,1)
+                        GC.mStr(md.refAns[1],0,-330)
+                        if md.refAns[2] then
+                            GC.mStr(md.refAns[2],0,-240)
+                            setFont(30)
+                            GC.mStr(Text.game_hint['OR'],0,-280)
+                        end
                     end
                 end,
             },

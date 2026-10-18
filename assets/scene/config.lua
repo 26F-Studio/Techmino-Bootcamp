@@ -265,11 +265,15 @@ function scene.draw()
     GC.replaceTransform(SCR.xOy)
     for i=3,4 do
         local W=scene.widgetList[i]
-        GC_UIframe(false,W.x-50,W.y-50,680,100)
+        GC_UIframe(false,W.x-50,W.y-50,610,100)
     end
-    for i=5,7 do
+    for i=5,6 do
         local W=scene.widgetList[i]
-        GC_UIframe(false,W.x-50,W.y-40,680,80)
+        GC_UIframe(false,W.x-50,W.y-40,480,80)
+    end
+    for i=7,8 do
+        local W=scene.widgetList[i]
+        GC_UIframe(false,W.x-50,W.y-40,350,80)
     end
 end
 
@@ -277,18 +281,19 @@ local function sliderShow_time(S) return S.disp().." ms" end
 
 scene.widgetList={
     -- Settings
-    WIDGET.new{type='slider',x=1060,y=330,w=460,text="ASD",axis={60,160,5},unit=10,disp=TABLE.func_getVal(CONF.game_brik,'asd'),valueShow=sliderShow_time,code=TABLE.func_setVal(CONF.game_brik,'asd')},
-    WIDGET.new{type='slider',x=1060,y=450,w=320,text="ASP",axis={0,15,5},disp=TABLE.func_getVal(CONF.game_brik,'asp'),valueShow=sliderShow_time,
+    WIDGET.new{type='slider',x=920,y=140,w=400,text="ASD",axis={60,160,5},unit=10,disp=TABLE.func_getVal(CONF.game_brik,'asd'),valueShow=sliderShow_time,code=TABLE.func_setVal(CONF.game_brik,'asd')},
+    WIDGET.new{type='slider',x=920,y=290,w=260,text="ASP",axis={0,15,5},disp=TABLE.func_getVal(CONF.game_brik,'asp'),valueShow=sliderShow_time,
         code=function(v)
             CONF.game_brik.asp=v
             CONF.game_brik.adp=v
         end},
-    WIDGET.new{type='hint',x=940,y=330,w=50,fontSize=40,floatText=LANG'config_hint_asd',text="?"},
-    WIDGET.new{type='hint',x=940,y=450,w=50,fontSize=40,floatText=LANG'config_hint_asp',text="?"},
+    WIDGET.new{type='hint',x=800,y=140,w=50,fontSize=40,floatText=LANG'config_hint_asd',text="?"},
+    WIDGET.new{type='hint',x=800,y=290,w=50,fontSize=40,floatText=LANG'config_hint_asp',text="?"},
 
-    WIDGET.new{type='checkBox',x=940,y=680,w=40,labelPos='right',text=LANG'config_force180',disp=TABLE.func_getVal(CONF.system,'force180'),code=TABLE.func_revVal(CONF.system,'force180')},
-    WIDGET.new{type='checkBox',x=940,y=780,w=40,labelPos='right',text=LANG'config_fullscreen',disp=TABLE.func_getVal(CONF.system,'fullscreen'),code=TABLE.func_revVal(CONF.system,'fullscreen')},
-    WIDGET.new{type='checkBox',x=940,y=580,w=40,labelPos='right',text=LANG'config_locale',disp=function() return CONF.system.locale=='en' end,code=function()
+    WIDGET.new{type='checkBox',x=940,y=490,w=40,labelPos='right',text=LANG'config_force180',disp=TABLE.func_getVal(CONF.system,'force180'),code=TABLE.func_revVal(CONF.system,'force180')},
+    WIDGET.new{type='checkBox',x=940,y=620,w=40,labelPos='right',text=LANG'config_forcePerfect',disp=TABLE.func_getVal(CONF.system,'forcePerfect'),code=TABLE.func_revVal(CONF.system,'forcePerfect')},
+    WIDGET.new{type='checkBox',x=940,y=750,w=40,labelPos='right',text=LANG'config_fullscreen',disp=TABLE.func_getVal(CONF.system,'fullscreen'),code=TABLE.func_revVal(CONF.system,'fullscreen')},
+    WIDGET.new{type='checkBox',x=940,y=880,w=40,labelPos='right',text=LANG'config_locale',disp=function() return CONF.system.locale=='en' end,code=function()
         CONF.system.locale=CONF.system.locale=='en' and 'zh' or 'en'
         WIDGET._reset()
     end},

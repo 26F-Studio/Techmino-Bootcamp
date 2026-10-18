@@ -62,3 +62,14 @@ function GC_UIframe(mid,x,y,w,h)
         x+w-20+15,y+20+15
     )
 end
+
+local buf={}
+function ParseFinesse(str)
+    TABLE.clear(buf)
+    for i=1,#str do
+        local c=str:sub(i,i)
+        table.insert(buf,Text.game_hint[c])
+    end
+    table.insert(buf,Text.game_hint['HD'])
+    return table.concat(buf,Text.game_hint['SP'])
+end
