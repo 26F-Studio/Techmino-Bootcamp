@@ -40,8 +40,10 @@ local buttons={
                 -- SCN.go('play',nil,'vs')
             elseif sel.x==maxX-2 then
                 SCN.go('about')
+                BG.send('menu','about')
             elseif sel.x==maxX-1 then
                 SCN.go('config')
+                BG.send('menu','config')
             elseif sel.x==maxX then
                 scene.keyDown('escape')
             end
@@ -73,6 +75,8 @@ function scene.load()
         getHintKey('moveRight','right'),
         getHintKey('hardDrop','return')
     ))
+    BG.set('menu')
+    BG.send('menu','home')
 end
 
 function scene.unload()

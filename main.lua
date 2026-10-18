@@ -132,13 +132,37 @@ SHADER.mono=GC.newShader[[
     }
 ]]
 
-for _,v in next,love.filesystem.getDirectoryItems('assets/background') do
-    if FILE.isSafe('assets/background/'..v) and v:sub(-3)=='lua' then
-        local name=v:sub(1,-5)
-        BG.add(name,FILE.load('assets/background/'..v,'-lua'))
+do
+    ---@type Zenitha.Background
+    local bg={}
+
+    local pos,pos1=0,0
+    function bg.init()
     end
+
+    function bg.event(page)
+        pos=
+            page=='home' and 0 or
+            page=='about' and 1 or
+            page=='config' and -1 or
+            0
+    end
+
+    function bg.update(dt)
+        pos1=MATH.expApproach(pos1,pos,dt*1.626)
+    end
+
+    function bg.draw()
+        GC.clear(0,0,0)
+        GC.translate(SCR.w/2,SCR.h/2)
+        GC.scale(SCR.w/SCR.w0)
+        GC.translate(-800,pos1*SCR.h0-1500)
+        -- 1600 x 3000
+        -- TODO
+    end
+
+    BG.add('menu',bg)
 end
-BG.set('image')
 
 for _,v in next,love.filesystem.getDirectoryItems('assets/scene') do
     if FILE.isSafe('assets/scene/'..v) then
