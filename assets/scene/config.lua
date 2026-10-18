@@ -286,12 +286,12 @@ scene.widgetList={
     WIDGET.new{type='hint',x=940,y=330,w=50,fontSize=40,floatText=LANG'config_hint_asd',text="?"},
     WIDGET.new{type='hint',x=940,y=450,w=50,fontSize=40,floatText=LANG'config_hint_asp',text="?"},
 
+    WIDGET.new{type='checkBox',x=940,y=680,w=40,labelPos='right',text=LANG'config_force180',disp=TABLE.func_getVal(CONF.system,'force180'),code=TABLE.func_revVal(CONF.system,'force180')},
+    WIDGET.new{type='checkBox',x=940,y=780,w=40,labelPos='right',text=LANG'config_fullscreen',disp=TABLE.func_getVal(CONF.system,'fullscreen'),code=TABLE.func_revVal(CONF.system,'fullscreen')},
     WIDGET.new{type='checkBox',x=940,y=580,w=40,labelPos='right',text=LANG'config_locale',disp=function() return CONF.system.locale=='en' end,code=function()
         CONF.system.locale=CONF.system.locale=='en' and 'zh' or 'en'
         WIDGET._reset()
     end},
-    WIDGET.new{type='checkBox',x=940,y=680,w=40,labelPos='right',text=LANG'config_force180',disp=TABLE.func_getVal(CONF.system,'force180'),code=TABLE.func_revVal(CONF.system,'force180')},
-    WIDGET.new{type='checkBox',x=940,y=780,w=40,labelPos='right',text=LANG'config_fullscreen',disp=TABLE.func_getVal(CONF.system,'fullscreen'),code=TABLE.func_revVal(CONF.system,'fullscreen')},
 
     WIDGET.new{type='button',x=230,y=860,w=140,h=80,color='R',text=LANG'keyset_reset',onClick=function() if SureCheck('keyset_reset') then resetKeymap() end end},
     BackButtonBR,

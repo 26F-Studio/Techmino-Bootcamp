@@ -21,13 +21,13 @@ local L={
     pause_resume="Resume",
     pause_settings="Settings",
 
-    config_locale="我不懂中文",
     config_force180="Force 180° rotation",
     config_fullscreen="Fullscreen",
+    config_locale="我不懂中文",
     config_keyMapping="Key Mapping",
-    config_mainVol="Main Volume",
-    config_bgm="BGM",
-    config_sfx="SFX",
+    -- config_mainVol="Main Volume",
+    -- config_bgm="BGM",
+    -- config_sfx="SFX",
 
     config_hint_asd="Auto Shift Delay\nCalled DAS before",
     config_hint_asp="Auto Shift Period\nCalled ARR before\nNote: Soft Drop Period is synced with ASP in this game",

@@ -21,13 +21,13 @@ local L={
     pause_resume="继续",
     pause_settings="设置",
 
-    config_locale="I know English",
     config_force180="强制180°旋转",
     config_fullscreen="全屏",
+    config_locale="I know English",
     config_keyMapping="按键设置",
-    config_mainVol="主音量",
-    config_bgm="背景音乐",
-    config_sfx="音效",
+    -- config_mainVol="主音量",
+    -- config_bgm="背景音乐",
+    -- config_sfx="音效",
 
     config_hint_asd="（长按移动的）启动延迟，旧称DAS",
     config_hint_asp="（长按移动的）重复周期，旧称ARR\n注：本游戏中ADP（软降重复周期）和ASP同步",
