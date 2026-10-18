@@ -48,9 +48,11 @@ function SetSafeEnv(func)
 end
 
 function GC_UIframe(mid,x,y,w,h)
+    if mid then x,y=x-w/2,y-h/2 end
+    GC.setColor(0,0,0,.42)
+    GC.rectangle('fill',x+2,y+2,w-4,h-4,18)
     GC.setColor(.8,.7,.6,.62)
     GC.setLineWidth(4)
-    if mid then x,y=x-w/2,y-h/2 end
     GC.rectangle('line',x,y,w,h,20)
     GC.arc('fill','open',x+w-20,y+20,15,0,-1.5708)
     GC.polygon('fill',
