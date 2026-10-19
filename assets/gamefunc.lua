@@ -68,6 +68,7 @@ function ParseFinesse(str)
     TABLE.clear(buf)
     for i=1,#str do
         local c=str:sub(i,i)
+        if c=='F' and not CONF.system.force180 then c='F2' end
         table.insert(buf,Text.game_hint[c])
     end
     table.insert(buf,Text.game_hint['HD'])
