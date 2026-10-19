@@ -173,7 +173,7 @@ do
             MATH.lLerp(colorU[2],(pos1+1)/2),
             MATH.lLerp(colorU[3],(pos1+1)/2)
         )
-        GC.draw(TEX.transition,0,0,1.5708,SCR.h/128,SCR.w,0,1)
+        GC.rectBeam(1,SCR.w/2,0,1.5708,SCR.w,SCR.h)
 
         GC.translate(SCR.w/2,SCR.h/2)
         GC.scale(SCR.w/SCR.w0)

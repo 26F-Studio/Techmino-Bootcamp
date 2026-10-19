@@ -5,6 +5,7 @@ local gc_setColor,gc_setLineWidth=gc.setColor,gc.setLineWidth
 local gc_draw,gc_line=gc.draw,gc.line
 local gc_rectangle=gc.rectangle
 local gc_printf=gc.printf
+local gc_rectBeam=GC.rectBeam
 
 local max,min=math.max,math.min
 
@@ -39,7 +40,7 @@ local lastW
 function S.drawFieldBackground(fieldW)
     gc_setColor(colors.fieldBG)
     gc_rectangle('fill',0,0,40*fieldW,-80*fieldW)
-    gc_draw(TEX.transition,0,-80*fieldW,-math.pi/2,94/128,40*fieldW)
+    gc_rectBeam(1,40*fieldW/2,-80*fieldW,-1.5708,40*fieldW,94)
     if fieldW~=lastW then
         lastW=fieldW
         gridBatch:clear()
@@ -55,8 +56,8 @@ function S.drawFieldBorder()
     gc_setLineWidth(2)
     gc_setColor(colors.fieldLine)
     gc_line(-201,-401,-201,401,201,401,201,-401)
-    gc_draw(TEX.transition,-201,-401,-math.pi/2,96/128,2,0,.5)
-    gc_draw(TEX.transition,201,-401,-math.pi/2,96/128,2,0,.5)
+    gc_rectBeam(1,-201,-401,-1.5708,2,96)
+    gc_rectBeam(1,201,-401,-1.5708,2,96)
     gc_setColor(colors.fieldTopline)
     gc_line(-201,-401,201,-401)
 end

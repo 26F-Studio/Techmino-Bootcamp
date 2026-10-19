@@ -174,7 +174,7 @@ function scene.draw()
     GC.mRect('fill',selX,0,wid,height)
     if Text.home_opt[sel.x] then
         GC.setColor(1,1,1,.42)
-        GC.blurCircle(0, selX, -26, wid*.62)
+        GC.glowCircle(1, selX, -26, wid*.62)
     end
 
     GC.setLineWidth(2)

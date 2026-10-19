@@ -1,12 +1,5 @@
 local TEX={}
 
-TEX.transition=GC.initCanvas(128, 1, function()
-    for x=0,127 do
-        GC.setColor(1, 1, 1, 1-x/128)
-        GC.rectangle('fill', x, 0, 1, 1)
-    end
-end)
-
 TEX.home_title={
     zh='assets/image/title_zh.png',
     en='assets/image/title_en.png',

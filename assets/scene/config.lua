@@ -215,7 +215,7 @@ function scene.draw()
         local b=buttons[i]
         if b.active then
             GC.setColor(1,1,1,.26)
-            GC.blurCircle(0,b.x,b.y,100)
+            GC.glowCircle(1,b.x,b.y,100)
         end
         GC.setColor(CLR.L)
         GC.mRect('line',b.x,b.y,160,160,10)
