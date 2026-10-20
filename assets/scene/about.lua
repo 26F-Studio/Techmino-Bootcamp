@@ -17,15 +17,15 @@ function scene.keyDown(key,isRep)
 end
 
 function scene.draw()
-    GC.setColor(1,1,1)
+    GC_UIframe(false,80,90,620,140)
+    GC_UIframe(false,80,260,1600-80*2,540)
+
+    GC.setColor(CLR.L)
     FONT.set(40)
     GC.print(Text.about_title,120,90,0,2.6)
     for i=1,#Text.about_text do
         GC.print(Text.about_text[i],120,230+60*i)
     end
-
-    GC_UIframe(false,80,90,620,140)
-    GC_UIframe(false,80,260,1600-80*2,540)
 end
 
 scene.widgetList={
