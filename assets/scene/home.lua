@@ -53,6 +53,7 @@ local buttons={
 }
 
 local helpText=GC.newText(FONT.get(40))
+local helpText2=GC.newText(FONT.get(40))
 
 local overrideAct={left='moveLeft',right='moveRight',['return']='hardDrop'}
 local function getHintKey(action,fallback)
@@ -75,6 +76,7 @@ function scene.load()
         getHintKey('moveRight','right'),
         getHintKey('hardDrop','return')
     ))
+    helpText2:set(Text.home_help2)
     BG.set('menu')
     BG.send('menu','home')
 end
@@ -161,11 +163,11 @@ function scene.draw()
     GC.mDraw(TEX.home_title[CONF.system.locale],0,-260,math.sin(love.timer.getTime())*.026,.5)
 
     GC.translate(0,126)
-
     -- Help
+    GC_UIframe(true,0,254,1420,160)
+    GC.setColor(CLR.dL)
     GC.mDraw(helpText, 0,220)
-    FONT.set(40)
-    GC.mStr(Text.home_help2, 0,260)
+    GC.mDraw(helpText2, 0,280)
 
     -- Options
     local wid,height=170,260
@@ -187,7 +189,6 @@ function scene.draw()
             if sel.x~=i then GC.setShader(SHADER.mono) end
             GC.mDrawQ(TEX.home_icons,TEX.home_iconQuad[i],x,-26,0,.5)
             GC.setShader()
-            -- GC.print("?",x-10,-120,.26,2.6)
             GC.strokePrint('full',2,CLR.d5,sel.x==i and CLR.l7 or CLR.d2,Text.home_opt[i],x,50,600,'center')
         end
     end
@@ -196,7 +197,7 @@ function scene.draw()
     GC.translate(love.mouse.getPosition())
     GC.scale(SCR.k)
     GC.setLineWidth(16)
-    GC.setColor(1,.42,.42,.06+noMouseHint)
+    GC.setColor(1,.42,.42,.06+noMouseHint*.26)
     GC.circle('line',0,0,62)
     local r=36
     GC.line(-r,-r,r,r)
@@ -206,9 +207,6 @@ function scene.draw()
         GC.setColor(1,1,1,noMouseHint)
         GC.mStr(Text.home_no_mouse,0,-126)
     end
-
-    GC.replaceTransform(SCR.xOy)
-    GC_UIframe(true,800,880,1420,160)
 end
 
 return scene
