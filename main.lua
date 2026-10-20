@@ -209,6 +209,7 @@ SCN.setDefaultSwap('none')
 SKIN.add('brik_template',FILE.load('assets/skin/template.lua','-lua'))
 GAME.addMode('std','assets/mode/std.lua')
 GAME.addMode('dig','assets/mode/dig.lua')
+GAME.addMode('vs','assets/mode/vs.lua')
 
 UTIL.time("Load Data",true)
 

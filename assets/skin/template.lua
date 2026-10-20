@@ -106,26 +106,26 @@ function S.drawDelayIndicator(color,value)
 end
 
 function S.drawGarbageBuffer(garbageBuffer)
-    -- local y=0
-    -- for i=1,#garbageBuffer do
-    --     local g=garbageBuffer[i]
-    --     local h=g.power*40
-    --     if y+h>800 then
-    --         h=800-y
-    --     end
-    --     if g._time<g.time then
-    --         gc_setColor(COLOR.R)
-    --         gc_rectangle('fill',210,400-y-h+3,10,h-6)
-    --         gc_setColor(COLOR.L)
-    --         local progress=g._time/g.time
-    --         gc_rectangle('fill',210,400-y-h+3+(h-6)*(1-progress),10,(h-6)*progress)
-    --     else
-    --         gc_setColor(S.getTime()%100<50 and COLOR.R or COLOR.L)
-    --         gc_rectangle('fill',210,400-y-h+3,10,h-6)
-    --     end
-    --     y=y+h
-    --     if y>=800 then break end
-    -- end
+    local y=0
+    for i=1,#garbageBuffer do
+        local g=garbageBuffer[i]
+        local h=g.power*40
+        if y+h>800 then
+            h=800-y
+        end
+        if g._time<g.time then
+            gc_setColor(COLOR.R)
+            gc_rectangle('fill',210,400-y-h+3,10,h-6)
+            gc_setColor(COLOR.L)
+            local progress=g._time/g.time
+            gc_rectangle('fill',210,400-y-h+3+(h-6)*(1-progress),10,(h-6)*progress)
+        else
+            gc_setColor(S.getTime()%100<50 and COLOR.R or COLOR.L)
+            gc_rectangle('fill',210,400-y-h+3,10,h-6)
+        end
+        y=y+h
+        if y>=800 then break end
+    end
 end
 
 function S.drawLockDelayIndicator(freshCondition,freshChance,timeRem)

@@ -36,8 +36,7 @@ local buttons={
             elseif sel.x==2 then
                 SCN.go('play',nil,'dig')
             elseif sel.x==3 then
-                MSG('info',"Coming soon!")
-                -- SCN.go('play',nil,'vs')
+                SCN.go('play',nil,'vs')
             elseif sel.x==maxX-2 then
                 SCN.go('about')
                 BG.send('menu',1)
