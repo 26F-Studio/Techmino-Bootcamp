@@ -6,7 +6,7 @@ local maxX=9
 local sel
 local function restart()
     sel={
-        x=(maxX+1)/2,
+        x=sel and sel.x or (maxX+1)/2,
         charge=false,
         timeRem=0,
         dir=0,
