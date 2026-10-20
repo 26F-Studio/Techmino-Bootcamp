@@ -40,10 +40,10 @@ local buttons={
                 -- SCN.go('play',nil,'vs')
             elseif sel.x==maxX-2 then
                 SCN.go('about')
-                BG.send('menu','about')
+                BG.send('menu',1)
             elseif sel.x==maxX-1 then
                 SCN.go('config')
-                BG.send('menu','config')
+                BG.send('menu',-1)
             elseif sel.x==maxX then
                 scene.keyDown('escape')
             end
@@ -78,7 +78,7 @@ function scene.load()
     ))
     helpText2:set(Text.home_help2)
     BG.set('menu')
-    BG.send('menu','home')
+    BG.send('menu',0)
 end
 
 function scene.unload()

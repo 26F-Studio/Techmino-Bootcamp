@@ -74,6 +74,8 @@ return {
                         mechLib.brik.dig.event_playerInit(P)
                     end,
                     function(P)
+                        BG.send('menu',0)
+
                         P.modeData.noOspin=true
                         P.modeData.undoDepthLimit=26
                         P.modeData.force180=CONF.system.force180
@@ -105,6 +107,9 @@ return {
                             md.lineGoal=TABLE.next(milestones,md.lineGoal)
                             if not md.lineGoal then return true end
                         end
+                    end,
+                    function(P)
+                        BG.send('menu',P.modeData.lineDig/120)
                     end,
                 },
                 drawInField=function(P)

@@ -140,12 +140,8 @@ do
     function bg.init()
     end
 
-    function bg.event(page)
-        pos=
-            page=='about' and 1 or
-            page=='home' and 0 or
-            page=='config' and -1 or
-            0
+    function bg.event(val)
+        pos=MATH.clamp(val,-1,1)
     end
 
     function bg.update(dt)

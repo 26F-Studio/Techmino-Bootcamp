@@ -68,6 +68,8 @@ return {
                     mechLib.brik.saveload.event_playerInit,
                     mechLib.brik.finesse.event_playerInit,
                     function(P)
+                        BG.send('menu',0)
+
                         P.modeData.noOspin=true
                         P.modeData.undoDepthLimit=26
                         P.modeData.force180=CONF.system.force180
@@ -88,17 +90,22 @@ return {
                         md.refAns.fmt=true
                     end
                 end,
-                afterClear=function(P)
-                    local md=P.modeData
-                    if P.stat.line>=md.lineGoal then
-                        table.insert(md.split, "["..md.lineGoal.."L]  "..(P.gameTime/1000).."s")
-                        md.flashTime=P.time
-                        flashClr[1],flashClr[2],flashClr[3]=.62,1,.62
-                        P:addEvent('drawOnPlayer',flash_event_drawOnPlayer)
-                        md.lineGoal=TABLE.next(milestones,md.lineGoal)
-                        if not md.lineGoal then return true end
-                    end
-                end,
+                afterClear={
+                    function(P)
+                        local md=P.modeData
+                        if P.stat.line>=md.lineGoal then
+                            table.insert(md.split, "["..md.lineGoal.."L]  "..(P.gameTime/1000).."s")
+                            md.flashTime=P.time
+                            flashClr[1],flashClr[2],flashClr[3]=.62,1,.62
+                            P:addEvent('drawOnPlayer',flash_event_drawOnPlayer)
+                            md.lineGoal=TABLE.next(milestones,md.lineGoal)
+                            if not md.lineGoal then return true end
+                        end
+                    end,
+                    function(P)
+                        BG.send('menu',P.stat.line/260)
+                    end,
+                },
                 always=function(P)
                     local md=P.modeData
                     if md.lineGoal then
