@@ -181,15 +181,15 @@ do
             GC.setColor(1,1,1)
             local t=love.timer.getTime()/26
             local dx,dy=26*math.sin(t*2.6),12*math.cos(t)-pos1*62
-            TEX.bg_star_quad:setViewport(-dx/2.6,-dy/2.6,1600,1000,1600,1000)
+            TEX.bg_star_quad:setViewport(dx/2.6,dy/2.6,1600,1000,1600,1000)
             GC.mDrawQ(TEX.bg_star,TEX.bg_star_quad)
             -- Cloud
             GC.setColor(.62,.62,.62,MATH.clampInterpolate(-.26,.62,.62,0,pos1))
-            GC.mDraw(TEX.bg_cloud,dx,dy+500+900*pos1,0,1652/2880)
+            GC.mDraw(TEX.bg_cloud,-dx,dy+500+900*pos1,0,1652/2880)
             -- Galaxy
             if pos1>.026 then
                 GC.setColor(.62,.62,.62,pos1)
-                GC.mDraw(TEX.bg_galaxy,dx,dy+260*(pos1-.62),0,1652/1920*1.26)
+                GC.mDraw(TEX.bg_galaxy,-dx,dy+260*(pos1-.62),0,1652/1920*1.26)
             end
         end
         GC.setBlendMode('alpha')

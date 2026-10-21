@@ -14,7 +14,7 @@ TEX.bg_star=GC.initCanvas(1600,1000,function()
 end)
 TEX.bg_star:setWrap('repeat', 'repeat')
 TEX.bg_star_quad=GC.newQuad(0,0,1600,1000,TEX.bg_star)
-TEX.bg_cloud='assets/image/cloud.png'   -- 2880x2000
+TEX.bg_cloud='assets/image/cloud.jpg'   -- 2880x2000
 TEX.bg_galaxy='assets/image/galaxy.jpg' -- 1920x1196
 
 TEX.home_icons='assets/image/home_icons.png'
