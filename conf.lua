@@ -34,9 +34,9 @@ function love.conf(t)
     W.borderless=false
     W.resizable=true
     W.fullscreentype='desktop' -- Fullscreen type
-    W.width,W.height=1080,720
+    W.width,W.height=960,600
     W.minwidth,W.minheight=288,180
     W.title=require'version'.appName..'  '..require'version'.appVer
 
-    -- W.icon='assets/image/icon.png'
+    W.icon='assets/image/icon.png'
 end
