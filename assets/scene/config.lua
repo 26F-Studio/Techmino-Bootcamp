@@ -140,7 +140,7 @@ end
 
 function scene.keyDown(key,isRep)
     if isRep then return true end
-    if key=='space' then
+    if key=='z' then
         pet()
     end
     if KM.sys:getAction(key)=='back' then
