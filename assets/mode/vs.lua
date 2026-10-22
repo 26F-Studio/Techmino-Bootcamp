@@ -38,7 +38,7 @@ local statList={
     {x=statX, row=0,  font=25,label='game_piece',   get=function(P,md) return P.stat.piece end},
     {x=statX2,row=0,  font=25,label='game_spawn',   get=function(P,md) return P.stat.spawn end},
     {x=statX, row=1,  font=25,label='game_key',     get=function(P,md) return P.stat.key end},
-    {x=statX2,row=1,  font=25,label='game_movSeq',  get=function(P,md) return md.movSeq end},
+    {x=statX2,row=1,  font=25,label='game_movSeq',  get=function(P,md) return #md.movSeq<=5 and md.movSeq or "---" end},
     {x=statX, row=2,  font=50,label='game_kpp',     get=function(P,md) return md.kpp end},
     {x=statX, row=3.5,font=50,label='game_line',    get=function(P,md) return P.stat.line end},
     {x=statX, row=6.5,font=25,label='game_fault',   get=function(P,md) return md.fault end},
@@ -61,6 +61,7 @@ return {
             lockDelay=1e99,
             infHold=true,
             readyDelay=2000,
+            atkSys='modern',
             event={
                 playerInit={
                     mechLib.brik.saveload.event_playerInit,
@@ -89,7 +90,7 @@ return {
                             target=GAME.mainID,
                             power=4,
                             mode=1,
-                            time=6,
+                            time=4,
                         })
                     end
                 end,
