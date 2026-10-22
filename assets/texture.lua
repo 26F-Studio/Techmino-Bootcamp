@@ -31,11 +31,11 @@ TEX.home_iconQuad={
 }
 
 TEX.z={
-    normal='assets/image/z_normal.png',
-    question='assets/image/z_question.png',
-    shy='assets/image/z_shy.png',
-    angry='assets/image/z_angry.png',
-    nervous='assets/image/z_nervous.png',
+    normal='assets/image/z/normal.png',
+    question='assets/image/z/question.png',
+    shy='assets/image/z/shy.png',
+    angry='assets/image/z/angry.png',
+    nervous='assets/image/z/nervous.png',
 }
 
 -- Control icons
