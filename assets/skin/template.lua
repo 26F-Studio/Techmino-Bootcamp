@@ -15,12 +15,14 @@ local COLOR=COLOR
 local S={}
 
 local colors={
-    fieldBG={.26,.26,.26,.872},
+    fieldBG={.1,.1,.1,.62},
+    fieldBorderU={COLOR.HEX'8A6F9C'},
+    fieldBorderD={COLOR.HEX'B178A7'},
     fieldLine={1,1,1},
     fieldTopline={1,1,1,.26},
-    grid={1,1,1,.1},
-    nextBG={.26,.26,.26,.942},
-    holdBG={.26,.26,.26,.942},
+    grid={1,1,1,.62},
+    nextBG={.1,.1,.1,.62},
+    holdBG={.1,.1,.1,.62},
     disabled={.6,.6,.6},
     infoBG={.62,.62,.62,.942},
 
@@ -28,12 +30,13 @@ local colors={
     handStroke={1,1,1},
 }
 
-local R=1
+local R=2
 local gridMark=GC.load{w=40,
-    {'fRect',0, 0, 40, R},
-    {'fRect',0, 40, 40, -R},
-    {'fRect',0, R, R, 40-2*R},
-    {'fRect',40, R, -R, 40-2*R},
+    {'setLW',1},
+    {'dCirc',0, 0, R},
+    {'dCirc',0, 40,R},
+    {'dCirc',40,0, R},
+    {'dCirc',40,40,R},
 }
 local gridBatch=GC.newSpriteBatch(gridMark,2600,'static')
 local lastW
@@ -44,22 +47,39 @@ function S.drawFieldBackground(fieldW)
     if fieldW~=lastW then
         lastW=fieldW
         gridBatch:clear()
-        for y=1,2*fieldW do for x=1,fieldW do
-            gridBatch:add(x*40-40,-y*40)
-        end end
+        for y=1,2*fieldW do
+            for x=1,fieldW do
+                gridBatch:add(x*40-40,-y*40)
+            end
+        end
     end
     gc_setColor(colors.grid)
     gc_draw(gridBatch)
 end
 
+local lw=8
 function S.drawFieldBorder()
-    gc_setLineWidth(2)
-    gc_setColor(colors.fieldLine)
-    gc_line(-201,-401,-201,401,201,401,201,-401)
-    gc_rectBeam(1,-201,-401,-1.5708,2,96)
-    gc_rectBeam(1,201,-401,-1.5708,2,96)
-    gc_setColor(colors.fieldTopline)
-    gc_line(-201,-401,201,-401)
+    gc_setColor(colors.fieldBorderU)
+    gc_rectangle('fill',-200,-400,-lw,800)
+    gc_rectangle('fill',200,-400,lw,800)
+    gc_rectBeam(1,-200-lw/2,-400,-1.5708,lw,96)
+    gc_rectBeam(1,200+lw/2,-400,-1.5708,lw,96)
+    gc_setColor(colors.fieldBorderD)
+    gc_rectBeam(1,-200-lw/2,400,-1.5708,lw,800)
+    gc_rectBeam(1,200+lw/2,400,-1.5708,lw,800)
+    gc_rectangle('fill',-200-lw,400,400+2*lw,lw)
+end
+
+-- Border drawn only outward from the given rect (same style as drawFieldBorder)
+local function drawOuterBorder(x,y,w,h)
+    gc_setColor(colors.fieldBorderU)
+    gc_rectangle('fill',x-lw,y,lw,h)
+    gc_rectangle('fill',x+w,y,lw,h)
+    gc_rectangle('fill',x-lw,y-lw,w+2*lw,lw)
+    gc_setColor(colors.fieldBorderD)
+    gc_rectBeam(1,x-lw/2,y+h,-1.5708,lw,h)
+    gc_rectBeam(1,x+w+lw/2,y+h,-1.5708,lw,h)
+    gc_rectangle('fill',x-lw,y+h,w+2*lw,lw)
 end
 
 function S.drawFieldCell(C)
@@ -172,9 +192,7 @@ function S.drawNextBorder(slot)
     if slot<=0 then return end
     gc_setColor(colors.nextBG)
     gc_rectangle('fill',30,0,140,100*slot)
-    gc_setLineWidth(2)
-    gc_setColor(COLOR.L)
-    gc_rectangle('line',30,0,140,100*slot)
+    drawOuterBorder(30,0,140,100*slot)
 end
 
 function S.drawNextCell(C,disabled,_,_,_)
@@ -184,17 +202,14 @@ end
 
 function S.drawHoldBorder(mode,slot)
     if slot<=0 then return end
-    gc_setLineWidth(2)
     if mode=='hold' then
         gc_setColor(colors.holdBG)
         gc_rectangle('fill',-170,0,140,100*slot)
-        gc_setColor(COLOR.L)
-        gc_rectangle('line',-170,0,140,100*slot)
+        drawOuterBorder(-170,0,140,100*slot)
     elseif mode=='swap' then
         gc_setColor(colors.holdBG)
         gc_rectangle('fill',430,0,140,100*slot)
-        gc_setColor(COLOR.L)
-        gc_rectangle('line',430,0,140,100*slot)
+        drawOuterBorder(430,0,140,100*slot)
     end
 end
 
@@ -222,23 +237,32 @@ function S.drawStartingCounter(readyDelay)
     local r,g,b
     local d=(readyDelay-S.getTime())%1000/1000 -- from .999 to 0
 
-    if     num==1 then r,g,b=1.00,0.70,0.70 if d>.75 then gc_scale(1,1+(d/.25-3)^2) end
-    elseif num==2 then r,g,b=0.98,0.85,0.75 if d>.75 then gc_scale(1+(d/.25-3)^2,1) end
-    elseif num==3 then r,g,b=0.70,0.80,0.98 if d>.75 then gc_rotate((d-.75)^3*40) end
-    elseif num==4 then r,g,b=0.95,0.93,0.50
-    elseif num==5 then r,g,b=0.70,0.95,0.70
-    else   r,g,b=max(1.26-num/10,0),max(1.26-num/10,0),max(1.26-num/10,0)
+    if num==1 then
+        r,g,b=1.00,0.70,0.70
+        if d>.75 then gc_scale(1,1+(d/.25-3)^2) end
+    elseif num==2 then
+        r,g,b=0.98,0.85,0.75
+        if d>.75 then gc_scale(1+(d/.25-3)^2,1) end
+    elseif num==3 then
+        r,g,b=0.70,0.80,0.98
+        if d>.75 then gc_rotate((d-.75)^3*40) end
+    elseif num==4 then
+        r,g,b=0.95,0.93,0.50
+    elseif num==5 then
+        r,g,b=0.70,0.95,0.70
+    else
+        r,g,b=max(1.26-num/10,0),max(1.26-num/10,0),max(1.26-num/10,0)
     end
 
     FONT.set(100)
 
     -- Warping number
     gc_push('transform')
-        gc_scale((1.5-d*.6)^1.5)
-        gc_setColor(r,g,b,d/(.5+num/3))
-        GC.mStr(num,0,-70)
-        gc_setColor(1,1,1,(1.5*d-0.5)/(.5+num/3))
-        GC.mStr(num,0,-70)
+    gc_scale((1.5-d*.6)^1.5)
+    gc_setColor(r,g,b,d/(.5+num/3))
+    GC.mStr(num,0,-70)
+    gc_setColor(1,1,1,(1.5*d-0.5)/(.5+num/3))
+    GC.mStr(num,0,-70)
     gc_pop()
 
     -- Scaling + Fading number
