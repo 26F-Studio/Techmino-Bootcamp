@@ -56,6 +56,7 @@ return {
     initialize=function()
         GAME.newPlayer(1,'brik')
         GAME.setMain(1)
+        BG.set('game_dig')
     end,
     settings={
         brik={

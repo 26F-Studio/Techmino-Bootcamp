@@ -16,7 +16,7 @@ end
 
 local function menuAct(action)
     if action=='back' then
-        SCN.back()
+        SCN.back('fade')
     elseif action=='continue' then
         SCN.swapTo('play','none')
     elseif action=='restart' then

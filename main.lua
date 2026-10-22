@@ -198,6 +198,39 @@ do
     BG.add('menu',bg)
 end
 
+do
+    local bg={}
+    function bg.draw()
+        GC.translate(SCR.w/2,SCR.h/2)
+        GC.clear(.26,.26,.26)
+        GC.setColor(1,1,1,.42)
+        GC.mDraw(TEX.dusk.bg,nil,nil,nil,math.max(SCR.w/2048,SCR.h/1280))
+        GC.mDraw(TEX.dusk.fg,nil,nil,nil,math.max(SCR.w/2048,SCR.h/1280))
+        GC.mDraw(TEX.dusk.sun,nil,nil,nil,math.max(SCR.w/2048,SCR.h/1280))
+    end
+    BG.add('game_std',bg)
+end
+
+do
+    local bg={}
+    function bg.draw()
+        GC.translate(SCR.w/2,SCR.h/2)
+        GC.clear(.08,.08,.1)
+        GC.setColor(1,1,1,.42)
+        GC.mDraw(TEX.night.bg,nil,nil,nil,math.max(SCR.w/5180,SCR.h/3238))
+    end
+    BG.add('game_dig',bg)
+end
+
+do
+    local bg={}
+    function bg.draw()
+        GC.translate(SCR.w/2,SCR.h/2)
+        -- GC.mDraw(TEX.vs,nil,nil,nil,math.max(SCR.w/5180,SCR.h/3238))
+    end
+    BG.add('game_vs',bg)
+end
+
 for _,v in next,love.filesystem.getDirectoryItems('assets/scene') do
     if FILE.isSafe('assets/scene/'..v) then
         local sceneName=v:sub(1,-5)

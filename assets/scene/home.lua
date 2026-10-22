@@ -32,11 +32,11 @@ local buttons={
     hardDrop={
         onPress=function()
             if sel.x==1 then
-                SCN.go('play',nil,'std')
+                SCN.go('play','fade','std')
             elseif sel.x==2 then
-                SCN.go('play',nil,'dig')
+                SCN.go('play','fade','dig')
             elseif sel.x==3 then
-                SCN.go('play',nil,'vs')
+                SCN.go('play','fade','vs')
             elseif sel.x==maxX-2 then
                 SCN.go('about')
                 BG.send('menu',1)

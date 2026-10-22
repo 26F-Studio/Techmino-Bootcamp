@@ -30,6 +30,24 @@ TEX.home_iconQuad={
     GC.newQuad(2040/6*5,0,2040/6,400,2040,400),
 }
 
+TEX.dusk={
+    bg='assets/image/bg1/bg.png',      -- 2048 x 1280
+    fg='assets/image/bg1/fg.png',      -- 2048 x 1280
+    sun='assets/image/bg1/sun.png',    -- 2048 x 1280
+    cloud={
+        'assets/image/bg1/cloud1.png', -- 2048 x 320
+        'assets/image/bg1/cloud2.png', -- 2048 x 320
+        'assets/image/bg1/cloud3.png', -- 2048 x 320
+        'assets/image/bg1/cloud4.png', -- 2048 x 320
+    },
+}
+TEX.night={
+    bg='assets/image/bg2.jpg', -- 5180 x 3238
+}
+TEX.vs={
+    bg='assets/image/??.png',
+}
+
 TEX.z={
     normal='assets/image/z/normal.png',
     question='assets/image/z/question.png',
