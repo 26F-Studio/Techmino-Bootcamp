@@ -90,7 +90,7 @@ UTIL.time("Load modules",true)
 --------------------------------------------------------------
 
 CornerButtonX={120,320,520,720,920}
-BackButtonBR=WIDGET.new{type='button',pos={1,1},x=-CornerButtonX[1],y=-80,w=140,h=80,text=LANG'back',onClick=WIDGET.c_backScn()}
+BackButtonBR=WIDGET.new{type='button',pos={1,1},x=-CornerButtonX[1],y=-80,w=140,h=80,color='LD',textColor='DL',text=LANG'back',onClick=WIDGET.c_backScn()}
 WIDGET.setDefaultOption{
     button={
         fontSize=40,
