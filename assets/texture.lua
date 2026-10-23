@@ -93,10 +93,10 @@ TEX.dusk={
     fg='assets/image/bg1/fg.png',      -- 2048 x 1280
     sun='assets/image/bg1/sun.png',    -- 2048 x 1280
     cloud={
-        'assets/image/bg1/cloud1.png', -- 2048 x 320
-        'assets/image/bg1/cloud2.png', -- 2048 x 320
-        'assets/image/bg1/cloud3.png', -- 2048 x 320
-        'assets/image/bg1/cloud4.png', -- 2048 x 320
+        'assets/image/bg1/cloud1.png', -- ~500 x 320
+        'assets/image/bg1/cloud2.png', -- ~300 x 320
+        'assets/image/bg1/cloud3.png', -- ~800 x 320
+        'assets/image/bg1/cloud4.png', -- ~1100 x 320
     },
 }
 TEX.night={

@@ -132,7 +132,7 @@ SHADER.mono=GC.newShader[[
     }
 ]]
 
-do
+do -- Background 'menu'
     ---@type Zenitha.Background
     local bg={}
 
@@ -198,21 +198,29 @@ do
     BG.add('menu',bg)
 end
 
-do
+do -- Background 'game_std'
     local bg={}
     local prog,prog1=0,0
+    local phase
     function bg.init()
         prog,prog1=0,0
+        phase=math.random(2e6)
     end
     function bg.update(dt)
         prog1=MATH.expApproach(prog1,prog,dt)
+        phase=phase+dt
     end
     function bg.draw()
         GC.translate(SCR.w/2,SCR.h/2)
         GC.setColor(1,1,1)
-        GC.mDraw(TEX.dusk.bg,nil,nil,nil,math.max(SCR.w/2048,SCR.h/1280))
-        GC.mDraw(TEX.dusk.sun,0,math.max(400-400*prog1,0),nil,math.max(SCR.w/2048,SCR.h/1280))
-        GC.mDraw(TEX.dusk.fg,nil,nil,nil,math.max(SCR.w/2048,SCR.h/1280))
+        local k=math.max(SCR.w/2048,SCR.h/1280)
+        GC.mDraw(TEX.dusk.bg,nil,nil,nil,k)
+        GC.mDraw(TEX.dusk.sun,0,MATH.clampInterpolate(0,100,1,-100,prog1),nil,k)
+        GC.mDraw(TEX.dusk.fg,nil,nil,nil,k)
+        GC.mDraw(TEX.dusk.cloud[1],-620+720*math.sin(phase/620),-480,nil,k)
+        GC.mDraw(TEX.dusk.cloud[2],-260+826*math.sin(phase/420),-400,nil,k)
+        GC.mDraw(TEX.dusk.cloud[3],420+872*math.sin(phase/355),-530,nil,k)
+        GC.mDraw(TEX.dusk.cloud[4],260+1260*math.sin(phase/260),-620,nil,k)
         GC.setColor(.26,.26,.26,.62)
         GC.mRect('fill',0,0,SCR.w,SCR.h)
     end
@@ -222,7 +230,7 @@ do
     BG.add('game_std',bg)
 end
 
-do
+do -- Background 'game_dig'
     local bg={}
     function bg.draw()
         GC.translate(SCR.w/2,SCR.h/2)
@@ -233,7 +241,7 @@ do
     BG.add('game_dig',bg)
 end
 
-do
+do -- Background 'game_vs'
     local bg={}
     function bg.draw()
         GC.translate(SCR.w/2,SCR.h/2)
