@@ -1,6 +1,6 @@
 # Techmino-Bootcamp
 
-The starting point for future *Techmino Series games*.
+A starting point for future *Techmino Series games*.
 
 ## 概览
 
