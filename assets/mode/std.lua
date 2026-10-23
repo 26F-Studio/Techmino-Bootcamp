@@ -64,6 +64,7 @@ return {
             lockDelay=1e99,
             infHold=true,
             readyDelay=2000,
+            skin='std',
             event={
                 playerInit={
                     mechLib.brik.saveload.event_playerInit,

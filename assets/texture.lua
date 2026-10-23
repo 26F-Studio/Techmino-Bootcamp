@@ -30,6 +30,64 @@ TEX.home_iconQuad={
     GC.newQuad(2040/6*5,0,2040/6,400,2040,400),
 }
 
+local img=GC.newImage('assets/image/skin.png')
+local sd=GC.newShader[[
+    uniform float hsv[3];
+
+    vec3 hsv2rgb(vec3 c) {
+        vec3 p = abs(fract(c.xxx + vec3(0.0, 2.0/3.0, 1.0/3.0)) * 6.0 - 3.0);
+        return c.z * mix(vec3(1.0), clamp(p - 1.0, 0.0, 1.0), c.y);
+    }
+
+    const float SHADOW_GAMMA = 0.62;
+    const float SHADOW_LIFT  = 0.04;
+
+    vec4 effect(vec4 color, sampler2D tex, vec2 texCoord, vec2 scrCoord) {
+        vec4 samp = texture2D(tex, texCoord);
+        float lum = pow(samp.r, SHADOW_GAMMA);
+        lum = lum * (1.0 - SHADOW_LIFT) + SHADOW_LIFT;
+        vec3 rgb = hsv2rgb(vec3(hsv[0], hsv[1], hsv[2])) * lum;
+        return vec4(rgb, samp.a) * color;
+    }
+]]
+local function colorCell(h,s,v)
+    return GC.initCanvas(128,128,function()
+        sd:send('hsv',h,s,v)
+        GC.setShader(sd)
+        GC.draw(img)
+        GC.setShader()
+    end)
+end
+TEX.skin_std={
+    [844]=colorCell(0.0/6, 0.6, 1.00),
+    [864]=colorCell(0.5/6, 0.6, 1.00),
+    [884]=colorCell(1.0/6, 0.5, 0.95),
+    [484]=colorCell(2.0/6, 0.5, 0.90),
+    [488]=colorCell(3.0/6, 0.5, 0.95),
+    [448]=colorCell(4.0/6, 0.5, 1.00),
+    [748]=colorCell(4.8/6, 0.6, 1.00),
+}
+TEX.skin_dig={
+    [777]=colorCell(4.0/6, 0.2, 1.00),
+    [844]=colorCell(5.6/6, 0.6, 1.00),
+    [864]=colorCell(0.2/6, 0.5, 1.00),
+    [884]=colorCell(1.0/6, 0.3, 0.95),
+    [484]=colorCell(2.4/6, 0.4, 0.90),
+    [488]=colorCell(3.2/6, 0.5, 0.95),
+    [448]=colorCell(4.0/6, 0.5, 1.00),
+    [748]=colorCell(4.4/6, 0.6, 1.00),
+}
+TEX.skin_vs={
+    [777]=img,
+    [844]=colorCell(0.0/6, 0.6*.62, 1.00),
+    [864]=colorCell(0.5/6, 0.6*.62, 1.00),
+    [884]=colorCell(1.0/6, 0.5*.62, 0.95),
+    [484]=colorCell(2.0/6, 0.5*.62, 0.90),
+    [488]=colorCell(3.0/6, 0.5*.62, 0.95),
+    [448]=colorCell(4.0/6, 0.5*.62, 1.00),
+    [748]=colorCell(4.8/6, 0.6*.62, 1.00),
+}
+
 TEX.dusk={
     bg='assets/image/bg1/bg.png',      -- 2048 x 1280
     fg='assets/image/bg1/fg.png',      -- 2048 x 1280

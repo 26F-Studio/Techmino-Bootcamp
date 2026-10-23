@@ -1,8 +1,8 @@
 local gc=love.graphics
 local gc_push,gc_pop=gc.push,gc.pop
 local gc_scale,gc_rotate=gc.scale,gc.rotate
-local gc_setColor,gc_setLineWidth=gc.setColor,gc.setLineWidth
-local gc_draw,gc_line=gc.draw,gc.line
+local gc_setColor=gc.setColor
+local gc_draw=gc.draw
 local gc_rectangle=gc.rectangle
 local gc_printf=gc.printf
 local gc_rectBeam=GC.rectBeam
@@ -16,13 +16,7 @@ local S={}
 
 local colors={
     fieldBG={.1,.1,.1,.62},
-    fieldBorderU={COLOR.HEX'8A6F9C'},
-    fieldBorderD={COLOR.HEX'B178A7'},
-    fieldLine={1,1,1},
-    fieldTopline={1,1,1,.26},
     grid={1,1,1,.62},
-    nextBG={.1,.1,.1,.62},
-    holdBG={.1,.1,.1,.62},
     disabled={.6,.6,.6},
     infoBG={.62,.62,.62,.942},
 
@@ -57,36 +51,11 @@ function S.drawFieldBackground(fieldW)
     gc_draw(gridBatch)
 end
 
-local lw=8
 function S.drawFieldBorder()
-    gc_setColor(colors.fieldBorderU)
-    gc_rectangle('fill',-200,-400,-lw,800)
-    gc_rectangle('fill',200,-400,lw,800)
-    gc_rectBeam(1,-200-lw/2,-400,-1.5708,lw,96)
-    gc_rectBeam(1,200+lw/2,-400,-1.5708,lw,96)
-    gc_setColor(colors.fieldBorderD)
-    gc_rectBeam(1,-200-lw/2,400,-1.5708,lw,800)
-    gc_rectBeam(1,200+lw/2,400,-1.5708,lw,800)
-    gc_rectangle('fill',-200-lw,400,400+2*lw,lw)
-end
-
--- Border drawn only outward from the given rect (same style as drawFieldBorder)
-local function drawOuterBorder(x,y,w,h)
-    gc_setColor(colors.fieldBorderU)
-    gc_rectangle('fill',x-lw,y,lw,h)
-    gc_rectangle('fill',x+w,y,lw,h)
-    gc_rectangle('fill',x-lw,y-lw,w+2*lw,lw)
-    gc_setColor(colors.fieldBorderD)
-    gc_rectBeam(1,x-lw/2,y+h,-1.5708,lw,h)
-    gc_rectBeam(1,x+w+lw/2,y+h,-1.5708,lw,h)
-    gc_rectangle('fill',x-lw,y+h,w+2*lw,lw)
+    -- ABSTRACT
 end
 
 function S.drawFieldCell(C)
-    local r,g,b=unpack(RGB9[C.color])
-    local a=C.alpha or 1
-    gc_setColor(r,g,b,a)
-    gc_rectangle('fill',0,0,40,40)
 end
 
 function S.drawFloatHoldCell(C,disabled,_,_,_)
@@ -106,23 +75,12 @@ function S.drawFloatHoldMark(n,disabled)
 end
 
 function S.drawHeightLines(fieldW,maxSpawnH,spawnH,lockoutH,deathH,voidH)
-    -- gc_setColor(.0,.4,1.,S.getTime()%600<300 and .3 or .5) gc_rectangle('fill',0,-maxSpawnH-1 ,fieldW,2)
-    -- gc_setColor(.0,.4,1.,.8) gc_rectangle('fill',0,-spawnH   -1 ,fieldW,2)
-    -- gc_setColor(1.,.5,.0,.6) gc_rectangle('fill',0,-lockoutH -1 ,fieldW,2)
-    -- gc_setColor(1.,.0,.0,.6) gc_rectangle('fill',0,-deathH   -1 ,fieldW,2)
-    -- gc_setColor(.0,.0,.0,.6) gc_rectangle('fill',0,-voidH    -40,fieldW,40)
 end
 
 function S.drawAsdIndicator(dir,charge,asdMax,aspMax,ash)
 end
 
 function S.drawDelayIndicator(color,value)
-    -- gc_setColor(color)
-    -- gc_rectangle('fill',-199,403,398*math.min(value,1),8)
-
-    -- gc_setLineWidth(2)
-    -- gc_setColor(1,1,1)
-    -- gc_rectangle('line',-201,401,402,12)
 end
 
 function S.drawGarbageBuffer(garbageBuffer)
@@ -149,27 +107,6 @@ function S.drawGarbageBuffer(garbageBuffer)
 end
 
 function S.drawLockDelayIndicator(freshCondition,freshChance,timeRem)
-    -- if timeRem>0 then
-    --     gc_setColor(COLOR.HSV(timeRem/2.6,.4,.9,.62))
-    --     gc_rectangle('fill',-200,415,400*timeRem,14)
-    -- end
-    -- if freshChance>0 then
-    --     freshChance=min(freshChance,15)
-    --     gc_setColor(
-    --         freshCondition=='any' and COLOR.dL or
-    --         freshCondition=='fall' and COLOR.R or
-    --         freshCondition=='none' and COLOR.D or
-    --         COLOR.rainbow(4)
-    --     )
-    --     stc_reset()
-    --     stc_rect(-200,415,400*timeRem,14)
-    --     for i=1,freshChance do gc_rectangle('fill',-218+26*i-1,420-1,20+2,5+2) end
-    --     gc_setColor(COLOR.HSV(freshChance/(14*2.6),.4,.9))
-    --     for i=1,freshChance do gc_rectangle('fill',-218+26*i,420,20,5) end
-    --     stc_stop()
-    --     gc_setColor(COLOR.HSV(freshChance/(14*2.6),.4,.9,.62))
-    --     for i=1,freshChance do gc_rectangle('fill',-218+26*i,420,20,5) end
-    -- end
 end
 
 function S.drawGhostCell()
@@ -184,38 +121,20 @@ function S.drawHandCellStroke()
 end
 
 function S.drawHandCell(C)
-    gc_setColor(RGB9[C.color])
-    gc_rectangle('fill',0,0,40,40)
 end
 
 function S.drawNextBorder(slot)
-    if slot<=0 then return end
-    gc_setColor(colors.nextBG)
-    gc_rectangle('fill',30,0,140,100*slot)
-    drawOuterBorder(30,0,140,100*slot)
+    -- ABSTRACT
 end
 
 function S.drawNextCell(C,disabled,_,_,_)
-    gc_setColor(disabled and colors.disabled or RGB9[C.color])
-    gc_rectangle('fill',0,0,40,40)
 end
 
 function S.drawHoldBorder(mode,slot)
-    if slot<=0 then return end
-    if mode=='hold' then
-        gc_setColor(colors.holdBG)
-        gc_rectangle('fill',-170,0,140,100*slot)
-        drawOuterBorder(-170,0,140,100*slot)
-    elseif mode=='swap' then
-        gc_setColor(colors.holdBG)
-        gc_rectangle('fill',430,0,140,100*slot)
-        drawOuterBorder(430,0,140,100*slot)
-    end
+    -- ABSTRACT
 end
 
 function S.drawHoldCell(C,disabled,_,_,_)
-    gc_setColor(disabled and colors.disabled or RGB9[C.color])
-    gc_rectangle('fill',0,0,40,40)
 end
 
 function S.drawTime(time)

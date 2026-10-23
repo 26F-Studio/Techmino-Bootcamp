@@ -62,6 +62,7 @@ return {
             lockDelay=1e99,
             infHold=true,
             readyDelay=2000,
+            skin='vs',
             atkSys='modern',
             event={
                 playerInit={
