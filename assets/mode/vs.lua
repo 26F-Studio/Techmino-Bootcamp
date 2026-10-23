@@ -69,8 +69,6 @@ return {
                     mechLib.brik.saveload.event_playerInit,
                     mechLib.brik.finesse.event_playerInit,
                     function(P)
-                        BG.send('menu',0)
-
                         P.modeData.noOspin=true
                         P.modeData.undoDepthLimit=26
                         P.modeData.force180=CONF.system.force180

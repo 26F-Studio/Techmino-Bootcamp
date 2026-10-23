@@ -70,7 +70,7 @@ return {
                     mechLib.brik.saveload.event_playerInit,
                     mechLib.brik.finesse.event_playerInit,
                     function(P)
-                        BG.send('menu',0)
+                        BG.send('game_std',0)
 
                         P.modeData.noOspin=true
                         P.modeData.undoDepthLimit=26
@@ -105,7 +105,7 @@ return {
                         end
                     end,
                     function(P)
-                        BG.send('menu',P.stat.line/260)
+                        BG.send('game_std',P.stat.line/60)
                     end,
                 },
                 always=function(P)

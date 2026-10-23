@@ -200,13 +200,24 @@ end
 
 do
     local bg={}
+    local prog,prog1=0,0
+    function bg.init()
+        prog,prog1=0,0
+    end
+    function bg.update(dt)
+        prog1=MATH.expApproach(prog1,prog,dt)
+    end
     function bg.draw()
         GC.translate(SCR.w/2,SCR.h/2)
-        GC.clear(.26,.26,.26)
-        GC.setColor(1,1,1,.42)
+        GC.setColor(1,1,1)
         GC.mDraw(TEX.dusk.bg,nil,nil,nil,math.max(SCR.w/2048,SCR.h/1280))
+        GC.mDraw(TEX.dusk.sun,0,math.max(400-400*prog1,0),nil,math.max(SCR.w/2048,SCR.h/1280))
         GC.mDraw(TEX.dusk.fg,nil,nil,nil,math.max(SCR.w/2048,SCR.h/1280))
-        GC.mDraw(TEX.dusk.sun,nil,nil,nil,math.max(SCR.w/2048,SCR.h/1280))
+        GC.setColor(.26,.26,.26,.62)
+        GC.mRect('fill',0,0,SCR.w,SCR.h)
+    end
+    function bg.event(v)
+        prog=v
     end
     BG.add('game_std',bg)
 end
