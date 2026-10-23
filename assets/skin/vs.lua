@@ -58,13 +58,13 @@ end
 
 function S.drawFieldCell(C)
     gc_setColor(1,1,1)
-    gc_draw(TEX.skin_dig[C.color],nil,nil,nil,40/128)
+    gc_draw(TEX.skin_vs[C.color],nil,nil,nil,40/128)
 end
 S.drawHandCell=S.drawFieldCell
 
 function S.drawNextCell(C,disabled,_,_,_)
     gc_setColor(1,1,1)
-    gc_draw(TEX.skin_dig[disabled and 666 or C.color],nil,nil,nil,40/128)
+    gc_draw(TEX.skin_vs[disabled and 666 or C.color],nil,nil,nil,40/128)
 end
 S.drawHoldCell=S.drawNextCell
 
