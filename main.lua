@@ -244,8 +244,29 @@ end
 do -- Background 'game_vs'
     local bg={}
     function bg.draw()
+        GC.clear(0,0,0)
         GC.translate(SCR.w/2,SCR.h/2)
-        -- GC.mDraw(TEX.vs,nil,nil,nil,math.max(SCR.w/5180,SCR.h/3238))
+        local k=math.max(SCR.w/1920,SCR.h/1920)
+        local t=love.timer.getTime()*6.2832
+        GC.setColor(1,1,1)
+        GC.setLineWidth(k)
+        GC.arc('line','open',0,0,500*k,-t/4.2,-t/4.2+1.5708)
+        GC.arc('line','open',0,0,500*k,-t/4.2+3.1416,-t/4.2+4.7124)
+        GC.setColor(.26,.26,.26)
+        GC.setBlendMode('lighten','premultiplied')
+        GC.mDraw(TEX.vs.fan,nil,nil,t/12.6,k*1.26)
+        GC.setBlendMode('alpha')
+        local r,g,b=CLR.HSV(t/26%1,.16,1)
+        GC.setColor(r,g,b)
+        GC.mDraw(TEX.vs.ring_b,nil,nil,.26*math.sin(t/26),k*.35)
+        GC.setColor(.8,.8,.8)
+        GC.circle('fill',0,0,35*k)
+        GC.setColor(r,g,b)
+        GC.mDraw(TEX.vs.ring_f,nil,nil,.26*math.sin(t/26),k*.35)
+        GC.setBlendMode('lighten','premultiplied')
+        GC.setColor(.8,.8,.8)
+        GC.mDraw(TEX.vs.beam,nil,nil,.26*math.sin(t/6.26),k*1.26,k*.942)
+        GC.setBlendMode('alpha')
     end
     BG.add('game_vs',bg)
 end
