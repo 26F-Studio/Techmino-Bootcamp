@@ -16,7 +16,7 @@ local colors={
     holdBG={.1,.1,.1,.62},
 }
 
-local lw=8
+local lw=10
 function S.drawFieldBorder()
     gc_setColor(colors.fieldBorderU)
     gc_rectangle('fill',-200,-400,-lw,800)
