@@ -67,16 +67,12 @@ return {
             skin='std',
             event={
                 playerInit={
-                    mechLib.brik.saveload.event_playerInit,
-                    mechLib.brik.finesse.event_playerInit,
                     function(P)
                         BG.send('game_std',0)
 
                         P.modeData.noOspin=true
-                        P.modeData.undoDepthLimit=26
-                        P.modeData.force180=CONF.system.force180
-                        P.modeData.onFinesseFault=onFault
-                        P.modeData.onAfterLoad=onAfterLoad
+                        mechLib.brik.saveload.event_playerInit(P,26,onBeforeLoad,onAfterLoad)
+                        mechLib.brik.finesse.event_playerInit(P,onFault,CONF.system.force180,CONF.system.noStuck)
 
                         P.modeData.lineGoal=milestones[1] -- 当前目标行数
                         P.modeData.split={}               -- 各里程碑用时

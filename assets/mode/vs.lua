@@ -66,14 +66,11 @@ return {
             atkSys='modern',
             event={
                 playerInit={
-                    mechLib.brik.saveload.event_playerInit,
-                    mechLib.brik.finesse.event_playerInit,
                     function(P)
                         P.modeData.noOspin=true
-                        P.modeData.undoDepthLimit=26
-                        P.modeData.force180=CONF.system.force180
-                        P.modeData.onFinesseFault=onFault
-                        P.modeData.onAfterLoad=onAfterLoad
+                        P.modeData.noOspin=true
+                        mechLib.brik.saveload.event_playerInit(P,26,onBeforeLoad,onAfterLoad)
+                        mechLib.brik.finesse.event_playerInit(P,onFault,CONF.system.force180,CONF.system.noStuck)
                     end,
                 },
                 afterSpawn=function(P)

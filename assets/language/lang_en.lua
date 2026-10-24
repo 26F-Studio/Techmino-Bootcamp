@@ -21,8 +21,9 @@ local L={
     pause_resume="Resume",
     pause_settings="Settings",
 
-    config_force180="Force 180° rotation",
-    config_forcePerfect="Force 100% finesse",
+    config_force180="Force 180° Rotation",
+    config_noFault="Auto-undo Finesse Fault",
+    config_noStuck="No Invalid Movement",
     config_fullscreen="Fullscreen",
     config_locale="我不懂中文",
     config_keyMapping="Key Mapping",

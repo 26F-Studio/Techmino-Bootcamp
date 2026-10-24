@@ -21,8 +21,9 @@ local L={
     pause_resume="继续",
     pause_settings="设置",
 
-    config_force180="强制180°旋转",
-    config_forcePerfect="强制100%极简",
+    config_force180="强制要求180°",
+    config_noFault="强制全极简",
+    config_noStuck="禁止无效操作",
     config_fullscreen="全屏",
     config_locale="I know English",
     config_keyMapping="按键设置",

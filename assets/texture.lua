@@ -103,7 +103,8 @@ TEX.night={
     bg='assets/image/bg2.jpg', -- 5180 x 3238
 }
 TEX.vs={
-    bg='assets/image/??.png',
+    fan='assets/image/bg3/fan.jpg',   -- 1920 x 1920
+    beam='assets/image/bg3/beam.jpg', -- 1920 x 160
 }
 
 TEX.z={
