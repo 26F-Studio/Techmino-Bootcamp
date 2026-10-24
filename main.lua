@@ -243,10 +243,14 @@ end
 
 do -- Background 'game_vs'
     local bg={}
+    local eK
+    function bg.init() eK=0 end
+    function bg.event(dk) eK=eK+dk end
+    function bg.update(dt) eK=MATH.expApproach(eK,0,dt) end
     function bg.draw()
         GC.clear(0,0,0)
         GC.translate(SCR.w/2,SCR.h/2)
-        local k=math.max(SCR.w/1920,SCR.h/1920)
+        local k=math.max(SCR.w/1920,SCR.h/1920)+eK
         local t=love.timer.getTime()*6.2832
         GC.setColor(1,1,1)
         GC.setLineWidth(k)

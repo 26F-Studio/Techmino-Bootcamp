@@ -91,6 +91,12 @@ return {
                         })
                     end
                 end,
+                afterLock=function(P)
+                    BG.send('game_vs',.026)
+                end,
+                afterClear=function(P,his)
+                    BG.send('game_vs',his.line*.16)
+                end,
                 drawOnPlayer=function(P)
                     local md=P.modeData
 
