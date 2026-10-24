@@ -109,6 +109,12 @@ TEX.vs={
     ring_b='assets/image/bg3/ring_b.png', -- 1000 x 1000
 }
 
+TEX.icon={
+    force180='assets/image/conf_force180.png',
+    noFault='assets/image/conf_nofault.png',
+    noStuck='assets/image/conf_nostuck.png',
+}
+
 TEX.z={
     normal='assets/image/z/normal.png',
     question='assets/image/z/question.png',

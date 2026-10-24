@@ -22,7 +22,7 @@ local L={
     pause_settings="设置",
 
     config_force180="强制要求180°",
-    config_noFault="强制全极简",
+    config_noFault="自动撤销错误",
     config_noStuck="禁止无效操作",
     config_fullscreen="全屏",
     config_locale="I know English",

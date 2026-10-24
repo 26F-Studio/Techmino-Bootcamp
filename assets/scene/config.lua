@@ -204,6 +204,11 @@ function scene.update(dt)
     end
 end
 
+local iconKey={
+    [5]='force180',
+    [6]='noFault',
+    [7]='noStuck',
+}
 function scene.draw()
     GC.replaceTransform(SCR.xOy_m)
 
@@ -269,7 +274,11 @@ function scene.draw()
     end
     for i=5,7 do
         local W=scene.widgetList[i]
-        GC_UIframe(false,W.x-50,W.y-40,480,80)
+        GC_UIframe(false,W.x-50,W.y-40,470,80)
+        GC.setColor(i==6 and CLR.l5Y or CLR.l7)
+        if CONF.system[iconKey[i]] then
+            GC.mDraw(TEX.icon[iconKey[i]],W.x-50,W.y-40,0,.16)
+        end
     end
     for i=8,9 do
         local W=scene.widgetList[i]
@@ -291,7 +300,7 @@ scene.widgetList={
     WIDGET.new{type='hint',x=800,y=290,w=50,fontSize=40,floatText=LANG'config_hint_asp',text="?"},
 
     WIDGET.new{type='checkBox',x=940,y=460,w=40,labelPos='right',text=LANG'config_force180',disp=TABLE.func_getVal(CONF.system,'force180'),code=TABLE.func_revVal(CONF.system,'force180')},
-    WIDGET.new{type='checkBox',x=940,y=570,w=40,labelPos='right',text=LANG'config_noFault',disp=TABLE.func_getVal(CONF.system,'forcePerfect'),code=TABLE.func_revVal(CONF.system,'forcePerfect')},
+    WIDGET.new{type='checkBox',x=940,y=570,w=40,labelPos='right',text=LANG'config_noFault',disp=TABLE.func_getVal(CONF.system,'noFault'),code=TABLE.func_revVal(CONF.system,'noFault')},
     WIDGET.new{type='checkBox',x=940,y=680,w=40,labelPos='right',text=LANG'config_noStuck',disp=TABLE.func_getVal(CONF.system,'noStuck'),code=TABLE.func_revVal(CONF.system,'noStuck')},
     WIDGET.new{type='checkBox',x=940,y=790,w=40,labelPos='right',text=LANG'config_fullscreen',disp=TABLE.func_getVal(CONF.system,'fullscreen'),code=TABLE.func_revVal(CONF.system,'fullscreen')},
     WIDGET.new{type='checkBox',x=940,y=900,w=40,labelPos='right',text=LANG'config_locale',disp=function() return CONF.system.locale=='en' end,code=function()

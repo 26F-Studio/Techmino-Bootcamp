@@ -1,7 +1,7 @@
 local conf={
     _system={ -- We just save values here, do not change them directly.
         force180=false,
-        forcePerfect=false,
+        noFault=false,
         noStuck=false,
         fullscreen=true,
         locale=(os.getenv('LANG') or 'en'):find('^zh') and 'zh' or 'en',

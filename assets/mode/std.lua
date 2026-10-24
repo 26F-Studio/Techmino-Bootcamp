@@ -18,7 +18,7 @@ local function onFault(P)
     P.modeData.flashTime=P.time-260
     flashClr[1],flashClr[2],flashClr[3]=1,.62,.62
     P:addEvent('drawOnPlayer',flash_event_drawOnPlayer)
-    if CONF.system.forcePerfect then
+    if CONF.system.noFault then
         P:restoreBrikState()
         table.insert(P.nextQueue,1,P.hand)
         P.hand=nil
@@ -161,6 +161,20 @@ return {
                             setFont(30)
                             GC.mStr(Text.game_hint['OR'],0,-280)
                         end
+                    end
+
+                    -- Limits
+                    if md.noStuck then
+                        GC.setColor(CLR.l7)
+                        GC.mDraw(TEX.icon.noStuck,250,250,0,.16)
+                    end
+                    if CONF.system.noFault then
+                        GC.setColor(CLR.l5Y)
+                        GC.mDraw(TEX.icon.noFault,250,310,0,.16)
+                    end
+                    if md.force180 then
+                        GC.setColor(CLR.l7)
+                        GC.mDraw(TEX.icon.force180,250,370,0,.16)
                     end
                 end,
             },
