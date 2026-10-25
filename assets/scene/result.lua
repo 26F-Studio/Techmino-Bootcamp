@@ -47,6 +47,6 @@ function scene.draw()
 end
 
 scene.widgetList={
-    BackButtonBR
+    BackButtonBR,
 }
 return scene

@@ -309,7 +309,7 @@ scene.widgetList={
     end},
 
     WIDGET.new{type='button',x=230,y=860,w=140,h=80,color='R',text=LANG'keyset_reset',onClick=function() if SureCheck('keyset_reset') then resetKeymap() end end},
-    BackButtonBR,
+    WIDGET.new{type='button',pos={1,1},x=-CornerButtonX[1],y=-80,w=140,h=80,text=LANG'back',onClick=WIDGET.c_backScn()},
 }
 
 for i=1,#buttons do

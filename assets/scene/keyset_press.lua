@@ -71,7 +71,7 @@ function scene.draw()
 end
 
 scene.widgetList={
-    {type='button',pos={1,1},x=-CornerButtonX[1],y=-80,w=140,h=80,fillColor='I',sound_release='button_back',text=LANG'back',onClick=WIDGET.c_backScn('none')},
+    {type='button',pos={1,1},x=-CornerButtonX[1],y=-80,w=140,h=80,text=LANG'back',onClick=WIDGET.c_backScn('none')},
 }
 
 return scene
