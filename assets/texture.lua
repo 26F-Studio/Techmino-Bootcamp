@@ -68,14 +68,14 @@ TEX.skin_std={
     [748]=colorCell(4.8/6, 0.6, 1.00),
 }
 TEX.skin_dig={
-    [777]=colorCell(4.0/6, 0.2, 1.00),
-    [844]=colorCell(5.6/6, 0.6, 1.00),
-    [864]=colorCell(0.2/6, 0.5, 1.00),
-    [884]=colorCell(1.0/6, 0.3, 0.95),
-    [484]=colorCell(2.4/6, 0.4, 0.90),
-    [488]=colorCell(3.2/6, 0.5, 0.95),
-    [448]=colorCell(4.0/6, 0.5, 1.00),
-    [748]=colorCell(4.4/6, 0.6, 1.00),
+    [777]=colorCell(4.0/6, 0.2, .9),
+    [844]=colorCell(5.6/6, 0.5, .9),
+    [864]=colorCell(0.2/6, 0.4, .9),
+    [884]=colorCell(1.0/6, 0.3, .9),
+    [484]=colorCell(2.4/6, 0.4, .9),
+    [488]=colorCell(3.2/6, 0.5, .9),
+    [448]=colorCell(4.0/6, 0.5, .9),
+    [748]=colorCell(4.4/6, 0.5, .9),
 }
 TEX.skin_vs={
     [777]=img,
