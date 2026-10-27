@@ -42,7 +42,7 @@ local statList={
     {x=statX, row=1,  font=25,label='game_key',     get=function(P,md) return P.stat.key end},
     {x=statX2,row=1,  font=25,label='game_movSeq',  get=function(P,md) return #md.movSeq<=5 and md.movSeq or "---" end},
     {x=statX, row=2,  font=50,label='game_kpp',     get=function(P,md) return md.kpp end},
-    {x=statX, row=3.5,font=50,label='game_line',    get=function(P,md) return P.stat.line end},
+    {x=statX, row=3.5,font=50,label='game_dig',     get=function(P,md) return md.lineDig end},
     {x=statX, row=6.5,font=25,label='game_fault',   get=function(P,md) return md.fault end},
     {x=statX2,row=6.5,font=25,label='game_overCnt', get=function(P,md) return md.overCnt end},
     {x=statX, row=7.5,font=25,label='game_movCnt',  get=function(P,md) return md.movCnt end},
