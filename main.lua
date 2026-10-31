@@ -56,7 +56,6 @@ KEYMAP=require'assets.keymap'
 CONF=require'assets.config'
 require'assets.gamefunc'
 GAME=require'ZTC'
-SKIN=require'assets.skin'
 
 ---@type Map<Techmino.keymapAction[]>
 KM={}
@@ -283,10 +282,10 @@ for _,v in next,love.filesystem.getDirectoryItems('assets/scene') do
 end
 SCN.setDefaultSwap('none')
 
-SKIN.add('brik_template',FILE.load('assets/skin/template.lua','-lua'))
-SKIN.add('std',FILE.load('assets/skin/std.lua','-lua'))
-SKIN.add('dig',FILE.load('assets/skin/dig.lua','-lua'))
-SKIN.add('vs',FILE.load('assets/skin/vs.lua','-lua'))
+GAME.addSkin('brik_template','assets/skin/template.lua')
+GAME.addSkin('std','assets/skin/std.lua')
+GAME.addSkin('dig','assets/skin/dig.lua')
+GAME.addSkin('vs','assets/skin/vs.lua')
 GAME.addMode('std','assets/mode/std.lua')
 GAME.addMode('dig','assets/mode/dig.lua')
 GAME.addMode('vs','assets/mode/vs.lua')
