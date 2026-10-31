@@ -164,7 +164,7 @@ function scene.draw()
     GC.translate(0,126)
     -- Help
     GC_UIframe(true,0,254,1420,160)
-    GC.setColor(CLR.dL)
+    GC.setColor(CLR.l7)
     GC.mDraw(helpText, 0,220)
     GC.mDraw(helpText2, 0,280)
 
@@ -182,7 +182,7 @@ function scene.draw()
     FONT.set(50)
     for i=1,maxX do
         local x=(i-maxX/2-.5)*wid
-        GC.setColor(CLR.L)
+        GC.setColor(CLR.l9)
         GC.mRect('line', x, 0, wid, height)
         if Text.home_opt[i] then
             if sel.x~=i then GC.setShader(SHADER.mono) end

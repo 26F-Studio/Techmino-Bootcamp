@@ -65,9 +65,9 @@ function scene.draw()
     end
 
     GC.replaceTransform(SCR.xOy_m)
-    FONT.set(100) GC.strokePrint('full',4,COLOR.D,COLOR.L,Text[keyLangStr],0,-200,nil,'center')
-    FONT.set(60)  GC.strokePrint('full',2,COLOR.D,COLOR.L,Text.keyset_pressKey,0,-40,nil,'center')
-    FONT.set(35)  GC.strokePrint('full',2,COLOR.D,COLOR.L,Text.keyset_info,0,80,nil,'center')
+    FONT.set(100) GC.strokePrint('full',4,CLR.d8,CLR.l9,Text[keyLangStr],0,-200,nil,'center')
+    FONT.set(60)  GC.strokePrint('full',2,CLR.d8,CLR.l9,Text.keyset_pressKey,0,-40,nil,'center')
+    FONT.set(35)  GC.strokePrint('full',2,CLR.d8,CLR.l9,Text.keyset_info,0,80,nil,'center')
 end
 
 scene.widgetList={

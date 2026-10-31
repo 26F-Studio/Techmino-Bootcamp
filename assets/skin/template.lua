@@ -9,7 +9,7 @@ local gc_rectBeam=GC.rectBeam
 
 local max,min=math.max,math.min
 
-local COLOR=COLOR
+local CLR=CLR
 
 ---@type Techmino.Skin
 local S={}
@@ -69,7 +69,7 @@ function S.drawFloatHoldCell(C,disabled,_,_,_)
 end
 
 function S.drawFloatHoldMark(n,disabled)
-    gc_setColor(disabled and COLOR.DL or COLOR.L)
+    gc_setColor(disabled and CLR.l5 or CLR.l9)
     FONT.set(50)
     GC.mStr(n,0,5)
 end
@@ -92,13 +92,13 @@ function S.drawGarbageBuffer(garbageBuffer)
             h=800-y
         end
         if g._time<g.time then
-            gc_setColor(COLOR.R)
+            gc_setColor(CLR.l2RySSS)
             gc_rectangle('fill',210,400-y-h+3,10,h-6)
-            gc_setColor(COLOR.L)
+            gc_setColor(CLR.l9)
             local progress=g._time/g.time
             gc_rectangle('fill',210,400-y-h+3+(h-6)*(1-progress),10,(h-6)*progress)
         else
-            gc_setColor(S.getTime()%100<50 and COLOR.R or COLOR.L)
+            gc_setColor(S.getTime()%100<50 and CLR.l2RySSS or CLR.l9)
             gc_rectangle('fill',210,400-y-h+3,10,h-6)
         end
         y=y+h
@@ -138,7 +138,7 @@ function S.drawHoldCell(C,disabled,_,_,_)
 end
 
 function S.drawTime(time)
-    gc_setColor(COLOR.dL)
+    gc_setColor(CLR.l7)
     FONT.set(30,'number')
     gc_printf(("%.1f"):format(time/1000),-220-260,370,260,'right')
 end
@@ -146,7 +146,7 @@ end
 function S.drawInfoPanel(x,y,w,h)
     gc_setColor(colors.infoBG)
     gc_rectangle('fill',x,y,w,h)
-    gc_setColor(COLOR.dL)
+    gc_setColor(CLR.l7)
     gc_rectangle('line',x,y,w,h)
 end
 

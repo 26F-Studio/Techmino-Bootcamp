@@ -100,7 +100,7 @@ return {
                 drawOnPlayer=function(P)
                     local md=P.modeData
 
-                    gc_setColor(CLR.L)
+                    gc_setColor(CLR.l9)
                     for i=1,6 do
                         local s=statList[i]
                         setFont(s.font); gc_print(s.get(P,md),s.x,statY+statD*s.row)

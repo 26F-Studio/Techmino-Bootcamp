@@ -222,11 +222,11 @@ function scene.draw()
             GC.setColor(1,1,1,.26)
             GC.glowCircle(1,b.x,b.y,100)
         end
-        GC.setColor(CLR.L)
+        GC.setColor(CLR.l9)
         GC.mRect('line',b.x,b.y,160,160,10)
         GC.setColor(1,1,1,.26)
         GC.mDrawQ(TEX.actionIcons.texture,TEX.actionIcons.quads[b.act],b.x,b.y,nil,.8)
-        GC.setColor(CLR.DL)
+        GC.setColor(CLR.l5)
         local keys=KM[b.cat]:getKeys(b.act)
         for j=1,#keys do
             GC.mStr(keys[j],b.x,b.y-40+30*j-#keys*15)
@@ -243,7 +243,7 @@ function scene.draw()
         GC.rectangle('fill',-5*w,0,10*w,8*w+20,6)
         -- Grid line
         GC.setLineWidth(2)
-        GC.setColor(CLR.LD)
+        GC.setColor(CLR.l0)
         for x=-4,4 do GC.line(x*w,8*w+20,x*w,0) end
         for y=1,8 do
             local h=(8-y)*w+20
@@ -254,7 +254,7 @@ function scene.draw()
         GC.translate(mino.x*w,20+(buttons.hardDrop.active and 7 or buttons.softDrop.active and math.floor((love.timer.getTime()-mino.softDropTime)%.25*4*6+1) or 1)*w)
         GC.rectangle('fill',-w,-w,2*w,2*w)
         FONT.set(30)
-        GC.strokePrint('full',3,CLR.D,CLR.L,rotText[mino.rotation],0,0,2*w,'center',0,2,2,w/2,20)
+        GC.strokePrint('full',3,CLR.d8,CLR.l9,rotText[mino.rotation],0,0,2*w,'center',0,2,2,w/2,20)
     end
 
     -- Zita
@@ -275,7 +275,7 @@ function scene.draw()
     for i=5,7 do
         local W=scene.widgetList[i]
         GC_UIframe(false,W.x-50,W.y-40,470,80)
-        GC.setColor(i==6 and CLR.l5Y or CLR.l7)
+        GC.setColor(i==6 and CLR.l5Y or CLR.l9)
         if CONF.system[iconKey[i]] then
             GC.mDraw(TEX.icon[iconKey[i]],W.x-50,W.y-40,0,.16)
         end
@@ -308,7 +308,7 @@ scene.widgetList={
         WIDGET._reset()
     end},
 
-    WIDGET.new{type='button',x=230,y=860,w=140,h=80,color='R',text=LANG'keyset_reset',onClick=function() if SureCheck('keyset_reset') then resetKeymap() end end},
+    WIDGET.new{type='button',x=230,y=860,w=140,h=80,color='l2RySSS',text=LANG'keyset_reset',onClick=function() if SureCheck('keyset_reset') then resetKeymap() end end},
     WIDGET.new{type='button',pos={1,1},x=-CornerButtonX[1],y=-80,w=140,h=80,text=LANG'back',onClick=WIDGET.c_backScn()},
 }
 
@@ -318,7 +318,7 @@ for i=1,#buttons do
         type='hint',
         pos={.5,.5},
         x=b.x-300,y=b.y,w=a-20,h=a-20,
-        text="",frameColor='X',
+        text="",frameColor={0,0,0,0},
         floatText=LANG('keysetHint_'..b.cat..'_'..b.act),
         labelPos='top',
         onPress=function() SCN.go('keyset_press','none',buttons[i].cat,buttons[i].act) end,

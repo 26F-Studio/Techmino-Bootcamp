@@ -18,7 +18,7 @@ local function _getTime() return SKIN.time end
 ---@field drawHeightLines fun(fieldW:number, maxSpawnH:number, spawnH:number, lockoutH:number, deathH:number, voidH:number)
 ---@field drawFieldBorder fun()
 ---@field drawAsdIndicator fun(dir:number , charge:number, asdMax:number, aspMax:number, ash:number)
----@field drawDelayIndicator fun(color:Zenitha.Color, value:number)
+---@field drawDelayIndicator fun(mode:'spawn'|'death'|'lock', value:number)
 ---@field drawGarbageBuffer fun(garbageBuffer:table)
 ---@field drawLockDelayIndicator fun(freshCondition:string, freshChance:number, maxFreshTime:number, freshTime:number)
 ---

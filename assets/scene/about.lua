@@ -20,7 +20,7 @@ function scene.draw()
     GC_UIframe(false,80,90,620,140)
     GC_UIframe(false,80,260,1600-80*2,540)
 
-    GC.setColor(CLR.L)
+    GC.setColor(CLR.l9)
     FONT.set(40)
     GC.print(Text.about_title,120,90,0,2.6)
     for i=1,#Text.about_text do

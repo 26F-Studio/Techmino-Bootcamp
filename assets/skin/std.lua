@@ -4,7 +4,7 @@ local gc_draw=gc.draw
 local gc_rectangle=gc.rectangle
 local gc_rectBeam=GC.rectBeam
 
-local COLOR=COLOR
+local CLR=CLR
 
 ---@type Techmino.Skin
 local S={}
@@ -12,8 +12,8 @@ local S={}
 S.base='brik_template'
 
 local colors={
-    fieldBorderU={COLOR.HEX'E58F5D'},
-    fieldBorderD={COLOR.HEX'997E9B'},
+    fieldBorderU={CLR.HEX'E58F5D'},
+    fieldBorderD={CLR.HEX'997E9B'},
     nextBG={.1,.1,.1,.62},
     holdBG={.1,.1,.1,.62},
 }
