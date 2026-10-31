@@ -63,7 +63,7 @@ function S.drawFloatHoldCell(C,disabled,_,_,_)
         gc_setColor(.6,.6,.6,.25)
     else
         local r,g,b=unpack(RGB9[C.color])
-        gc_setColor(r,g,b,S.getTime()%150/200)
+        gc_setColor(r,g,b,S.time%150/200)
     end
     gc_rectangle('fill',0,0,40,40)
 end
@@ -98,7 +98,7 @@ function S.drawGarbageBuffer(garbageBuffer)
             local progress=g._time/g.time
             gc_rectangle('fill',210,400-y-h+3+(h-6)*(1-progress),10,(h-6)*progress)
         else
-            gc_setColor(S.getTime()%100<50 and CLR.l2RySSS or CLR.l9)
+            gc_setColor(S.time%100<50 and CLR.l2RySSS or CLR.l9)
             gc_rectangle('fill',210,400-y-h+3,10,h-6)
         end
         y=y+h
@@ -152,9 +152,9 @@ end
 
 function S.drawStartingCounter(readyDelay)
     gc_push('transform')
-    local num=math.ceil((readyDelay-S.getTime())/1000)
+    local num=math.ceil((readyDelay-S.time)/1000)
     local r,g,b
-    local d=(readyDelay-S.getTime())%1000/1000 -- from .999 to 0
+    local d=(readyDelay-S.time)%1000/1000 -- from .999 to 0
 
     if num==1 then
         r,g,b=1.00,0.70,0.70
