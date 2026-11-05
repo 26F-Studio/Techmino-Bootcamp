@@ -250,7 +250,7 @@ do -- Background 'game_vs'
         GC.clear(0,0,0)
         GC.translate(SCR.w/2,SCR.h/2)
         local k=math.max(SCR.w/1920,SCR.h/1920)+eK
-        local t=love.timer.getTime()*6.2832
+        local t=love.timer.getTime()*2.6
         GC.setColor(1,1,1)
         GC.setLineWidth(k)
         GC.arc('line','open',0,0,500*k,-t/4.2,-t/4.2+1.5708)

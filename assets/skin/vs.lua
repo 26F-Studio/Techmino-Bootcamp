@@ -10,11 +10,40 @@ local S={}
 S.base='brik_template'
 
 local colors={
+    fieldBG={0,0,0,.9},
+    grid={1,1,1,.62},
     fieldBorderU=CLR.d2,
     fieldBorderD=CLR.d4,
     nextBG={.1,.1,.1,.62},
     holdBG={.1,.1,.1,.62},
 }
+
+local R=2
+local gridMark=GC.load{w=40,
+    {'setLW',1},
+    {'dCirc',0, 0, R},
+    {'dCirc',0, 40,R},
+    {'dCirc',40,0, R},
+    {'dCirc',40,40,R},
+}
+local gridBatch=GC.newSpriteBatch(gridMark,2600,'static')
+local lastW
+function S.drawFieldBackground(fieldW)
+    gc_setColor(colors.fieldBG)
+    gc_rectangle('fill',0,0,40*fieldW,-80*fieldW)
+    gc_rectBeam(1,40*fieldW/2,-80*fieldW,-1.5708,40*fieldW,94)
+    if fieldW~=lastW then
+        lastW=fieldW
+        gridBatch:clear()
+        for y=1,2*fieldW do
+            for x=1,fieldW do
+                gridBatch:add(x*40-40,-y*40)
+            end
+        end
+    end
+    gc_setColor(colors.grid)
+    gc_draw(gridBatch)
+end
 
 local lw=10
 function S.drawFieldBorder()
