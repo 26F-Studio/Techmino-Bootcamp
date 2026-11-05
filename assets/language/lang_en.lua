@@ -83,6 +83,14 @@ local L={
     game_neat="Neat Drops",
     game_mpp="Moves per Neat Drop",
     game_dropRate="Neat Drop Rate",
+    game_difficultyHint="Hold 'Hold' to switch",
+    game_difficulty={
+        "NORMAL",
+        "ADVANCED",
+        "PROF.",
+        "EXPERT",
+        "MASTER",
+    },
 
     clearName={
         "Single",

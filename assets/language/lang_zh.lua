@@ -83,6 +83,14 @@ local L={
     game_neat="速降块数",
     game_mpp="操作/速降块数",
     game_dropRate="速降率",
+    game_difficultyHint="长按Hold切换",
+    game_difficulty={
+        "普通",
+        "进阶",
+        "职业",
+        "专家",
+        "大师",
+    },
 
     clearName={
         "消一",
