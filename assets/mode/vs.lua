@@ -1,14 +1,44 @@
 local gc_print,gc_setColor=GC.print,GC.setColor
 local setFont=FONT.set
 
+local ATK_TIME=2
+local TIMELINE_LEN=6
+local ATK_POWER_WEIGHT={3,1,1,4,2}
+local ATK_POWER_DIST={1,3,5,7}
+local TIMELINE_X,TIMELINE_Y=370,-400
+local TIMELINE_CELL_LEN=100
+local TIMELINE_WIDTH=10
+
 local statX,statX2=-380,-290
 local statY=-262
 local statD=48
+local ATK_SIZE={.2,.35,.5,.7,.95}
+local ATK_CLR={
+    {CLR.HEX'00FFE1'},
+    {CLR.HEX'00FF77'},
+    {CLR.HEX'FFBF00'},
+    {CLR.HEX'FF5E00'},
+    {CLR.HEX'FF0080'},
+}
+
+local function refreshAtkList(P)
+    local md=P.modeData
+    local list=md.atkList
+    while #list<TIMELINE_LEN do
+        md.atkGap=md.atkGap-1
+        if md.atkGap<=0 then
+            list[#list+1]=P:randFreq('vs',ATK_POWER_WEIGHT)
+            md.atkGap=P:randFreq('vs',ATK_POWER_DIST)
+        else
+            list[#list+1]=0
+        end
+    end
+end
 
 local flashClr={1,1,1}
 local function flash_event_drawOnPlayer(P)
     local a=MATH.interpolate(0,.8,620,0,P.time-P.modeData.flashTime)
-    GC.setColor(flashClr[1],flashClr[2],flashClr[3],a*.62)
+    gc_setColor(flashClr[1],flashClr[2],flashClr[3],a*.62)
     GC.mRect('fill',0,0,400,800)
     return a<=0
 end
@@ -68,29 +98,41 @@ return {
                 playerInit={
                     function(P)
                         P.modeData.noOspin=true
-                        P.modeData.noOspin=true
                         mechLib.brik.saveload.event_playerInit(P,26,onBeforeLoad,onAfterLoad)
                         mechLib.brik.finesse.event_playerInit(P,onFault,CONF.system.force180,CONF.system.noStuck)
+
+                        P.modeData.atkList={}
+                        P.modeData.atkLastPiece=-1
+                        P.modeData.atkGap=2.6
+                        refreshAtkList(P)
                     end,
                 },
-                afterSpawn=function(P)
-                    local md=P.modeData
-                    if md.refAns and not md.refAns.fmt then
-                        for i=1,#md.refAns do
-                            md.refAns[i]=ParseFinesse(md.refAns[i])
+                afterSpawn={
+                    function(P)
+                        local md=P.modeData
+                        if md.refAns and not md.refAns.fmt then
+                            for i=1,#md.refAns do
+                                md.refAns[i]=ParseFinesse(md.refAns[i])
+                            end
+                            md.refAns.fmt=true
                         end
-                        md.refAns.fmt=true
-                    end
-                    if P.stat.piece%6==0 then
-                        -- TODO
-                        GAME.send(false,GAME.initAtk{
-                            target=GAME.mainID,
-                            power=4,
-                            mode=1,
-                            time=4,
-                        })
-                    end
-                end,
+                    end,
+                    function(P)
+                        local md=P.modeData
+                        if md.atkLastPiece==P.stat.piece then return end
+                        md.atkLastPiece=P.stat.piece
+                        local power=table.remove(md.atkList,1)
+                        if power>0 then
+                            GAME.send(false,GAME.initAtk{
+                                target=GAME.mainID,
+                                power=power,
+                                mode=1,
+                                time=ATK_TIME,
+                            })
+                        end
+                        refreshAtkList(P)
+                    end,
+                },
                 afterLock=function(P)
                     BG.send('game_vs',.026)
                 end,
@@ -119,6 +161,25 @@ return {
                         setFont(15); gc_print(Text[s.label],s.x,statY+(s.font==50 and 55 or 26)+statD*s.row)
                     end
 
+                    -- Timeline
+                    -- gc_setColor(CLR.d4)
+                    -- for i=0,TIMELINE_LEN do
+                    --     GC.rectangle('fill',TIMELINE_X,TIMELINE_Y+i*TIMELINE_CELL_LEN-1,TIMELINE_WIDTH,2)
+                    -- end
+                    local cellX=TIMELINE_X+TIMELINE_WIDTH*.5
+                    for i=1,TIMELINE_LEN do
+                        local power=md.atkList[i]
+                        if power>0 then
+                            gc_setColor(ATK_CLR[power])
+                            GC.mRect('fill',
+                                cellX,TIMELINE_Y+(i-.5)*TIMELINE_CELL_LEN,
+                                TIMELINE_WIDTH,
+                                TIMELINE_CELL_LEN*ATK_SIZE[power],
+                                6
+                            )
+                        end
+                    end
+
                     -- Hint
                     if md.refAns then
                         setFont(40)
@@ -133,15 +194,15 @@ return {
 
                     -- Limits
                     if md.noStuck then
-                        GC.setColor(CLR.l7)
+                        gc_setColor(CLR.l7)
                         GC.mDraw(TEX.icon.noStuck,250,250,0,.16)
                     end
                     if CONF.system.noFault then
-                        GC.setColor(CLR.l5Y)
+                        gc_setColor(CLR.l5Y)
                         GC.mDraw(TEX.icon.noFault,250,310,0,.16)
                     end
                     if md.force180 then
-                        GC.setColor(CLR.l7)
+                        gc_setColor(CLR.l7)
                         GC.mDraw(TEX.icon.force180,250,370,0,.16)
                     end
                 end,
