@@ -1,3 +1,5 @@
+local milestones={100,260,620}
+
 local gc_print,gc_setColor=GC.print,GC.setColor
 local setFont=FONT.set
 
@@ -70,7 +72,7 @@ local statList={
     {x=statX, row=1,  font=25,label='game_key',     get=function(P,md) return P.stat.key end},
     {x=statX2,row=1,  font=25,label='game_movSeq',  get=function(P,md) return #md.movSeq<=5 and md.movSeq or "---" end},
     {x=statX, row=2,  font=50,label='game_kpp',     get=function(P,md) return md.kpp end},
-    {x=statX, row=3.5,font=50,label='game_line',    get=function(P,md) return P.stat.line end},
+    {x=statX, row=3.5,font=50,label='game_atk',     get=function(P,md) return P.stat.atk end},
     {x=statX, row=6.5,font=25,label='game_fault',   get=function(P,md) return md.fault end},
     {x=statX2,row=6.5,font=25,label='game_overCnt', get=function(P,md) return md.overCnt end},
     {x=statX, row=7.5,font=25,label='game_movCnt',  get=function(P,md) return md.movCnt end},
@@ -105,6 +107,10 @@ return {
                         P.modeData.atkLastPiece=-1
                         P.modeData.atkGap=2.6
                         refreshAtkList(P)
+
+                        P.modeData.atkGoal=milestones[1]
+                        P.modeData.split={}
+                        P.modeData.atkAnim=0
                     end,
                 },
                 afterSpawn={
@@ -133,11 +139,44 @@ return {
                         refreshAtkList(P)
                     end,
                 },
+                beforeCancel=function(P)
+                    local md=P.modeData
+                    while md.atkGoal and P.stat.atk>=md.atkGoal do
+                        table.insert(md.split,"["..md.atkGoal.."A]  "..(P.gameTime/1000).."s  "..P.stat.piece.."P")
+                        md.flashTime=P.time
+                        flashClr[1],flashClr[2],flashClr[3]=.62,1,.62
+                        P:addEvent('drawOnPlayer',flash_event_drawOnPlayer)
+                        md.atkGoal=TABLE.next(milestones,md.atkGoal)
+                        if not md.atkGoal then return true end
+                    end
+                end,
                 afterLock=function(P)
                     BG.send('game_vs',.026)
                 end,
                 afterClear=function(P,his)
                     BG.send('game_vs',his.line*.16)
+                end,
+                always=function(P)
+                    local md=P.modeData
+                    if md.atkGoal then
+                        md.atkAnim=MATH.linearApproach(md.atkAnim,math.min(P.stat.atk,md.atkGoal),.042)
+                    elseif md.atkAnim then
+                        md.atkAnim=false
+                    end
+                end,
+                drawInField=function(P)
+                    if not P.modeData.atkAnim then return true end
+                    local remain=P.modeData.atkGoal-P.modeData.atkAnim
+                    if remain>=25 then
+                        return
+                    elseif remain>=14 then
+                        GC.setColor(1,1,1,MATH.clampInterpolate(25,0,14,.8,remain))
+                    elseif remain>=10 then
+                        GC.setColor(1,1,1,.8)
+                    else
+                        GC.setColor(1,-P.gameTime/120%1,0,.8)
+                    end
+                    GC.rectangle('fill',0,-3-remain*40,400,6)
                 end,
                 drawOnPlayer=function(P)
                     local md=P.modeData
@@ -147,6 +186,9 @@ return {
                         local s=statList[i]
                         setFont(s.font); gc_print(s.get(P,md),s.x,statY+statD*s.row)
                         setFont(15); gc_print(Text[s.label],s.x,statY+(s.font==50 and 55 or 26)+statD*s.row)
+                    end
+                    for i=1,#md.split do
+                        gc_print(md.split[i],statX,statY+55+statD*(3.9+(i-1)*.4))
                     end
 
                     if md.fault==0 then

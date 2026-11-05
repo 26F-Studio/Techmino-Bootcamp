@@ -71,6 +71,7 @@ local L={
     },
     game_line="总行数",
     game_dig="挖掘行数",
+    game_atk="攻击行数",
     game_piece="总块数",
     game_key="总按键数",
     game_kpp="按键/块",

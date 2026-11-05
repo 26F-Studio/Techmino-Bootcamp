@@ -71,6 +71,7 @@ local L={
     },
     game_line="Lines",
     game_dig="Dig",
+    game_atk="Attack",
     game_piece="Pieces",
     game_key="Keys",
     game_kpp="Keys per Piece",
