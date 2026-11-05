@@ -290,6 +290,103 @@ GAME.addMode('std','assets/mode/std.lua')
 GAME.addMode('dig','assets/mode/dig.lua')
 GAME.addMode('vs','assets/mode/vs.lua')
 
+-- 1~3 attack 0~2, turn off b2b
+-- 4+ attack 4+, +1 on b2b, turn on b2b
+-- Spin attack [lines]*2, +1 on b2b, turn on b2b
+-- Combo attack 0,0,1,1,1,2,2,2,3+
+---@type Techmino.Mech.Brik.AttackSys
+GAME.mechLib.brik.attackSys['vs']={
+    init=function(P)
+        P.modeData.atk_b2b=false
+        P.settings.spin_immobile=true
+        P.settings.spin_corners=3
+        P.settings.combo_sound=true
+    end,
+    onDrop=function(P)
+        ---@type Techmino.Game.Attack
+        local atk
+        local M=P.lastMovement
+        -- local isSpin=M.action=='rotate' and (M.immobile or P.hand.name=='T' and M.corners)
+        local isSpin=M.immobile and M.action=='rotate'
+        if M.clear then
+            local md=P.modeData
+            local lines,combo=#M.clear,M.combo
+            local power
+            local b2bBonus=false
+            local allClear=P.field:getHeight()==0
+
+            if isSpin then
+                power=lines*2
+                P:playSound('spin',lines)
+            elseif lines>=4 then
+                power=lines
+            else
+                power=lines-1
+            end
+            P:playSound('clear',lines)
+            if (isSpin or lines>=4) and md.atk_b2b then
+                power=power+1
+                b2bBonus=true
+                P:playSound('frenzy')
+            end
+            md.atk_b2b=isSpin or lines>=4
+
+            power=power+math.min(combo/3,3)
+
+            if allClear then
+                power=power+(
+                    power<=2 and 3 or
+                    power<=4 and 2 or
+                    power<=6 and 1 or
+                    0
+                )
+                P.texts:add{
+                    text=Text.allClear,
+                    a=.626,
+                    fontSize=75,
+                    style='flicker',
+                    duration=2.5,
+                }
+                P:playSound('clear_all')
+            else
+                P.texts:add{
+                    text=
+                        (b2bBonus and "B2B " or "")..
+                        (isSpin and (Text.spin:repD(M.brik.name).." ") or "")..
+                        Text.clearName[lines],
+                    a=.626,
+                    fontSize=math.min(30+lines*10,60)+(isSpin and 0 or 10),
+                    style=lines>=4 and 'stretch' or isSpin and 'spin' or 'appear',
+                    duration=lines/3+(isSpin and .6 or 0),
+                }
+            end
+            if combo>=3 then
+                P.texts:add{
+                    text=Text.combo:repD(combo),
+                    a=.626,
+                    fontSize=math.min(30+math.floor((combo-3)/2)*5,50),
+                    y=70,
+                    style='appear',
+                    duration=.6+combo*.2,
+                }
+            end
+
+            if power>=1 then
+                power=math.floor(power)
+                atk={power=power}
+            end
+        elseif isSpin then
+            P.texts:add{
+                text=Text.spin:repD(M.brik.name),
+                a=.4,
+                duration=.8,
+            }
+            P:playSound('spin',0)
+        end
+        return atk
+    end,
+}
+
 UTIL.time("Load Data",true)
 
 UTIL.showTimeLog()

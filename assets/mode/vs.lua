@@ -95,7 +95,7 @@ return {
             infHold=true,
             readyDelay=2000,
             skin='vs',
-            atkSys='modern',
+            atkSys='vs',
             event={
                 playerInit={
                     function(P)

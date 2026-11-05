@@ -84,6 +84,16 @@ local L={
     game_mpp="Moves per Neat Drop",
     game_dropRate="Neat Drop Rate",
 
+    clearName={
+        "Single",
+        "Double",
+        "Triple",
+        "Quad",
+    },
+    combo="$1 Combo",
+    spin="$1-Spin",
+    allClear="ALL CLEAR",
+
     about_title="About",
     about_text={
         "Techmino Bootcamp is a tool for practicing FINESSE.",
