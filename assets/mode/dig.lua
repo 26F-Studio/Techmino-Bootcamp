@@ -71,12 +71,12 @@ return {
                         P.modeData.digMode='cheese'
                         P.modeData.lineStay=8
                         P.modeData.target.lineDig=1e99
-                        mechLib.brik.dig.event_playerInit(P)
+                        GAME.mechLib.brik.dig.event_playerInit(P)
                     end,
                     function(P)
                         P.modeData.noOspin=true
-                        mechLib.brik.saveload.event_playerInit(P,26,onBeforeLoad,onAfterLoad)
-                        mechLib.brik.finesse.event_playerInit(P,onFault,CONF.system.force180,CONF.system.noStuck)
+                        GAME.mechLib.brik.saveload.event_playerInit(P,26,onBeforeLoad,onAfterLoad)
+                        GAME.mechLib.brik.finesse.event_playerInit(P,onFault,CONF.system.force180,CONF.system.noStuck)
 
                         P.modeData.lineGoal=milestones[1] -- 当前目标行数
                         P.modeData.split={}               -- 各里程碑用时/用块
@@ -92,7 +92,7 @@ return {
                     end
                 end,
                 afterClear={
-                    mechLib.brik.dig.event_afterClear,
+                    GAME.mechLib.brik.dig.event_afterClear,
                     function(P)
                         local md=P.modeData
                         if md.lineDig>=md.lineGoal then

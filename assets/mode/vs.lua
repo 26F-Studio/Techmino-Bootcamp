@@ -100,8 +100,8 @@ return {
                 playerInit={
                     function(P)
                         P.modeData.noOspin=true
-                        mechLib.brik.saveload.event_playerInit(P,26,onBeforeLoad,onAfterLoad)
-                        mechLib.brik.finesse.event_playerInit(P,onFault,CONF.system.force180,CONF.system.noStuck)
+                        GAME.mechLib.brik.saveload.event_playerInit(P,26,onBeforeLoad,onAfterLoad)
+                        GAME.mechLib.brik.finesse.event_playerInit(P,onFault,CONF.system.force180,CONF.system.noStuck)
 
                         P.modeData.atkList={}
                         P.modeData.atkLastPiece=-1

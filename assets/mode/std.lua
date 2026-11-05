@@ -71,8 +71,8 @@ return {
                         BG.send('game_std',0)
 
                         P.modeData.noOspin=true
-                        mechLib.brik.saveload.event_playerInit(P,26,onBeforeLoad,onAfterLoad)
-                        mechLib.brik.finesse.event_playerInit(P,onFault,CONF.system.force180,CONF.system.noStuck)
+                        GAME.mechLib.brik.saveload.event_playerInit(P,26,onBeforeLoad,onAfterLoad)
+                        GAME.mechLib.brik.finesse.event_playerInit(P,onFault,CONF.system.force180,CONF.system.noStuck)
 
                         P.modeData.lineGoal=milestones[1] -- 当前目标行数
                         P.modeData.split={}               -- 各里程碑用时
