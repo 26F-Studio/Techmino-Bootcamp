@@ -26,7 +26,7 @@ local TIMELINE_WIDTH=10
 local statX,statX2=-380,-290
 local statY=-262
 local statD=48
-local ATK_SIZE={.2,.35,.5,.7,.9,.93,.96,.99}
+local ATK_SIZE={.25,.35,.5,.7,.9,.93,.96,.99}
 local ATK_CLR={
     {CLR.HEX'00FFE1'},
     {CLR.HEX'00FF77'},

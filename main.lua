@@ -253,8 +253,8 @@ do -- Background 'game_vs'
         local t=love.timer.getTime()*2.6
         GC.setColor(1,1,1)
         GC.setLineWidth(k)
-        GC.arc('line','open',0,0,500*k,-t/4.2,-t/4.2+1.5708)
-        GC.arc('line','open',0,0,500*k,-t/4.2+3.1416,-t/4.2+4.7124)
+        GC.arc('line','open',0,0,480*k,-t/4.2,-t/4.2+1.5708)
+        GC.arc('line','open',0,0,480*k,-t/4.2+3.1416,-t/4.2+4.7124)
         GC.setColor(.26,.26,.26)
         GC.setBlendMode('lighten','premultiplied')
         GC.mDraw(TEX.vs.fan,nil,nil,t/12.6,k*1.26)
