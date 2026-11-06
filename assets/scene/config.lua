@@ -215,7 +215,7 @@ function scene.draw()
     -- Keybindings
     GC.translate(-300,0)
     GC_UIframe(true,0,180,730,550)
-    FONT.set(35)
+    GC.setFont(35)
     for i=1,#buttons do
         local b=buttons[i]
         if b.active then
@@ -253,7 +253,7 @@ function scene.draw()
         GC.setColor(RGB9[mino.color])
         GC.translate(mino.x*w,20+(buttons.hardDrop.active and 7 or buttons.softDrop.active and math.floor((love.timer.getTime()-mino.softDropTime)%.25*4*6+1) or 1)*w)
         GC.rectangle('fill',-w,-w,2*w,2*w)
-        FONT.set(30)
+        GC.setFont(30)
         GC.strokePrint('full',3,CLR.d8,CLR.l9,rotText[mino.rotation],0,0,2*w,'center',0,2,2,w/2,20)
     end
 

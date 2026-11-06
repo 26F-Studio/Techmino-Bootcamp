@@ -22,8 +22,8 @@ SCR.setSize(1600,1000)
 BGM.setMaxSources(6)
 BGM.load{}
 SFX.load{}
-FONT.load('norm','assets/RHDisplayGalaxy-Medium.otf')
-FONT.setDefaultFont('norm')
+GC.loadFont('norm','assets/RHDisplayGalaxy-Medium.otf')
+GC.setDefaultFont('norm')
 
 Text=nil ---@type Techmino.I18N
 LANG.add{

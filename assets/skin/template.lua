@@ -70,7 +70,7 @@ end
 
 function S.drawFloatHoldMark(n,disabled)
     gc_setColor(disabled and CLR.l5 or CLR.l9)
-    FONT.set(50)
+    GC.setFont(50)
     GC.mStr(n,0,5)
 end
 
@@ -139,7 +139,7 @@ end
 
 function S.drawTime(time)
     gc_setColor(CLR.l7)
-    FONT.set(30,'number')
+    GC.setFont(30,'number')
     gc_printf(("%.1f"):format(time/1000),-220-260,370,260,'right')
 end
 
@@ -173,7 +173,7 @@ function S.drawStartingCounter(readyDelay)
         r,g,b=max(1.26-num/10,0),max(1.26-num/10,0),max(1.26-num/10,0)
     end
 
-    FONT.set(100)
+    GC.setFont(100)
 
     -- Warping number
     gc_push('transform')

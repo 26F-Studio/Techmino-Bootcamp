@@ -149,13 +149,13 @@ TEX.actionIcons={
                 -- rotate clockwise
                 GC.arc('line','open',0,0,60,-1.071,4.212,72)
                 GC.line(-33.594,-20.457,-28.766,-52.655,-61.261,-54.671)
-                FONT.set(90); GC.mStr('R',0,-60)
+                GC.setFont(90); GC.mStr('R',0,-60)
             end},
             {270,270,function()
                 -- rotate counter-clockwise
                 GC.arc('line','open',0,0,60,-1.071,4.212,72)
                 GC.line(61.261,-54.671,28.766,-52.655,33.594,-20.457)
-                FONT.set(90); GC.mStr('L',0,-60)
+                GC.setFont(90); GC.mStr('L',0,-60)
             end},
             {450,270,function()
                 -- rotate 180
@@ -163,12 +163,12 @@ TEX.actionIcons={
                 GC.arc('line','open',0,0,60,3.4016,6.0232)
                 GC.line(-27.857,27.768,-57.984,15.424,-67.666,46.509)
                 GC.line(27.857,-27.768,57.984,-15.424,67.666,-46.509)
-                FONT.set(90); GC.mStr('F',0,-60)
+                GC.setFont(90); GC.mStr('F',0,-60)
             end},
             {630,270,function()
                 -- hold piece
                 GC.rectangle('line',-54,-54,108,108,30)
-                FONT.set(90); GC.mStr('H',0,-60)
+                GC.setFont(90); GC.mStr('H',0,-60)
             end},
             {90,450,function()
                 -- restart
@@ -194,7 +194,7 @@ TEX.actionIcons={
             end},
             {630,450,function()
                 -- func2
-                FONT.set(90); GC.mStr('F2',0,-60)
+                GC.setFont(90); GC.mStr('F2',0,-60)
             end},
         } do
             GC.push()

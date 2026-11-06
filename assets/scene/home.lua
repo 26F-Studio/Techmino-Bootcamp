@@ -51,8 +51,8 @@ local buttons={
     },
 }
 
-local helpText=GC.newText(FONT.get(40))
-local helpText2=GC.newText(FONT.get(40))
+local helpText=GC.newText(GC.getFont(40))
+local helpText2=GC.newText(GC.getFont(40))
 
 local overrideAct={left='moveLeft',right='moveRight',['return']='hardDrop'}
 local function getHintKey(action,fallback)
@@ -179,7 +179,7 @@ function scene.draw()
     end
 
     GC.setLineWidth(2)
-    FONT.set(50)
+    GC.setFont(50)
     for i=1,maxX do
         local x=(i-maxX/2-.5)*wid
         GC.setColor(CLR.l9)
@@ -202,7 +202,7 @@ function scene.draw()
     GC.line(-r,-r,r,r)
     if noMouseHint>0 then
         GC.replaceTransform(SCR.xOy_m)
-        FONT.set(100)
+        GC.setFont(100)
         GC.setColor(1,1,1,noMouseHint)
         GC.mStr(Text.home_no_mouse,0,-126)
     end

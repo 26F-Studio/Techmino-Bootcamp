@@ -1,7 +1,7 @@
 local milestones={40,100,260} -- 里程碑行数
 
 local gc_print,gc_setColor=GC.print,GC.setColor
-local setFont=FONT.set
+local gc_setFont=GC.setFont
 
 local statX,statX2=-380,-290
 local statY=-262
@@ -132,8 +132,8 @@ return {
                     gc_setColor(CLR.l9)
                     for i=1,6 do
                         local s=statList[i]
-                        setFont(s.font); gc_print(s.get(P,md),s.x,statY+statD*s.row)
-                        setFont(15); gc_print(Text[s.label],s.x,statY+(s.font==50 and 55 or 26)+statD*s.row)
+                        gc_setFont(s.font); gc_print(s.get(P,md),s.x,statY+statD*s.row)
+                        gc_setFont(15); gc_print(Text[s.label],s.x,statY+(s.font==50 and 55 or 26)+statD*s.row)
                     end
                     for i=1,#md.split do
                         gc_print(md.split[i],statX,statY+55+statD*(3.9+(i-1)*.4))
@@ -147,18 +147,18 @@ return {
                     end
                     for i=md.fault==0 and 9 or 7,#statList do
                         local s=statList[i]
-                        setFont(s.font); gc_print(s.get(P,md),s.x,statY+statD*s.row)
-                        setFont(15); gc_print(Text[s.label],s.x,statY+(s.font==50 and 55 or 26)+statD*s.row)
+                        gc_setFont(s.font); gc_print(s.get(P,md),s.x,statY+statD*s.row)
+                        gc_setFont(15); gc_print(Text[s.label],s.x,statY+(s.font==50 and 55 or 26)+statD*s.row)
                     end
 
                     -- Hint
                     if md.refAns then
-                        setFont(40)
+                        gc_setFont(40)
                         gc_setColor(1,1,1)
                         GC.mStr(md.refAns[1],0,-330)
                         if md.refAns[2] then
                             GC.mStr(md.refAns[2],0,-240)
-                            setFont(30)
+                            gc_setFont(30)
                             GC.mStr(Text.game_hint['OR'],0,-280)
                         end
                     end
