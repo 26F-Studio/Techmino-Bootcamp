@@ -23,6 +23,8 @@ local TIMELINE_X,TIMELINE_Y=365,-400
 local TIMELINE_CELL_LEN=100
 local TIMELINE_WIDTH=20
 
+local RANK_X,RANK_Y=326,300
+
 local statX,statX2=-380,-290
 local statY=-262
 local statD=48
@@ -257,21 +259,23 @@ return {
                         end
 
                         -- Difficulty indicator & hold progress
+                        GC.ucs_move(RANK_X,RANK_Y)
                         gc_setColor(ATK_CLR[md.difficulty])
                         gc_setFont(25)
-                        GC.mStr(Text.game_difficulty[md.difficulty],300,360)
+                        GC.mStr(Text.game_difficulty[md.difficulty],0,60)
                         local lw=6+2*md.difficulty
                         GC.setLineWidth(lw)
-                        GC.circle('line',300,300,40-lw/2)
-                        GC.mStr(md.difficulty,300,283)
+                        GC.circle('line',0,0,40-lw/2)
+                        GC.mStr(md.difficulty,0,-17)
 
                         local holdTime=md.holdStart and P.time-md.holdStart or 0
                         local holdProgress=MATH.interpolate(100,0,620,1,holdTime)
                         if holdProgress>0 then
                             GC.setLineWidth(10)
                             GC.setColor(1,1,1,holdProgress^.5)
-                            GC.arc('line','open',300,300,50,-MATH.pi*.5,-MATH.pi*.5+holdProgress*MATH.tau)
+                            GC.arc('line','open',0,0,50,-MATH.pi*.5,-MATH.pi*.5+holdProgress*MATH.tau)
                         end
+                        GC.ucs_back()
 
                         -- Hint
                         if md.refAns then
@@ -303,7 +307,7 @@ return {
                         if P.stat.piece>=6 or P.modeData.difficulty~=3 then return true end
                         gc_setFont(15)
                         gc_setColor(1,1,1)
-                        GC.strokePrint('full',1,CLR.d6,CLR.l9,Text.game_difficultyHint,300,290,300,'center')
+                        GC.strokePrint('full',1,CLR.d6,CLR.l9,Text.game_difficultyHint,RANK_X,RANK_Y-10,300,'center')
                     end,
                 },
             },
