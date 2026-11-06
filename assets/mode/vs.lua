@@ -19,9 +19,9 @@ local ATK_POWER_DIST={
     {1,2,4,8},
     {1,2,3,6},
 }
-local TIMELINE_X,TIMELINE_Y=370,-400
+local TIMELINE_X,TIMELINE_Y=365,-400
 local TIMELINE_CELL_LEN=100
-local TIMELINE_WIDTH=10
+local TIMELINE_WIDTH=20
 
 local statX,statX2=-380,-290
 local statY=-262
@@ -260,9 +260,10 @@ return {
                         gc_setColor(ATK_CLR[md.difficulty])
                         setFont(25)
                         GC.mStr(Text.game_difficulty[md.difficulty],300,360)
-                        local lw=4+4*md.difficulty
+                        local lw=6+2*md.difficulty
                         GC.setLineWidth(lw)
                         GC.circle('line',300,300,40-lw/2)
+                        GC.mStr(md.difficulty,300,283)
 
                         local holdTime=md.holdStart and P.time-md.holdStart or 0
                         local holdProgress=MATH.interpolate(100,0,620,1,holdTime)
