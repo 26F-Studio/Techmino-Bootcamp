@@ -49,6 +49,15 @@ end
 ZENITHA.globalEvent.drawCursor=NULL
 ZENITHA.globalEvent.clickFX=NULL
 
+local function task_fontGC()
+    TASK.yieldT(.626)
+    GC.clearFontCache()
+end
+function ZENITHA.globalEvent.resize()
+    TASK.removeTask_code(task_fontGC)
+    TASK.new(task_fontGC)
+end
+
 UTIL.time("Config Zenitha",true)
 --------------------------------------------------------------
 TEX=require'assets.texture'
