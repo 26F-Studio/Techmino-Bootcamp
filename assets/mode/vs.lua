@@ -153,6 +153,7 @@ return {
                                 power=power,
                                 mode=1,
                                 time=ATK_TIME,
+                                fatal=20+4*md.difficulty,
                             })
                         end
                         refreshAtkList(P)
