@@ -121,7 +121,7 @@ return {
                         GAME.mechLib.brik.saveload.event_playerInit(P,26,onBeforeLoad,onAfterLoad)
                         GAME.mechLib.brik.finesse.event_playerInit(P,onFault,CONF.system.force180,CONF.system.noStuck)
                         GAME.mechLib.brik.atkSendSys.init(P,'vs')
-                        GAME.mechLib.brik.atkRecvSys.init(P,'std',{allowCancel=true,allowBlock=true})
+                        GAME.mechLib.brik.atkRecvSys.init(P,'modern',{allowCancel=true,allowBlock=true})
 
                         P.modeData.difficulty=3
                         P.modeData.atkList={}
