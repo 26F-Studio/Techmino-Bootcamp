@@ -13,11 +13,11 @@ local ATK_POWER_WEIGHT={
     {0,3,3,4,2,2,1,1},
 }
 local ATK_POWER_DIST={
-    {1,4,9,16},
+    {1,5,10,16},
+    {1,4,8,12},
     {1,3,6,10},
-    {1,3,5,9},
-    {1,2,4,8},
-    {1,2,3,6},
+    {1,3,5,8},
+    {1,2,4,6},
 }
 local TIMELINE_X,TIMELINE_Y=365,-400
 local TIMELINE_CELL_LEN=100
