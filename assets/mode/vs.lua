@@ -78,10 +78,12 @@ local function onAfterLoad(P,refAns)
     P.modeData.flashTime=-1e99
     P.modeData.refAns=refAns
 end
-GAME.regFunc(flash_event_drawOnPlayer,'std.winFlashDraw')
-GAME.regFunc(onFault,'std.onFault')
-GAME.regFunc(onBeforeLoad,'std.onBeforeLoad')
-GAME.regFunc(onAfterLoad,'std.onAfterLoad')
+GAME.regFunc({
+    flash_event_drawOnPlayer,
+    onFault,
+    onBeforeLoad,
+    onAfterLoad,
+},'vs')
 
 local statList={
     {x=statX, row=0,  font=25,label='game_piece',   get=function(P,md) return P.stat.piece end},
@@ -112,13 +114,14 @@ return {
             infHold=true,
             readyDelay=2000,
             skin='vs',
-            atkSys='vs',
             event={
                 playerInit={
                     function(P)
                         P.modeData.noOspin=true
                         GAME.mechLib.brik.saveload.event_playerInit(P,26,onBeforeLoad,onAfterLoad)
                         GAME.mechLib.brik.finesse.event_playerInit(P,onFault,CONF.system.force180,CONF.system.noStuck)
+                        GAME.mechLib.brik.atkSendSys.init(P,'vs')
+                        GAME.mechLib.brik.atkRecvSys.init(P,'std',{allowCancel=true,allowBlock=true})
 
                         P.modeData.difficulty=3
                         P.modeData.atkList={}
@@ -148,28 +151,16 @@ return {
                         md.atkLastPiece=P.stat.piece
                         local power=table.remove(md.atkList,1)
                         if power>0 then
-                            GAME.send(false,GAME.initAtk{
+                            GAME.send(false,{
                                 target=GAME.mainID,
                                 power=power,
                                 mode=1,
                                 time=ATK_TIME,
-                                fatal=20+4*md.difficulty,
                             })
                         end
                         refreshAtkList(P)
                     end,
                 },
-                beforeCancel=function(P)
-                    local md=P.modeData
-                    while md.atkGoal and P.stat.atk>=md.atkGoal do
-                        table.insert(md.split,"["..md.atkGoal.."A]  "..(P.gameTime/1000).."s  "..P.stat.piece.."P")
-                        md.flashTime=P.time
-                        flashClr[1],flashClr[2],flashClr[3]=.62,1,.62
-                        P:addEvent('drawOnPlayer',flash_event_drawOnPlayer)
-                        md.atkGoal=TABLE.next(milestones,md.atkGoal)
-                        if not md.atkGoal then return true end
-                    end
-                end,
                 afterLock=function(P)
                     BG.send('game_vs',.026)
                 end,

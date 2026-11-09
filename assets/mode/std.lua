@@ -31,10 +31,12 @@ local function onAfterLoad(P,refAns)
     P.modeData.flashTime=-1e99
     P.modeData.refAns=refAns
 end
-GAME.regFunc(flash_event_drawOnPlayer,'std.winFlashDraw')
-GAME.regFunc(onFault,'std.onFault')
-GAME.regFunc(onBeforeLoad,'std.onBeforeLoad')
-GAME.regFunc(onAfterLoad,'std.onAfterLoad')
+GAME.regFunc({
+    flash_event_drawOnPlayer,
+    onFault,
+    onBeforeLoad,
+    onAfterLoad,
+},'std')
 
 local statList={
     {x=statX, row=0,  font=25,label='game_piece',   get=function(P,md) return P.stat.piece end},
