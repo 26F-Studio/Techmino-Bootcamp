@@ -14,10 +14,10 @@ local ATK_POWER_WEIGHT={
 }
 local ATK_POWER_DIST={
     {1,5,10,16},
-    {1,4,8,12},
-    {1,3,6,10},
-    {1,3,5,8},
-    {1,2,4,6},
+    {1,4,8, 12},
+    {1,3,6, 10},
+    {1,3,5, 8},
+    {1,2,4, 6},
 }
 local TIMELINE_X,TIMELINE_Y=365,-400
 local TIMELINE_CELL_LEN=100
@@ -161,6 +161,17 @@ return {
                         refreshAtkList(P)
                     end,
                 },
+                onAttack=function(P)
+                    local md=P.modeData
+                    while md.atkGoal and P.stat.atk>=md.atkGoal do
+                        table.insert(md.split,"["..md.atkGoal.."A]  "..(P.gameTime/1000).."s  "..P.stat.piece.."P")
+                        md.flashTime=P.time
+                        flashClr[1],flashClr[2],flashClr[3]=.62,1,.62
+                        P:addEvent('drawOnPlayer',flash_event_drawOnPlayer)
+                        md.atkGoal=TABLE.next(milestones,md.atkGoal)
+                        if not md.atkGoal then return true end
+                    end
+                end,
                 afterLock=function(P)
                     BG.send('game_vs',.026)
                 end,
