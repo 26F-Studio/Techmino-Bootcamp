@@ -3,7 +3,7 @@ local milestones={100,260,620}
 local gc_print,gc_setColor=GC.print,GC.setColor
 local gc_setFont=GC.setFont
 
-local ATK_TIME=2
+local ATK_TIME=3
 local TIMELINE_LEN=6
 local ATK_POWER_WEIGHT={
     {1,4,1,3},
@@ -11,13 +11,6 @@ local ATK_POWER_WEIGHT={
     {1,2,0,4,1,1},
     {0,2,0,3,2,1,1},
     {0,3,3,4,2,2,1,1},
-}
-local ATK_POWER_DIST={
-    {1,5,10,16},
-    {1,4,8, 12},
-    {1,3,6, 10},
-    {1,3,5, 8},
-    {1,2,4, 6},
 }
 local TIMELINE_X,TIMELINE_Y=365,-400
 local TIMELINE_CELL_LEN=100
@@ -47,7 +40,7 @@ local function refreshAtkList(P)
         md.atkGap=md.atkGap-1
         if md.atkGap<=0 then
             list[#list+1]=P:randFreq('vs',ATK_POWER_WEIGHT[md.difficulty])
-            md.atkGap=P:randFreq('vs',ATK_POWER_DIST[md.difficulty])
+            md.atkGap=P:random('vs')*(10-md.difficulty/2.6)
         else
             list[#list+1]=0
         end
@@ -121,7 +114,7 @@ return {
                         GAME.mechLib.brik.saveload.event_playerInit(P,26,onBeforeLoad,onAfterLoad)
                         GAME.mechLib.brik.finesse.event_playerInit(P,onFault,CONF.system.force180,CONF.system.noStuck)
                         GAME.mechLib.brik.atkSendSys.init(P,'vs')
-                        GAME.mechLib.brik.atkRecvSys.init(P,'modern',{allowCancel=true,allowBlock=true})
+                        GAME.mechLib.brik.atkRecvSys.init(P,'modern')
 
                         P.modeData.difficulty=3
                         P.modeData.atkList={}
