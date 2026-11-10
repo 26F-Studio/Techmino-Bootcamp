@@ -6,8 +6,8 @@ local gc_setFont=GC.setFont
 local ATK_TIME=3
 local TIMELINE_LEN=6
 local ATK_POWER_WEIGHT={
-    {1,4,1,3},
-    {3,1,1,4,2},
+    {1,6,1,4},
+    {2,4,1,4,2},
     {1,2,0,4,1,1},
     {0,2,0,3,2,1,1},
     {0,3,3,4,2,2,1,1},
@@ -40,7 +40,7 @@ local function refreshAtkList(P)
         md.atkGap=md.atkGap-1
         if md.atkGap<=0 then
             list[#list+1]=P:randFreq('vs',ATK_POWER_WEIGHT[md.difficulty])
-            md.atkGap=P:random('vs')*(10-md.difficulty/2.6)
+            md.atkGap=.26+P:random('vs')^.42*(6.2-.42*md.difficulty)
         else
             list[#list+1]=0
         end
