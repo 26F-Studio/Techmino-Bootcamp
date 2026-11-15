@@ -163,7 +163,7 @@ function scene.draw()
 
     GC.translate(0,126)
     -- Help
-    GC_UIframe(true,0,254,1420,160)
+    GC_UIframe(true,0,254,1440,160)
     GC.setColor(CLR.l7)
     GC.mDraw(helpText, 0,220)
     GC.mDraw(helpText2, 0,280)
